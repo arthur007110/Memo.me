@@ -14,8 +14,6 @@ export class CadastroComponent implements OnInit {
   senha="";
   senha2="";
 
-  usuarios : Usuario[];
-
   cadastrar(){
 
     if(this.senha != this.senha2){
@@ -28,6 +26,10 @@ export class CadastroComponent implements OnInit {
       this.salvarDados();
       this.irparatelalogin();
       }
+  }
+
+  irParaTeladeLogin(){
+    this.router.navigate(['/login']);
   }
 
   temcamposvazios(){
@@ -67,11 +69,11 @@ export class CadastroComponent implements OnInit {
     this.usuario.setSiape(this.siape);
     this.usuario.setSenha(this.senha);
 
-    //this.usuarios.push(this.usuario);
+    this.dados.usuarios.push(this.usuario);
 
 
   }
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dados: DadosService) { }
 
   ngOnInit() {
   }

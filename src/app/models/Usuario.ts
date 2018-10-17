@@ -1,4 +1,4 @@
-/*class Usuario{
+class Usuario{
 
 nome;
 id;
@@ -30,4 +30,4 @@ setSenha(senha){
     this.senha=senha;
 }
 
-}*/
+}
