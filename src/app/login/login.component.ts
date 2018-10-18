@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DadosService } from '../dados.service';
 
 @Component({
   selector: 'app-login',
@@ -8,30 +9,43 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  siape: string;
+  senha: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dadosService: DadosService) { }
 
-  title = 'app';
-  senha="";
-  siape="";
+  ngOnInit(){
+
+  }
 
   logar(){
-    if(this.siape=="admin" && this.senha=="admin"){
-      this.router.navigate(['/home']);
-      console.log("aaaaaaaa");
+    if(this.siape != null && this.senha != null){
+      console.log(this.siape);
+      let usuario = this.dadosService.getUsuariosPorSiape(this.siape);
+      if(usuario != null){
+        if(usuario.getSenha() == this.senha){
+          this.irParaTelaHome();
+        }else{
+          alert("Siape ou senha incorretos.");
+          this.siape = null;
+          this.senha = null;
+        }
+      }else{
+        alert("Não há usuários cadastrados com essa siape.");
+        this.siape = null;
+        this.senha = null;
+      }
     }else{
-      alert("as credenciais não estão corretas");
-      this.limparDados();
+      alert("Existem campos que ainda não foram preenchidos.");
     }
   }
-  limparDados(){
-    this.siape="";
-    this.senha="";
+
+  irParaTelaHome(){
+    this.router.navigate(["/home"]);
   }
-  cadastrar(){
-    this.router.navigate(['/cadastro']);
-  }
-  ngOnInit() {
+
+  irParaTelaDeCadastro(){
+    this.router.navigate(["/cadastro"]);
   }
 
 }

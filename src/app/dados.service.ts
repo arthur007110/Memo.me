@@ -15,6 +15,14 @@ export class DadosService {
     return this.usuarios;
   }
 
+  getUsuarioPorId(id): Usuario{
+    for(let i = 0; i < this.usuarios.length; i++){
+      if(this.usuarios[i].getID == id){
+        return this.usuarios[i];
+      }
+    }
+  }
+
   getUsuariosPorSiape(siape): Usuario{
     for(let i = 0; i < this.usuarios.length; i++){
       if(this.usuarios[i].getSiape() == siape){
