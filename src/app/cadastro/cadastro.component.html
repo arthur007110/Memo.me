@@ -2,37 +2,31 @@
 <p-card title="Casdastro">
 
   <span class="ui-float-label">
-    <input id="float-input" type="text" size="20" pInputText [(ngModel)]=nome> 
+    <input id="float-input" type="text" size="20" pInputText [(ngModel)]="nome"> 
     <label for="float-input">Nome</label>
 </span>
 <br>
 
 <span class="ui-float-label">
-    <input id="float-input" type="text" size="20" pInputText [(ngModel)]=id> 
-    <label for="float-input">ID</label>
-</span>
-<br>
-
-<span class="ui-float-label">
-    <input id="float-input" type="text" size="20" pInputText [(ngModel)]=siape> 
+    <input id="float-input" type="text" size="20" pInputText [(ngModel)]="siape"> 
     <label for="float-input">Siape</label>
 </span>
 <br>
 
 <span class="ui-float-label">
-  <input id="float-input" type="text" size="20" pInputText [(ngModel)]=senha pPassword> 
+  <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha" pPassword> 
   <label for="float-input">Senha</label>
 </span>
 <br>
 
 <span class="ui-float-label">
-  <input id="float-input" type="text" size="20" pInputText [(ngModel)]=senha2> 
+  <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha2"> 
   <label for="float-input">Repetir Senha</label>
 </span>
 <br>
 
 <button pButton type="button" label="Cadastrar" (click)="cadastrar()"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-<button pButton type="button" label="Login" (click)="irParaTeladeLogin()"></button>
+<button pButton type="button" label="Login" (click)="irParaTelaDeLogin()"></button>
 
 
 <br>
