@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {DadosService} from 'src/app/servicos/servicoDados';
-import {enableProdMode} from '@angular/core';
-enableProdMode();
+
+import { DadosService } from '../dados.service';
+import { Usuario } from '../models/usuario';
 
 @Component({
   selector: 'app-cadastro',
@@ -11,122 +11,56 @@ enableProdMode();
 })
 export class CadastroComponent implements OnInit {
 
-  usuario = new Usuario("","","","");
-  nome="";
-  siape="";
-  id="";
-  senha="";
-  senha2="";
+  nome: string;
+  siape: string;
+  id: string;
+  senha: string;
+  senha2: string;
+
+  constructor(private router: Router, private dadosService: DadosService) { }
+
+  ngOnInit() {
+
+  }
+
+  irParaTelaDeLogin(){
+    this.router.navigate(["/login"])
+  }
 
   cadastrar(){
+    if(this.verificarCampos()){
 
-    if(this.senha != this.senha2){
-      this.printarerrosenha();
-      this.limparsenhas();
-    }else if(this.temcamposvazios()){
-    this.printarerrocampos();
-    this.limparsenhas();
+      if(this.dadosService.getUsuariosPorSiape(this.siape) == null){
+
+        this.dadosService.setUsuario(this.nome, this.siape, this.senha);
+        alert("Usuário cadastrado.");
+        this.irParaTelaDeLogin();
+
       }else{
-      this.salvarDados();
-      this.irparatelalogin();
+
+        alert("Esta siape já está sendo utilizada.");
+
       }
+    }
   }
 
-  irParaTeladeLogin(){
-    this.router.navigate(['/login']);
-  }
-
-  temcamposvazios(){
-    if(this.nome==""){
-      return true;
-    }if(this.siape==""){
-      return true;
-    }if(this.id==""){
-      return true;
-    }if(this.senha==""){
-      return true;
-    }if(this.senha2==""){
-      return true;
+  verificarCampos(){
+    //Verifica se não há campos vazios ou se as senhas não são iguais
+    if(this.nome != null && this.siape != null && this.senha != null && this.senha2 != null){
+      if(this.senha == this.senha2){
+          return true;
+      }else{
+        alert("As senhas não são iguais.");
+        return false;
+      }
     }else{
+      alert("Existem campos que ainda não foram preenchidos.");
       return false;
     }
   }
-  limparsenhas(){
-    this.senha="";
-    this.senha2="";
-  }
-  printarerrosenha(){
-    alert("as senhas não coencidem");
-  }
-  printarerrocampos(){
-    alert("há campos vazios, para proseguir corrija-os");
-  }
-  irparatelalogin(){
-    this.router.navigate(['/login']);
-  }
-  
-  salvarDados(){
-
-    this.usuario;
-    this.usuario.setNome(this.nome);
-    this.usuario.getID();
-    this.usuario.setSiape(this.siape);
-    this.usuario.setSenha(this.senha);
-
-    this.dados.adicionarUsuario(this.usuario);
 
 
-  }
-  constructor(private router: Router, private dados: DadosService) { }
-
-  ngOnInit() {
-  }
 
 }
-
-
-
-
-
-class Usuario{
-
-constructor(nome,id,siape,senha){
-  this.id=id;
-  this.siape=siape;
-  this.nome=nome;
-  this.senha=senha;
-}
-
-  nome;
-  id;
-  siape;
-  senha;
-  
-  getNome(){
-      return this.nome;
-  }
-  setNome(nome){
-      this.nome=nome;
-  }
-  getSsiape(){
-      return this.siape;
-  }
-  setSiape(siape){
-      this.siape=siape;
-  }
-  getID(){
-      return this.id;
-  }
-  setID(id){
-      this.id=id;
-  }
-  getSenha(){
-      return this.senha;
-  }
-  setSenha(senha){
-      this.senha=senha;
-  }
-  
-  }
 
 

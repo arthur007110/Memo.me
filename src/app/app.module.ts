@@ -11,13 +11,13 @@ import{RouterModule, Routes} from '@angular/router';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import {InputMaskModule} from 'primeng/inputmask';
 import {CardModule} from 'primeng/card';
 import { HomeComponent } from './home/home.component';
 import {MenubarModule} from 'primeng/menubar';
-import {MenuItem} from 'primeng/api';
 import {SidebarModule} from 'primeng/sidebar';
+import { DadosService } from './dados.service';
 
-import {HttpClientModule} from '@angular/common/http';
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
@@ -41,9 +41,9 @@ export const rotas: Routes = [
     CardModule,
     MenubarModule,
     SidebarModule,
-    HttpClientModule,
+    InputMaskModule
   ],
-  providers: [],
+  providers: [DadosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
