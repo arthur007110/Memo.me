@@ -39,6 +39,7 @@ export class CadastroComponent implements OnInit {
       }else{
 
         alert("Esta siape já está sendo utilizada.");
+        this.siape = null;
 
       }
     }
