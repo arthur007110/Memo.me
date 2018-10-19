@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {DadosService} from 'src/app/servicos/servicoDados';
+import {enableProdMode} from '@angular/core';
+enableProdMode();
+
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
@@ -69,7 +73,7 @@ export class CadastroComponent implements OnInit {
     this.usuario.setSiape(this.siape);
     this.usuario.setSenha(this.senha);
 
-    this.dados.usuarios.push(this.usuario);
+    this.dados.adicionarUsuario(this.usuario);
 
 
   }

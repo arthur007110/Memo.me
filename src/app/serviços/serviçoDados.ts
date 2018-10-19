@@ -1,5 +1,0 @@
-class DadosService{
-
-    usuarios : Usuario[];
-    
-}

@@ -17,6 +17,7 @@ import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import {SidebarModule} from 'primeng/sidebar';
 
+import {HttpClientModule} from '@angular/common/http';
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
@@ -40,6 +41,7 @@ export const rotas: Routes = [
     CardModule,
     MenubarModule,
     SidebarModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
