@@ -11,13 +11,17 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  items: MenuItem[];
+    items: MenuItem[];
+    siape:string;
 
     deslogar(){
         this.router.navigate(['/login']);
     }
 
     ngOnInit() {
+
+    this.siape = localStorage.getItem("siape");
+
         this.items = [
             {
                 label: 'Menu',
