@@ -21,7 +21,7 @@ import { DadosService } from './dados.service';
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home/:id', component: HomeComponent },
 ];
 
 @NgModule({
