@@ -49,9 +49,9 @@ export class CadastroComponent implements OnInit {
     //Verifica se não há campos vazios ou se as senhas não são iguais
     if(this.nome != null && this.siape != null && this.senha != null && this.senha2 != null){
       if(this.senha == this.senha2){
-        return true;
+          return true;
       }else{
-        alert("As senhas não são iguais.")
+        alert("As senhas não são iguais.");
         return false;
       }
     }else{

@@ -15,7 +15,6 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {CardModule} from 'primeng/card';
 import { HomeComponent } from './home/home.component';
 import {MenubarModule} from 'primeng/menubar';
-import {MenuItem} from 'primeng/api';
 import {SidebarModule} from 'primeng/sidebar';
 import { DadosService } from './dados.service';
 
