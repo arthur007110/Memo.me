@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   irParaTelaHome(){
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/home",this.siape]);
   }
 
   irParaTelaDeCadastro(){

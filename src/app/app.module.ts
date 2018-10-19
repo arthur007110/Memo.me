@@ -17,11 +17,12 @@ import { HomeComponent } from './home/home.component';
 import {MenubarModule} from 'primeng/menubar';
 import {SidebarModule} from 'primeng/sidebar';
 import { DadosService } from './dados.service';
+import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home/:id', component: HomeComponent },
 ];
 
 @NgModule({
@@ -29,7 +30,8 @@ export const rotas: Routes = [
     AppComponent,
     LoginComponent,
     CadastroComponent,
-    HomeComponent
+    HomeComponent,
+    CadastroSetorComponent
   ],
   imports: [
     BrowserModule,
