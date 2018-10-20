@@ -14,17 +14,12 @@ export class HomeComponent implements OnInit {
     items: MenuItem[];
     siape:string;
 
-    deslogar(){
-        this.router.navigate(['/login']);
-    }
-
-    ngOnInit() {
-
-    this.siape = localStorage.getItem("siape");
-
+    ngOnInit(){
+        this.siape = localStorage.getItem("siape");
         this.items = [
             {
-                label: 'Menu',
+                label: 'File',
+                icon: 'pi pi-fw pi-file',
                 items: [{
                         label: 'New', 
                         icon: 'pi pi-fw pi-plus',
@@ -34,6 +29,7 @@ export class HomeComponent implements OnInit {
                         ]
                     },
                     {label: 'Open'},
+                    {separator:true},
                     {label: 'Quit'}
                 ]
             },
@@ -46,16 +42,58 @@ export class HomeComponent implements OnInit {
                 ]
             },
             {
-              label: 'Quit',
-              icon: 'fa fa-sign-out',
-              items: [
-                  {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-                  {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
-              ]
-          }
+                label: 'Help',
+                icon: 'pi pi-fw pi-question',
+                items: [
+                    {
+                        label: 'Contents'
+                    },
+                    {
+                        label: 'Search', 
+                        icon: 'pi pi-fw pi-search', 
+                        items: [
+                            {
+                                label: 'Text', 
+                                items: [
+                                    {
+                                        label: 'Workspace'
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'File'
+                            }
+                    ]}
+                ]
+            },
+            {
+                label: 'Actions',
+                icon: 'pi pi-fw pi-cog',
+                items: [
+                    {
+                        label: 'Edit',
+                        icon: 'pi pi-fw pi-pencil',
+                        items: [
+                            {label: 'Save', icon: 'pi pi-fw pi-save'},
+                            {label: 'Update', icon: 'pi pi-fw pi-save'},
+                        ]
+                    },
+                    {
+                        label: 'Other',
+                        icon: 'pi pi-fw pi-tags',
+                        items: [
+                            {label: 'Delete', icon: 'pi pi-fw pi-minus'}
+                        ]
+                    }
+                ]
+            },
+            {
+                label: 'Quit', icon: 'pi pi-fw pi-times'
+            }
         ];
     }
 
-  }
-
-
+    deslogar(){
+        this.router.navigate(['/login']);
+    }
+}
