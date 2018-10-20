@@ -23,6 +23,7 @@ export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home/:id', component: HomeComponent },
+  { path: 'cadastro-setor', component: CadastroSetorComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import {Setor} from "src/app/models/Setor";
+import { Setor } from './Setor';
 
 export class Memorando{
     mensagem:String;
