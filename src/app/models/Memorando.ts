@@ -1,3 +1,5 @@
+import { Setor } from './Setor';
+
 export class Memorando{
     mensagem:String;
     dataEnvio:Date;
