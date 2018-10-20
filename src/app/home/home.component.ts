@@ -34,11 +34,15 @@ export class HomeComponent implements OnInit {
                 ]
             },
             {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
+                label: 'Setor',
+                icon: '',
                 items: [
-                    {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-                    {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
+                    {label: 'Listar Setores',
+                    icon: 'pi pi-fw pi-pencil',
+                    command: (event: Event) => { }},
+                    {label: 'Atualizar Dados do Setor',
+                    icon: 'pi pi-fw pi-refresh',
+                    command: (event: Event) => { }}
                 ]
             },
             {

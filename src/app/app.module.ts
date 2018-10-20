@@ -16,14 +16,18 @@ import {CardModule} from 'primeng/card';
 import { HomeComponent } from './home/home.component';
 import {MenubarModule} from 'primeng/menubar';
 import {SidebarModule} from 'primeng/sidebar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 import { DadosService } from './dados.service';
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
+import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home/:id', component: HomeComponent },
-  { path: 'cadastro-setor', component: CadastroSetorComponent}
+  { path: 'cadastro-setor', component: CadastroSetorComponent},
+  { path: 'envio-memorando', component: EnvioMemorandoComponent}
 ];
 
 @NgModule({
@@ -32,7 +36,8 @@ export const rotas: Routes = [
     LoginComponent,
     CadastroComponent,
     HomeComponent,
-    CadastroSetorComponent
+    CadastroSetorComponent,
+    EnvioMemorandoComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,8 @@ export const rotas: Routes = [
     CardModule,
     MenubarModule,
     SidebarModule,
-    InputMaskModule
+    InputMaskModule,
+    InputTextareaModule
   ],
   providers: [DadosService],
   bootstrap: [AppComponent]

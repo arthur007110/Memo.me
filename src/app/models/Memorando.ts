@@ -6,5 +6,5 @@ export class Memorando{
     dataChegada:Date;
     setorEmissor:Setor;
     setorDestinatario:Setor;
-    
+  
 }
