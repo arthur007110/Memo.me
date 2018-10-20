@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Memorando } from '../models/Memorando';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,12 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,) { }
 
     items: MenuItem[];
     siape:string;
+    vizualizando:string;
+    memorandos:Memorando;
 
     deslogar(){
         this.router.navigate(['/login']);
@@ -21,10 +24,12 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/envio-memorando']);
     }
     mostrarMemorandosEnviados(){
+        this.vizualizando="Enviados";
 
     }
     mostrarMemorandosRecebidos(){
-        
+        this.vizualizando="Recebidos";
+        this.memorandos=this.da
     }
     listarSetores(){
 
@@ -39,7 +44,7 @@ export class HomeComponent implements OnInit {
 
 
         this.siape = localStorage.getItem("siape");
-
+        
         this.items = [
             {
                 label: 'Memorando',
@@ -67,5 +72,6 @@ export class HomeComponent implements OnInit {
                 ]
             }
         ];
+        this.mostrarMemorandosRecebidos();
     }
 }
