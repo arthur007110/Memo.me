@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       let usuario = this.dadosService.getUsuariosPorSiape(this.siape);
       if(usuario != null){
         if(usuario.getSenha() == this.senha){
-          localStorage.setItem("siape",this.siape);
+          sessionStorage.setItem("siape",this.siape);
           this.irParaTelaHome();
         }else{
           alert("Siape ou senha incorretos.");

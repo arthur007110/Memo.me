@@ -17,42 +17,49 @@ export class HomeComponent implements OnInit {
     deslogar(){
         this.router.navigate(['/login']);
     }
+    enviarMemorando(){
+        this.router.navigate(['/envio-memorando']);
+    }
+    mostrarMemorandosEnviados(){
 
+    }
+    mostrarMemorandosRecebidos(){
+        
+    }
+    listarSetores(){
+
+    }
+    atualizarSetor(){
+
+    }
     ngOnInit() {
 
-    this.siape = localStorage.getItem("siape");
+
+    this.siape = sessionStorage.getItem("siape");
 
         this.items = [
             {
-                label: 'Menu',
-                items: [{
-                        label: 'New', 
-                        icon: 'pi pi-fw pi-plus',
-                        items: [
-                            {label: 'Project'},
-                            {label: 'Other'},
-                        ]
-                    },
-                    {label: 'Open'},
-                    {label: 'Quit'}
-                ]
-            },
-            {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
+                label: 'Memorando',
                 items: [
-                    {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-                    {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
+                    {label: 'Enviar',
+                    command: (event: Event) => {this.enviarMemorando();}},
+                    {label: 'Mostrar Enviados',
+                    command: (event: Event) => { }},
+                    {label: 'Mostrar Recebidos'}
                 ]
             },
             {
-              label: 'Quit',
-              icon: 'fa fa-sign-out',
-              items: [
-                  {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-                  {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
-              ]
-          }
+                label: 'Setor',
+                icon: '',
+                items: [
+                    {label: 'Listar Setores',
+                    icon: 'pi pi-fw pi-pencil',
+                    command: (event: Event) => { }},
+                    {label: 'Atualizar Dados do Setor',
+                    icon: 'pi pi-fw pi-refresh',
+                    command: (event: Event) => { }}
+                ]
+            }
         ];
     }
 
