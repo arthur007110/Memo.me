@@ -1,0 +1,11 @@
+input{
+    background-color: rgba(2, 16, 138, 0.329);
+    color: gray
+}
+p-card{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}

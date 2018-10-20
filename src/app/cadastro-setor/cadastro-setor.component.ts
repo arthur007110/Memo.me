@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DadosService } from '../dados.service';
 
 @Component({
   selector: 'app-cadastro-setor',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cadastro-setor.component.css']
 })
 export class CadastroSetorComponent implements OnInit {
-
-  constructor() { }
+  nome: string;
+  id: string;
+  constructor(private router: Router, private dadosService: DadosService) { }
 
   ngOnInit() {
   }
-
+  irParaTelaDeSetores(){
+    this.router.navigate(["/setores"])
+  }
 }
