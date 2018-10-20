@@ -4,8 +4,18 @@
   <button pButton label="Logout" icon="fa fa-sign-out" (click)="deslogar();"></button>
   
 </p-menubar>
-<br>
-<p-sidebar [(visible)]="display">
+<br><p-sidebar [(visible)]="display">
   Menu
 </p-sidebar>
+<p-card title="Memorandos">
+<h3>{{vizualizando}}</h3>
 
+
+<ul>
+  <li *ngFor="let nome of nomesSetores;let data of datasRecebimento; let i=index">
+   <p-card> {{ nome }}{{ data }} <button ></button></p-card>
+  </li>
+</ul>
+
+  
+</p-card>
