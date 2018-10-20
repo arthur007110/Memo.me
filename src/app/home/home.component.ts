@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Memorando } from '../models/Memorando';
+import { MemorandoService } from '../serviços/memorando.service';
+import { SetorService } from '../serviços/setor.service';
+import { Setor } from '../models/Setor';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +13,16 @@ import { Memorando } from '../models/Memorando';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router, private memorandoS: MemorandoService, private setorS: SetorService) { }
 
     items: MenuItem[];
     siape:string;
     vizualizando:string;
-    memorandos:Memorando;
+    memorandos:Memorando[];
+    setores:Setor[];
+
+    nomesSetores:string[]=[];
+    datasRecebimento:string[]=[];
 
     deslogar(){
         this.router.navigate(['/login']);
@@ -29,8 +36,28 @@ export class HomeComponent implements OnInit {
     }
     mostrarMemorandosRecebidos(){
         this.vizualizando="Recebidos";
-        this.memorandos=this.da
+        this.memorandos=this.memorandoS.getMemorandos();
+        this.setores=this.setorS.getSetores();
+        this.prepararExibicao();
+
     }
+    
+    limparDados(){
+        for(let i=this.setores.length;i>0;i--){
+        this.nomesSetores.pop();
+        this.datasRecebimento.pop();
+        }
+    }
+
+    prepararExibicao(){
+
+        for(let i=0;i<this.setores.length;i++){
+            this.nomesSetores.push(this.memorandos[i].getsetorEmissor());
+            this.datasRecebimento.push(this.memorandos[i].getdataEnvio());
+        }
+
+    }
+
     listarSetores(){
 
     }

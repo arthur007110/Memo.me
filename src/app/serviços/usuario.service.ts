@@ -5,7 +5,7 @@ import { Usuario } from '../models/Usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuario = new Usuario(0, "admin", "1234567", "admin");
+  usuario = new Usuario(0, "admin", "1234567", "admin","12345");
   usuarios: Usuario[] = [this.usuario];
   
 
@@ -33,10 +33,10 @@ export class UsuarioService {
     return null;
   }
 
-  setUsuario(nome, siape, senha){
+  setUsuario(nome, siape, senha, setor){
     //Obtém um id para o usuário
     let id = this.usuarios.length;
     //Salva usuário no array
-    this.usuarios.push(new Usuario(id, nome, siape, senha));
+    this.usuarios.push(new Usuario(id, nome, siape, senha, setor));
   }
 }

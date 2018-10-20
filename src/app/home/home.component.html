@@ -10,6 +10,12 @@
 <p-card title="Memorandos">
 <h3>{{vizualizando}}</h3>
 
-<p *ngFor="let memorando of memorandos; let i = index"></p>
+
+<ul>
+  <li *ngFor="let nome of nomesSetores;let data of datasRecebimento; let i=index">
+   <p-card> {{ nome }}{{ data }} <button ></button></p-card>
+  </li>
+</ul>
+
   
 </p-card>

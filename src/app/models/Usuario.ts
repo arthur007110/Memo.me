@@ -4,36 +4,44 @@ export class Usuario{
     private nome: string;
     private siape: string;
     private senha: string;
+    private setor: string;
 
-    constructor(id, nome, siape, senha){
+    constructor(id, nome, siape, senha,setor){
         this.id = id;
         this.nome = nome;
         this.siape = siape;
         this.senha = senha;
+        this.setor = setor;
     }
 
-    getNome(){
+    public getsetor() : string {
+        return this.setor;
+    }
+    public setsetor(setor : string) {
+        this.setor = setor;
+    }
+    public getNome(){
         return this.nome;
     }
-    setNome(nome){
+    public setNome(nome){
         this.nome=nome;
     }
-    getSiape(){
+    public getSiape(){
         return this.siape;
     }
-    setSiape(siape){
+    public setSiape(siape){
         this.siape=siape;
     }
-    getID(){
+    public getID(){
         return this.id;
     }
-    setID(id){
+    public setID(id){
         this.id=id;
     }
-    getSenha(){
+    public getSenha(){
         return this.senha;
     }
-    setSenha(senha){
+    public setSenha(senha){
         this.senha=senha;
     }
 
