@@ -20,7 +20,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
-import { UsuarioService } from './serviços/usuario.service';
+import { UsuarioService } from './serviços/usuario.service;
+import { AtualizarMemorandosComponent } from './atualizar-memorandos/atualizar-memorandos.component'';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -37,7 +38,8 @@ export const rotas: Routes = [
     CadastroComponent,
     HomeComponent,
     CadastroSetorComponent,
-    EnvioMemorandoComponent
+    EnvioMemorandoComponen,
+    AtualizarMemorandosComponentt
   ],
   imports: [
     BrowserModule,
