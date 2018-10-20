@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DadosService } from '../dados.service';
+import { UsuarioService } from '../serviços/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   siape: string;
   senha: string;
 
-  constructor(private router: Router, private dadosService: DadosService) { }
+  constructor(private router: Router, private usuarioService: UsuarioService) { }
 
   ngOnInit(){
 
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   logar(){
     if(this.siape != null && this.senha != null){
       console.log(this.siape);
-      let usuario = this.dadosService.getUsuariosPorSiape(this.siape);
+      let usuario = this.usuarioService.getUsuariosPorSiape(this.siape);
       if(usuario != null){
         if(usuario.getSenha() == this.senha){
           sessionStorage.setItem("siape",this.siape);

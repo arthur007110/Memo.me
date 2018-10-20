@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from './models/Usuario';
+import { Usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DadosService {
+export class UsuarioService {
   usuario = new Usuario(0, "admin", "1234567", "admin");
   usuarios: Usuario[] = [this.usuario];
   
@@ -39,5 +39,4 @@ export class DadosService {
     //Salva usuário no array
     this.usuarios.push(new Usuario(id, nome, siape, senha));
   }
-
 }

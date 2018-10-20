@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { DadosService } from '../dados.service';
-import { Usuario } from '../models/usuario';
+import { UsuarioService } from '../serviços/usuario.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -17,7 +15,7 @@ export class CadastroComponent implements OnInit {
   senha: string;
   senha2: string;
 
-  constructor(private router: Router, private dadosService: DadosService) { }
+  constructor(private router: Router, private usuarioService: UsuarioService) { }
 
   ngOnInit() {
 
@@ -30,9 +28,9 @@ export class CadastroComponent implements OnInit {
   cadastrar(){
     if(this.verificarCampos()){
 
-      if(this.dadosService.getUsuariosPorSiape(this.siape) == null){
+      if(this.usuarioService.getUsuariosPorSiape(this.siape) == null){
 
-        this.dadosService.setUsuario(this.nome, this.siape, this.senha);
+        this.usuarioService.setUsuario(this.nome, this.siape, this.senha);
         alert("Usuário cadastrado.");
         this.irParaTelaDeLogin();
 

@@ -18,9 +18,9 @@ import {MenubarModule} from 'primeng/menubar';
 import {SidebarModule} from 'primeng/sidebar';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 
-import { DadosService } from './dados.service';
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
+import { UsuarioService } from './serviços/usuario.service';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -52,7 +52,7 @@ export const rotas: Routes = [
     InputMaskModule,
     InputTextareaModule
   ],
-  providers: [DadosService],
+  providers: [UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
