@@ -1,4 +1,22 @@
-<app-home></app-home>
-<p>
-  cadastro-setor works!
-</p>
+<br><br>
+<p-card title="Cadastrar Setor">
+<span class="ui-float-label">
+    <input pInputText [(ngModel)]="nome"> 
+    <label for="float-input">Nome do Setor</label>
+</span>
+<br>
+
+<span class="ui-float-label">
+  <p-inputMask [(ngModel)]="id" mask="99999"></p-inputMask> 
+    <label for="float-input">ID</label>
+  
+</span>
+<br>
+
+<button pButton type="button" label="Cadastrar" (click)="cadastrar()"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+<button pButton type="button" label="Cancelar" (click)="irParaTelaHome()"></button>
+
+<br>
+<br>
+
+</p-card>

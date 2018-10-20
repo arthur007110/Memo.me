@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-setor',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastroSetorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  siape:string;
 
   ngOnInit() {
+    this.siape=sessionStorage.getItem("siape");
   }
 
+  cadastrar(){
+
+  }
+  irParaTelaHome(){
+    this.router.navigate(['/home',this.siape]);
+  }
 }

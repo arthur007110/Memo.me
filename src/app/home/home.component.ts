@@ -32,6 +32,9 @@ export class HomeComponent implements OnInit {
     atualizarSetor(){
 
     }
+    cadastrarSetor(){
+        this.router.navigate(['/cadastro-setor']);
+    }
     ngOnInit(){
 
 
@@ -52,6 +55,9 @@ export class HomeComponent implements OnInit {
                 label: 'Setor',
                 icon: '',
                 items: [
+                    {label: 'Cadastrar Setor',
+                    icon: 'pi pi-fw pi-plus',
+                    command: (event: Event) => { this.cadastrarSetor(); }},
                     {label: 'Listar Setores',
                     icon: 'pi pi-fw pi-pencil',
                     command: (event: Event) => { }},
