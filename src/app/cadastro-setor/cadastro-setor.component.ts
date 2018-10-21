@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/serviços/usuario.service';
+
 
 @Component({
   selector: 'app-cadastro-setor',
@@ -7,13 +9,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./cadastro-setor.component.css']
 })
 export class CadastroSetorComponent implements OnInit {
+  nome: string;
+  id: string;
+  constructor(private router: Router, private usuarioService: UsuarioService) { }
 
-  constructor(private router: Router) { }
 
   siape:string;
 
   ngOnInit() {
     this.siape=sessionStorage.getItem("siape");
+  }
+
+  irParaTelaDeSetores(){
+    this.router.navigate(["/setores"])
   }
 
   cadastrar(){
