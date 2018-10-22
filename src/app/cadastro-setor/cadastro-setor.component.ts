@@ -26,6 +26,10 @@ export class CadastroSetorComponent implements OnInit {
     this.siape=sessionStorage.getItem("siape");
   }
 
+  irParaTelaDeSetores(){
+    this.router.navigate(["/setores"])
+  }
+
   cadastrarSetor(){
     if(this.nome != null && this.nome.length >= 5 && this.usuarioSelecionado != null){
       if(this.setorService.getSetorPorNome(this.nome)){
