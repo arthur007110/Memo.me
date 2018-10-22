@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioService } from 'src/app/serviços/usuario.service';
+import { SetorService } from 'src/app/serviços/setor.service';
 
 
 @Component({
@@ -11,15 +11,15 @@ import { UsuarioService } from 'src/app/serviços/usuario.service';
 export class CadastroSetorComponent implements OnInit {
  HEAD
   nome: string;
-  id: string;
-  constructor(private router: Router, private usuarioService: UsuarioService) { }
+  id: number;
+  id2: number;
+  constructor(private router: Router, private setorS: SetorService) { }
 
 
   siape:string;
 
 
   ngOnInit() {
-    this.siape=sessionStorage.getItem("siape");
   }
 
   irParaTelaDeSetores(){
@@ -27,10 +27,31 @@ export class CadastroSetorComponent implements OnInit {
   }
 
   cadastrar(){
+    if(this.verificarCampos()){
+      if(this.setorS.validadeID(this.id)==false){
+        alert("Setor já Cadastrado");
+      }
+
+    }
 
   }
   irParaTelaHome(){
     this.router.navigate(['/home',this.siape]);
 
+  }
+  verificarCampos(){
+    if(this.nome != null && this.id != null){
+      if(this.id == this.id2){
+        return true;
+      }
+        else{
+          alert("Confira o campo das ID's");
+          return false
+        }
+      }else{
+        alert("Existem campos que ainda não foram preenchidos.");
+        return false;
+      
+    }
   }
 }
