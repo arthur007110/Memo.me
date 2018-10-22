@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-import { DadosService } from '../dados.service';
-=======
->>>>>>> 6f3b70a9244a10574355c618ffb832593568fec0
+import { Usuario } from '../models/Usuario';
+import { SetorService } from '../serviços/setor.service';
+import { UsuarioService } from '../serviços/usuario.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro-setor',
@@ -11,30 +11,41 @@ import { DadosService } from '../dados.service';
   styleUrls: ['./cadastro-setor.component.css']
 })
 export class CadastroSetorComponent implements OnInit {
-<<<<<<< HEAD
-  nome: string;
-  id: string;
-  constructor(private router: Router, private dadosService: DadosService) { }
-=======
 
-  constructor(private router: Router) { }
+  nome: string;
+  usuarios: Usuario[];
+  usuarioSelecionado: Usuario;
+  msgErro: boolean = false;
+
+  constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService, private location: Location) {}
 
   siape:string;
->>>>>>> 6f3b70a9244a10574355c618ffb832593568fec0
 
   ngOnInit() {
+    this.getUsuarios();
     this.siape=sessionStorage.getItem("siape");
   }
-<<<<<<< HEAD
-  irParaTelaDeSetores(){
-    this.router.navigate(["/setores"])
-=======
 
-  cadastrar(){
-
+  cadastrarSetor(){
+    if(this.nome != null && this.nome.length >= 5 && this.usuarioSelecionado != null){
+      if(this.setorService.getSetorPorNome(this.nome)){
+        this.msgErro = true;
+      }else{
+        this.setorService.setSetor(this.nome, this.usuarioSelecionado);
+        this.voltar();
+      }
+    }
   }
-  irParaTelaHome(){
-    this.router.navigate(['/home',this.siape]);
->>>>>>> 6f3b70a9244a10574355c618ffb832593568fec0
+
+  voltar(){
+    this.location.back();
+  }
+
+  mostrarMsg(){
+    this.msgErro = false;
+  }
+
+  getUsuarios(){
+    this.usuarios = this.usuarioService.getUsuarios();
   }
 }

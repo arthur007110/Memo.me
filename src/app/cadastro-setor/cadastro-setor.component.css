@@ -1,9 +1,5 @@
 input{
-<<<<<<< HEAD
-    background-color: rgba(2, 16, 138, 0.329);
-=======
     background-color: rgb(149, 195, 255);
->>>>>>> 6f3b70a9244a10574355c618ffb832593568fec0
     color: gray
 }
 p-card{
@@ -11,10 +7,6 @@ p-card{
     top: 40%;
     left: 50%;
     margin-right: -50%;
-<<<<<<< HEAD
-    transform: translate(-50%, -50%)
-=======
     transform: translate(-50%, -50%);
     color: blue
->>>>>>> 6f3b70a9244a10574355c618ffb832593568fec0
 }

@@ -4,21 +4,21 @@ export class Usuario{
     private nome: string;
     private siape: string;
     private senha: string;
-    private setor: string;
+    private idDoSetor: string;
 
     constructor(id, nome, siape, senha,setor){
         this.id = id;
         this.nome = nome;
         this.siape = siape;
         this.senha = senha;
-        this.setor = setor;
+        this.idDoSetor = setor;
     }
 
     public getsetor() : string {
-        return this.setor;
+        return this.idDoSetor;
     }
     public setsetor(setor : string) {
-        this.setor = setor;
+        this.idDoSetor = setor;
     }
     public getNome(){
         return this.nome;

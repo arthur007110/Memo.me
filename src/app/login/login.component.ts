@@ -25,7 +25,11 @@ export class LoginComponent implements OnInit {
       if(usuario != null){
         if(usuario.getSenha() == this.senha){
           sessionStorage.setItem("siape",this.siape);
-          this.irParaTelaHome();
+          if(usuario.getID() == 0){
+            this.irParaTelaHomeAdm();
+          }else{
+            this.irParaTelaHome();
+          }
         }else{
           alert("Siape ou senha incorretos.");
           this.siape = null;
@@ -43,6 +47,10 @@ export class LoginComponent implements OnInit {
 
   irParaTelaHome(){
     this.router.navigate(["/home",this.siape]);
+  }
+  
+  irParaTelaHomeAdm(){
+    this.router.navigate(["/home-adm", this.siape]);
   }
 
   irParaTelaDeCadastro(){
