@@ -21,9 +21,6 @@ export class HomeComponent implements OnInit {
     memorandos:Memorando[];
     setores:Setor[];
 
-    nomesSetores:string[]=[];
-    datasRecebimento:string[]=[];
-
     deslogar(){
         this.router.navigate(['/login']);
     }
@@ -41,21 +38,10 @@ export class HomeComponent implements OnInit {
         this.prepararExibicao();
 
     }
-    
-    limparDados(){
-        for(let i=this.setores.length;i>0;i--){
-        this.nomesSetores.pop();
-        this.datasRecebimento.pop();
-        }
-    }
-
     prepararExibicao(){
 
         for(let i=0;i<this.memorandos.length;i++){
-            this.nomesSetores.push(this.setorS.getNameById(this.memorandos[i].getsetorEmissor()));
-            console.log(this.nomesSetores[i]);
-            this.datasRecebimento.push(this.memorandos[i].getdataEnvio());
-            console.log(this.datasRecebimento[i]);
+            this.memorandos[i].setNomeSetorEmissor(this.setorS.getNameById(this.memorandos[i].getsetorEmissor));
         }
 
     }
@@ -71,7 +57,7 @@ export class HomeComponent implements OnInit {
     }
     ngOnInit(){
 
-
+        this.mostrarMemorandosRecebidos();
         this.siape = localStorage.getItem("siape");
         
         this.items = [
@@ -101,6 +87,6 @@ export class HomeComponent implements OnInit {
                 ]
             }
         ];
-        this.mostrarMemorandosRecebidos();
+        
     }
 }

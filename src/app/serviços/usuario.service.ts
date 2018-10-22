@@ -5,8 +5,9 @@ import { Usuario } from '../models/Usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuario = new Usuario(0, "admin", "1234567", "admin","12345");
-  usuarios: Usuario[] = [this.usuario];
+  adm = new Usuario(0, "admin", "1234567", "admin","12345");
+  user = new Usuario(1, "a", "1234566", "a","11111");
+  usuarios: Usuario[] = [this.adm,this.user];
   
 
   constructor() { }

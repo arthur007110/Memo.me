@@ -11,11 +11,23 @@
 <h3>{{vizualizando}}</h3>
 
 
-<ul>
-  <li *ngFor="let nome of nomesSetores;let data of datasRecebimento; let i=index">
-   <p-card> {{ nome + " " + data }} <button ></button></p-card>
-  </li>
-</ul>
-
+<p-card title="">
+  <p-table [value]="memorandos">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID Do Setor</th>
+            <th>Data</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-memorando>
+        <tr>
+            <td>{{memorando.idSetorEmissor}}</td>
+            <td>{{memorando.dataEnvio}}</td>
+            <td></td>
+        </tr>
+    </ng-template>
+  </p-table>
+</p-card>
   
 </p-card>
