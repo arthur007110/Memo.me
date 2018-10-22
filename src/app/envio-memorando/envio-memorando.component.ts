@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MemorandoService } from '../serviços/memorando.service';
 import { Memorando } from '../models/Memorando';
+import { UsuarioService } from '../serviços/usuario.service';
+import { Setor } from '../models/Setor';
+import { SetorService } from '../serviços/setor.service';
 
 @Component({
   selector: 'app-envio-memorando',
@@ -10,28 +13,40 @@ import { Memorando } from '../models/Memorando';
 })
 export class EnvioMemorandoComponent implements OnInit {
 
-  destinatario:String;
-  mensagem:String;
+  setores:Setor[];
+  emissor:string;
+  destinatario:string;
+  mensagem:string;
   now= new Date;
-  siape:String;
+  siape:string;
   data:string="";
   memorando:Memorando;
 
-  constructor(private router: Router, private memorandoS: MemorandoService) { }
+  constructor(private router: Router, private memorandoS: MemorandoService, private usuarioS:UsuarioService, private setorS: SetorService) { }
 
   gerarData(){
-    this.data=(this.now.getDay+"-"+this.now.getMonth+"-"+this.now.getFullYear);
+    this.data=(this.now.getDay()+"-"+this.now.getMonth()+"-"+this.now.getFullYear());
   }
 
   enviarMemorando(){
-    this.memorando= new Memorando(this.mensagem,this.siape,this.destinatario,this.data);
+
+    this.identificarServidorEmissor();
+    this.gerarData();
+    this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario,this.data);
     this.memorandoS.setMemorando(this.memorando);
     this.router.navigate(['home',this.siape]);
   }
   irParaTelaHome(){
     this.router.navigate(['/home',this.siape]);
   }
+  identificarServidorEmissor(){
+    this.emissor=this.usuarioS.getUsuariosPorSiape(this.siape).getsetor();
+  }
+  receberSetores(){
+    this.setores=this.setorS.getSetores();
+  }
   ngOnInit() {
+    this.receberSetores();
     this.siape = sessionStorage.getItem("siape");
   }
 

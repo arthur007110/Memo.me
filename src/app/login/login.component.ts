@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private usuarioService: UsuarioService) { }
 
   ngOnInit(){
-    this.siape="1234567";
+    this.siape="1234566";
     this.senha="admin";
   }
 

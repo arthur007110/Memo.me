@@ -1,9 +1,8 @@
 <br><br>
 <p-card title="Enviar Memorando">
-  <div class="ui-inputgroup">
-    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-    <input type="text" pInputText placeholder="Setor Destinatario" [(ngModel)]="destinatario">         
-</div>
+  
+    <p-dropdown [options]="setores" placeholder="Selecione o Setor" [(ngModel)]="destinatario" optionLabel="nome"></p-dropdown>
+     
 <br>
 
 <span class="ui-float-label">

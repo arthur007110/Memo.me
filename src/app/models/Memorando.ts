@@ -1,3 +1,5 @@
+import { SetorService } from "../serviços/setor.service";
+
 export class Memorando{
     
     private id : string;
@@ -5,7 +7,9 @@ export class Memorando{
     private dataEnvio:string;
     private idSetorEmissor:string;
     private idSetorDestinatario:string;
+    private nomeSetorEmissor:string;
 
+    
     constructor(mensagem,idSetorEmissor,idSetorDestinatario,dataEnvio){
         this.mensagem=mensagem;
         this.dataEnvio=dataEnvio;
@@ -47,7 +51,12 @@ export class Memorando{
   public setsetorDestinatario(setorDestinatario : string) {
       this.idSetorDestinatario = setorDestinatario;
   }
-  
+  public getNomeSetorEmissor(){
+      return this.nomeSetorEmissor;
+  }
+  public setNomeSetorEmissor(nomeSetorEmissor){
+      this.nomeSetorEmissor=nomeSetorEmissor;
+  }
   
   
   

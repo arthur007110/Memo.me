@@ -5,13 +5,10 @@ import { Setor } from '../models/Setor';
   providedIn: 'root'
 })
 export class SetorService {
-
+  
   constructor() { }
 
   //setor = new Setor(0,"Teste");
-
-  //setores: Setor[] = [this.setor];
-
   setores: Setor[] = [];
 
   getSetores(){
@@ -28,13 +25,6 @@ export class SetorService {
   setSetor(nome, usuario){
     let setor = new Setor(this.setores.length, nome, usuario);
     this.setores.push(setor);
-  }
-  getNameById(id){
-    for(let i=0;i<this.setores.length;i++){
-      if(this.setores[i].getId()==id){
-        return this.setores[i].getNome();
-      }
-    }
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SetorService } from 'src/app/serviços/setor.service';
 import { Usuario } from '../models/Usuario';
-import { SetorService } from '../serviços/setor.service';
 import { UsuarioService } from '../serviços/usuario.service';
 import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-cadastro-setor',
@@ -17,20 +18,18 @@ export class CadastroSetorComponent implements OnInit {
   usuarioSelecionado: Usuario;
   msgErro: boolean = false;
 
-  constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService, private location: Location) {}
+  constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService, private location: Location){}
 
-  siape:string;
+  siape: string;
 
-  ngOnInit() {
+  ngOnInit(){
     this.getUsuarios();
-    this.siape=sessionStorage.getItem("siape");
+    this.siape = sessionStorage.getItem("siape");
   }
-
-  
 
   cadastrarSetor(){
     if(this.nome != null && this.nome.length >= 5 && this.usuarioSelecionado != null){
-      if(this.setorService.getSetorPorNome(this.nome)){
+      if(this.setorService.getSetorPorNome(this.nome) != null){
         this.msgErro = true;
       }else{
         this.setorService.setSetor(this.nome, this.usuarioSelecionado);
@@ -49,5 +48,8 @@ export class CadastroSetorComponent implements OnInit {
 
   getUsuarios(){
     this.usuarios = this.usuarioService.getUsuarios();
+    console.log(this.usuarios[0].getNome());
+    console.log(this.usuarios[1].getNome());
   }
+  
 }
