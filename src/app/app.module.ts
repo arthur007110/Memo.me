@@ -36,7 +36,8 @@ export const rotas: Routes = [
   { path: 'home/:id', component: HomeComponent },
   { path: 'cadastro-setor', component: CadastroSetorComponent},
   { path: 'envio-memorando', component: EnvioMemorandoComponent},
-  { path: 'home-adm/:id', component: HomeAdmComponent}
+  { path: 'home-adm/:id', component: HomeAdmComponent},
+  { path: 'atualizar-setor', component: AtualizarSetorComponent}
 ];
 
 @NgModule({

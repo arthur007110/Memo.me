@@ -4,12 +4,14 @@
   <span class="ui-float-label">
     <input id="float-input" type="text" size="20" pInputText [(ngModel)]="nome"> 
     <label for="float-input">Nome</label>
+    &#160;<p-message *ngIf="msgErroNome" severity="error" text="Esse nome de usuário já está sendo utilizado"></p-message>
 </span>
 <br>
 
 <span class="ui-float-label">
     <p-inputMask [(ngModel)]="siape" mask="9999999" styleClass="input-mask"></p-inputMask>
     <label for="float-input">Siape</label>
+    &#160;<p-message *ngIf="msgErroSiape" severity="error" text="Essa siape já está sendo utilizada"></p-message>
 </span>
 
 
@@ -24,6 +26,7 @@
 <span class="ui-float-label">
   <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha2"> 
   <label for="float-input">Repetir Senha</label>
+  &#160;<p-message *ngIf="msgErroSenha" severity="error" text="As senhas não são iguais."></p-message>
 </span>
 <br>
 

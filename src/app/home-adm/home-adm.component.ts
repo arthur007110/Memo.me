@@ -34,7 +34,7 @@ export class HomeAdmComponent implements OnInit {
     
     this.items = [
       {label: 'Cadastar Setor', routerLink: ['/cadastro-setor']},
-      {label: 'Atualizar Setor', routerLink: ['/']}
+      {label: 'Atualizar Setor', routerLink: ['/atualizar-setor']}
     ];
 
   }

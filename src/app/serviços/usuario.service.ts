@@ -17,7 +17,15 @@ export class UsuarioService {
 
   getUsuarioPorId(id): Usuario{
     for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].getID == id){
+      if(this.usuarios[i].getID() == id){
+        return this.usuarios[i];
+      }
+    }
+  }
+
+  getUsuarioPorNome(nome): Usuario{
+    for(let i = 0; i < this.usuarios.length; i++){
+      if(this.usuarios[i].getNome() == nome){
         return this.usuarios[i];
       }
     }

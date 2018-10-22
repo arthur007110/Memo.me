@@ -15,6 +15,11 @@ export class CadastroComponent implements OnInit {
   senha: string;
   senha2: string;
 
+  msgErroNome: boolean = false;
+  msgErroSiape: boolean = false;
+  msgErroSenha: boolean = false;
+  msgAvisoSiape: boolean = false;
+
   constructor(private router: Router, private usuarioService: UsuarioService) { }
 
   ngOnInit() {
@@ -36,7 +41,7 @@ export class CadastroComponent implements OnInit {
 
       }else{
 
-        alert("Esta siape já está sendo utilizada.");
+        this.msgErroSiape = true;
         this.siape = null;
 
       }
@@ -49,7 +54,7 @@ export class CadastroComponent implements OnInit {
       if(this.senha == this.senha2){
           return true;
       }else{
-        alert("As senhas não são iguais.");
+        this.msgErroSenha = true;
         return false;
       }
     }else{
