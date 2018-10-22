@@ -4,11 +4,12 @@ export class Setor{
 
     id:number;
     nome:string;
-    usuarios:Usuario[];
+    usuario:Usuario;
 
-    constructor(id, nome){
+    constructor(id, nome, usuario){
         this.id = id;
         this.nome = nome;
+        this.usuario = usuario;
     }
 
     getId(){
@@ -22,6 +23,12 @@ export class Setor{
     }
     setNome(nome){
         this.nome=nome;
+    }
+    getUsuario(){
+        return this.usuario;
+    }
+    setUsuario(usuario){
+        this.usuario = usuario;
     }
 
 

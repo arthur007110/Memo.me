@@ -13,7 +13,7 @@ export class CadastroSetorComponent implements OnInit {
   nome: string;
   id: number;
   id2: number;
-  constructor(private router: Router, private setorS: SetorService) { }
+  constructor(private router: Router, private SetorService: SetorService) { }
 
 
   siape:string;
@@ -28,8 +28,10 @@ export class CadastroSetorComponent implements OnInit {
 
   cadastrar(){
     if(this.verificarCampos()){
-      if(this.setorS.validadeID(this.id)==false){
+      if(this.SetorService.validadeID(this.id)==true){
+        this.SetorService.setSetor(this.nome, this.id)
         alert("Setor já Cadastrado");
+        this.irParaTelaHome();
       }
 
     }

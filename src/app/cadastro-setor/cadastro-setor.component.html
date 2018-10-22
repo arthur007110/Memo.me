@@ -1,35 +1,11 @@
-<br><br>
-<<<<<<< HEAD
-<p-card title="Cadastrar um setor">
-    <span class="ui-float-l>=label">
-        <input nome="float-input" type="text" size="20" pInputText [(ngmodel)] ="nome">
-        <label for="float-input">Nome</label>
-    </span>
-    <br>
-
-
-
-        </p-card>
-=======
-<p-card title="Cadastrar Setor">
-<span class="ui-float-label">
-    <input pInputText [(ngModel)]="nome"> 
-    <label for="float-input">Nome do Setor</label>
-</span>
-<br>
-
-<span class="ui-float-label">
-  <p-inputMask [(ngModel)]="id" mask="99999"></p-inputMask> 
-    <label for="float-input">ID</label>
-  
-</span>
-<br>
-
-<button pButton type="button" label="Cadastrar" (click)="cadastrar()"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-<button pButton type="button" label="Cancelar" (click)="irParaTelaHome()"></button>
-
-<br>
-<br>
-
+<p-card title="Cadastro">
+    <span class="ui-float-label">
+        <input id="float-input" [(ngModel)]="nome" type="text" size="30" (focus)="mostrarMsg()" pInputText>
+        &#160;<p-message severity="warn" *ngIf="!nome" text="No mínimo 5 caracteres"></p-message>
+        <label for="float-input">Nome do Setor</label>
+    </span><br>
+    <p-dropdown [options]="usuarios" placeholder="Selecione o Usuário" [(ngModel)]="usuarioSelecionado" optionLabel="nome"></p-dropdown>
+    &#160;&#160;<button pButton type="button" label="Cadastrar" (click)="cadastrarSetor()"></button><br><br>
+    <button pButton type="button" label="Voltar" (click)="voltar()"></button>
+    &#160;<p-message severity="error" *ngIf="msgErro && !msgAviso"text="Esse nome já está sendo usado"></p-message>
 </p-card>
->>>>>>> 6f3b70a9244a10574355c618ffb832593568fec0

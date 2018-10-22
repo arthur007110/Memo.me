@@ -8,14 +8,19 @@ import { SetorService } from '../serviços/setor.service';
   styleUrls: ['./atualizar-setor.component.css']
 })
 export class AtualizarSetorComponent implements OnInit {
-  novoId: String;
+  idSetor: String;
   novoNome: String;
-  constructor() { }
+  siape:String;
+  constructor(private router: Router, private setorS: SetorService) { }
 
-  atualizarSetor(SetorService){
+  atualizarSetor(){
     
   }
   ngOnInit() {
+    this.siape=sessionStorage.getItem("siape");
   }
 
+  irParaTelaHome(){
+    this.router.navigate(['/home',this.siape])
+  }
 }

@@ -51,9 +51,11 @@ export class HomeComponent implements OnInit {
 
     prepararExibicao(){
 
-        for(let i=0;i<this.setores.length;i++){
-            this.nomesSetores.push(this.memorandos[i].getsetorEmissor());
+        for(let i=0;i<this.memorandos.length;i++){
+            this.nomesSetores.push(this.setorS.getNameById(this.memorandos[i].getsetorEmissor()));
+            console.log(this.nomesSetores[i]);
             this.datasRecebimento.push(this.memorandos[i].getdataEnvio());
+            console.log(this.datasRecebimento[i]);
         }
 
     }
