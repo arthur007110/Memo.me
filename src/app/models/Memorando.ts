@@ -3,6 +3,7 @@ import { SetorService } from "../serviços/setor.service";
 export class Memorando{
     
     private id : string;
+    private visto:boolean=false;
     private mensagem:string;
     private dataEnvio:string;
     private idSetorEmissor:string;
@@ -57,7 +58,9 @@ export class Memorando{
   public setNomeSetorEmissor(nomeSetorEmissor){
       this.nomeSetorEmissor=nomeSetorEmissor;
   }
-  
+  public marcarComoVisto(){
+      this.visto=true;
+  }
   
   
   

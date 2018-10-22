@@ -21,7 +21,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {DropdownModule} from 'primeng/dropdown';
-
+import {TableModule} from 'primeng/table';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
 
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
@@ -29,7 +30,7 @@ import { UsuarioService } from './serviços/usuario.service';
 //import { AtualizarMemorandosComponent } from './atualizar-memorandos/atualizar-memorandos.component';
 import { AtualizarSetorComponent } from './atualizar-setor/atualizar-setor.component';
 import { HomeAdmComponent } from './home-adm/home-adm.component';
-import {TableModule} from 'primeng/table';
+import { ExibicaoMemorandoComponent } from './exibicao-memorando/exibicao-memorando.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -38,7 +39,8 @@ export const rotas: Routes = [
   { path: 'cadastro-setor', component: CadastroSetorComponent},
   { path: 'envio-memorando', component: EnvioMemorandoComponent},
   { path: 'home-adm/:id', component: HomeAdmComponent},
-  { path: 'atualizar-setor', component: AtualizarSetorComponent}
+  { path: 'atualizar-setor', component: AtualizarSetorComponent},
+  { path: 'vizualizar/:id', component: ExibicaoMemorandoComponent},
 ];
 
 @NgModule({
@@ -51,7 +53,8 @@ export const rotas: Routes = [
     EnvioMemorandoComponent,
     //AtualizarMemorandosComponent,
     AtualizarSetorComponent,
-    HomeAdmComponent
+    HomeAdmComponent,
+    ExibicaoMemorandoComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ export const rotas: Routes = [
     MessagesModule,
     MessageModule,
     DropdownModule,
-    TableModule
+    TableModule,
+    ScrollPanelModule,
   ],
   providers: [UsuarioService],
   bootstrap: [AppComponent]

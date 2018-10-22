@@ -29,7 +29,6 @@ export class EnvioMemorandoComponent implements OnInit {
   }
 
   enviarMemorando(){
-
     this.identificarServidorEmissor();
     this.gerarData();
     this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario,this.data);
@@ -45,6 +44,7 @@ export class EnvioMemorandoComponent implements OnInit {
   receberSetores(){
     this.setores=this.setorS.getSetores();
   }
+  verificar
   ngOnInit() {
     this.receberSetores();
     this.siape = sessionStorage.getItem("siape");

@@ -21,5 +21,11 @@ export class MemorandoService {
     //Salva memorando no array
     this.memorandos.push(memorando);
   }
-
+  getMemorandoPorId(id){
+    for(let i = 0; i < this.memorandos.length; i++){
+      if(this.memorandos[i].getId() == id){
+        return this.memorandos[i];
+      }
+    }
+  }
 }

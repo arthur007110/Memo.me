@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(){
     this.siape="1234566";
-    this.senha="admin";
+    this.senha="a";
   }
 
   logar(){

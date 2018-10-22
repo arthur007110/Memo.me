@@ -27,9 +27,13 @@ export class HomeComponent implements OnInit {
     enviarMemorando(){
         this.router.navigate(['/envio-memorando']);
     }
+    exibirMemorando(i){
+        sessionStorage.setItem("id",this.memorandos[i].getId());
+        this.router.navigate(['/vizualizar',this.memorandos[i].getId()]);
+
+    }
     mostrarMemorandosEnviados(){
         this.vizualizando="Enviados";
-
     }
     mostrarMemorandosRecebidos(){
         this.vizualizando="Recebidos";
@@ -59,8 +63,9 @@ export class HomeComponent implements OnInit {
                     {label: 'Enviar',
                     command: (event: Event) => {this.enviarMemorando();}},
                     {label: 'Mostrar Enviados',
-                    command: (event: Event) => { }},
-                    {label: 'Mostrar Recebidos'}
+                    command: (event: Event) => { this.mostrarMemorandosEnviados();}},
+                    {label: 'Mostrar Recebidos',
+                    command: (event: Event) => { this.mostrarMemorandosRecebidos();}}
                 ]
             },
             {
