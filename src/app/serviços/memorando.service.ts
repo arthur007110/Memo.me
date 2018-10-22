@@ -9,7 +9,7 @@ export class MemorandoService {
   constructor() { }
 
   memorando = new Memorando("teste",12345,12355,"20-10-2018");
-  memorandos:Memorando[] = [this.memorando];
+  memorandos:Memorando[] = [this.memorando,this.memorando,this.memorando,this.memorando];
 
   public getMemorandos(){
     return this.memorandos;

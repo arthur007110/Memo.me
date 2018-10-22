@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { CadastroComponent } from './cadastro-usuario/cadastro.component';
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
-import { AtualizarMemorandosComponent } from './atualizar-memorandos/atualizar-memorandos.component';
 import { HomeComponent } from './home/home.component';
 
 
@@ -22,17 +21,10 @@ import {CardModule} from 'primeng/card';
 import {MenubarModule} from 'primeng/menubar';
 import {SidebarModule} from 'primeng/sidebar';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { AtualizarSetorComponent } from './atualizar-setor/atualizar-setor.component';
 
-<<<<<<< HEAD
 
 
-=======
-import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
-import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
-import { UsuarioService } from './serviços/usuario.service;
-import { AtualizarMemorandosComponent } from './atualizar-memorandos/atualizar-memorandos.component;
-import { AtualizarSetorComponent } from './atualizar-setor/atualizar-setor.component''';
->>>>>>> 81bc4e8406c1293ff6b580bbbc9cbfd4c02955e4
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -49,14 +41,8 @@ export const rotas: Routes = [
     CadastroComponent,
     HomeComponent,
     CadastroSetorComponent,
-<<<<<<< HEAD
     EnvioMemorandoComponent,
-    AtualizarMemorandosComponent
-=======
-    EnvioMemorandoComponen,
-    AtualizarMemorandosComponent,
-    AtualizarSetorComponentt
->>>>>>> 81bc4e8406c1293ff6b580bbbc9cbfd4c02955e4
+    AtualizarSetorComponent
   ],
   imports: [
     BrowserModule,
