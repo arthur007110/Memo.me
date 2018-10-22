@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from '../models/Usuario';
-import { SetorService } from '../serviços/setor.service';
-import { UsuarioService } from '../serviços/usuario.service';
-import { Location } from '@angular/common';
+import { SetorService } from 'src/app/serviços/setor.service';
+
 
 @Component({
   selector: 'app-cadastro-setor',
@@ -11,45 +9,51 @@ import { Location } from '@angular/common';
   styleUrls: ['./cadastro-setor.component.css']
 })
 export class CadastroSetorComponent implements OnInit {
-
+ HEAD
   nome: string;
-  usuarios: Usuario[];
-  usuarioSelecionado: Usuario;
-  msgErro: boolean = false;
+  id: number;
+  id2: number;
+  constructor(private router: Router, private SetorService: SetorService) { }
 
-  constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService, private location: Location) {}
 
   siape:string;
 
+
   ngOnInit() {
-    this.getUsuarios();
-    this.siape=sessionStorage.getItem("siape");
   }
 
   irParaTelaDeSetores(){
     this.router.navigate(["/setores"])
   }
 
-  cadastrarSetor(){
-    if(this.nome != null && this.nome.length >= 5 && this.usuarioSelecionado != null){
-      if(this.setorService.getSetorPorNome(this.nome)){
-        this.msgErro = true;
-      }else{
-        this.setorService.setSetor(this.nome, this.usuarioSelecionado);
-        this.voltar();
+  cadastrar(){
+    if(this.verificarCampos()){
+      if(this.SetorService.validadeID(this.id)==true){
+        this.SetorService.setSetor(this.nome, this.id)
+        alert("Setor já Cadastrado");
+        this.irParaTelaHome();
       }
+
     }
-  }
 
-  voltar(){
-    this.location.back();
   }
+  irParaTelaHome(){
+    this.router.navigate(['/home',this.siape]);
 
-  mostrarMsg(){
-    this.msgErro = false;
   }
-
-  getUsuarios(){
-    this.usuarios = this.usuarioService.getUsuarios();
+  verificarCampos(){
+    if(this.nome != null && this.id != null){
+      if(this.id == this.id2){
+        return true;
+      }
+        else{
+          alert("Confira o campo das ID's");
+          return false
+        }
+      }else{
+        alert("Existem campos que ainda não foram preenchidos.");
+        return false;
+      
+    }
   }
 }

@@ -1,20 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Setor } from '../models/Setor';
-import { Usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SetorService {
-
+  
   constructor() { }
 
-  setor = new Setor(0,"Teste",new Usuario(2,"","","",""));
+  //setor = new Setor(0,"Teste");
+  setores: Setor[] //= [this.setor];
 
-  setores: Setor[] = [this.setor];
+  addSetores(setor){
+   
 
-  //setores: Setor[] = [];
-
+  }
+  validadeID(setorId:number){
+    for(let i=this.setores.length;i>0;i--){
+      if(this.setores[i].getId()==setorId){
+        return false;
+      }
+    }
+    return true;
+    
+  }
   getSetores(){
     return this.setores;
   }
