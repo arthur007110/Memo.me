@@ -35,16 +35,8 @@ export class HomeComponent implements OnInit {
         this.vizualizando="Recebidos";
         this.memorandos=this.memorandoS.getMemorandos();
         this.setores=this.setorS.getSetores();
-        this.prepararExibicao();
-
     }
-    prepararExibicao(){
-
-        for(let i=0;i<this.memorandos.length;i++){
-            this.memorandos[i].setNomeSetorEmissor(this.setorS.getNameById(this.memorandos[i].getsetorEmissor));
-        }
-
-    }
+    
 
     listarSetores(){
 

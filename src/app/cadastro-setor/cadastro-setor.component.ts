@@ -22,6 +22,7 @@ export class CadastroSetorComponent implements OnInit {
   ngOnInit() {
   }
 
+<<<<<<< HEAD
   irParaTelaDeSetores(){
     this.router.navigate(["/setores"])
   }
@@ -32,6 +33,15 @@ export class CadastroSetorComponent implements OnInit {
         this.SetorService.setSetor(this.nome, this.id)
         alert("Setor já Cadastrado");
         this.irParaTelaHome();
+=======
+  cadastrarSetor(){
+    if(this.nome != null && this.nome.length >= 5 && this.usuarioSelecionado != null){
+      if(this.setorService.getSetorPorNome(this.nome)){
+        this.msgErro = true;
+      }else{
+        this.setorService.setSetor(this.nome, this.usuarioSelecionado);
+        this.voltar();
+>>>>>>> parent of abe6e73... cadastro setor
       }
 
     }

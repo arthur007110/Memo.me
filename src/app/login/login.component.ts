@@ -15,8 +15,12 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private usuarioService: UsuarioService) { }
 
   ngOnInit(){
+<<<<<<< HEAD
     this.siape="1234566";
     this.senha="a";
+=======
+
+>>>>>>> parent of abe6e73... cadastro setor
   }
 
   logar(){
