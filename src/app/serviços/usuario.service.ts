@@ -5,8 +5,12 @@ import { Usuario } from '../models/Usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  adm = new Usuario(0, "admin", "1234567", "admin","12345");
-  user = new Usuario(1, "a", "1234566", "a","11111");
+  adm = new Usuario(0, "admin", "1234567", "admin",null);
+  user = new Usuario(1, "a", "1234566", "a",null);
+  user2 = new Usuario(3, "a", "2234566", "a",null);
+  user3 = new Usuario(4, "a", "3234566", "a",null);
+  user4 = new Usuario(5, "a", "4234566", "a",null);
+  user5 = new Usuario(6, "a", "5234566", "a",null);
   usuarios: Usuario[] = [this.adm, this.user];
   
 

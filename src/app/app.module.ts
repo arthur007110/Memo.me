@@ -31,6 +31,8 @@ import { UsuarioService } from './serviços/usuario.service';
 import { AtualizarSetorComponent } from './atualizar-setor/atualizar-setor.component';
 import { HomeAdmComponent } from './home-adm/home-adm.component';
 import { ExibicaoMemorandoComponent } from './exibicao-memorando/exibicao-memorando.component';
+import { ExibirMemorandosRecebidosComponent } from './exibir-memorandos-recebidos/exibir-memorandos-recebidos.component';
+import { ExibirMemorandosEnviadosComponent } from './exibir-memorandos-enviados/exibir-memorandos-enviados.component';
 import { ListagemDeSetorComponent } from './listagem-de-setor/listagem-de-setor.component';
 
 export const rotas: Routes = [
@@ -42,6 +44,8 @@ export const rotas: Routes = [
   { path: 'home-adm/:id', component: HomeAdmComponent},
   { path: 'atualizar-setor', component: AtualizarSetorComponent},
   { path: 'vizualizar/:id', component: ExibicaoMemorandoComponent},
+  { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},
+  { path: 'enviados/:id', component: ExibirMemorandosEnviadosComponent},
 ];
 
 @NgModule({
@@ -56,7 +60,9 @@ export const rotas: Routes = [
     AtualizarSetorComponent,
     HomeAdmComponent,
     ExibicaoMemorandoComponent,
-    ListagemDeSetorComponent
+    ListagemDeSetorComponent,
+    ExibirMemorandosRecebidosComponent,
+    ExibirMemorandosEnviadosComponent,
   ],
   imports: [
     BrowserModule,

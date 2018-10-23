@@ -36,8 +36,7 @@ export class CadastroSetorComponent implements OnInit {
 
         // Obtém o id do setor e do usuário
         let idDoSetor = this.setorService.getSetores().length;
-        let idDoUsuario = this.usuarioSelecionado.getID()
-
+        let idDoUsuario = this.usuarioSelecionado.getID();
         this.usuarioService.atualizaSetorDeUsuario(idDoUsuario, idDoSetor);
         this.voltar();
       }

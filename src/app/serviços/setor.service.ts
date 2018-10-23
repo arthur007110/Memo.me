@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Setor } from '../models/Setor';
+import { Usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,8 @@ export class SetorService {
   
   constructor() { }
 
-  //setor = new Setor(0,"Teste");
-  setores: Setor[] = [];
+  setor = new Setor(0,"Teste",new Usuario("","","","",""));
+  setores: Setor[] = [this.setor];
 
   getSetores(){
     return this.setores;
@@ -23,7 +24,8 @@ export class SetorService {
     }
   }
   setSetor(nome, usuario){
-    let setor = new Setor(this.setores.length, nome, usuario);
+    let id = this.setores
+    let setor = new Setor(this.setores.length+1, nome, usuario);
     this.setores.push(setor);
   }
 
