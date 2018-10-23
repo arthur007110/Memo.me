@@ -23,6 +23,15 @@ export class SetorService {
       }
     }
   }
+
+  getSetorPorId(id){
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].id == id){
+        return this.setores[i];
+      }
+    }
+  }
+
   setSetor(nome, usuario){
     let id = this.setores
     let setor = new Setor(this.setores.length+1, nome, usuario);
