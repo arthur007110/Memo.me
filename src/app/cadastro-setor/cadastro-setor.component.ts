@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 export class CadastroSetorComponent implements OnInit {
 
   nome: string;
-  usuarios: Usuario[];
+  usuarios: Usuario[] = [];
   usuarioSelecionado: Usuario;
   msgErro: boolean = false;
 
@@ -33,6 +33,12 @@ export class CadastroSetorComponent implements OnInit {
         this.msgErro = true;
       }else{
         this.setorService.setSetor(this.nome, this.usuarioSelecionado);
+
+        // Obtém o id do setor e do usuário
+        let idDoSetor = this.setorService.getSetores().length;
+        let idDoUsuario = this.usuarioSelecionado.getID()
+
+        this.usuarioService.atualizaSetorDeUsuario(idDoUsuario, idDoSetor);
         this.voltar();
       }
     }
@@ -47,9 +53,15 @@ export class CadastroSetorComponent implements OnInit {
   }
 
   getUsuarios(){
-    this.usuarios = this.usuarioService.getUsuarios();
-    console.log(this.usuarios[0].getNome());
-    console.log(this.usuarios[1].getNome());
+    this.usuarios = [];
+    let usuariosCadastrados = this.usuarioService.getUsuarios();
+
+    //Busca apenas os usuários que não possuem um setor cadastrado.
+    for(let i = 0; i < usuariosCadastrados.length; i++){
+      if(usuariosCadastrados[i].getsetor() == null){
+        this.usuarios.push(usuariosCadastrados[i]);
+      }
+    }
   }
   
 }

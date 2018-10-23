@@ -48,4 +48,12 @@ export class UsuarioService {
     //Salva usuário no array
     this.usuarios.push(new Usuario(id, nome, siape, senha, setor));
   }
+
+  atualizaSetorDeUsuario(id, idDoSetor){
+    for(let i = 0; i < this.usuarios.length; i++){
+      if(this.usuarios[i].getID() == id){
+        this.usuarios[i].setsetor(idDoSetor);
+      }
+    }
+  }
 }

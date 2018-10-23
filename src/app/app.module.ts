@@ -31,6 +31,7 @@ import { UsuarioService } from './serviços/usuario.service';
 import { AtualizarSetorComponent } from './atualizar-setor/atualizar-setor.component';
 import { HomeAdmComponent } from './home-adm/home-adm.component';
 import { ExibicaoMemorandoComponent } from './exibicao-memorando/exibicao-memorando.component';
+import { ListagemDeSetorComponent } from './listagem-de-setor/listagem-de-setor.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -55,6 +56,7 @@ export const rotas: Routes = [
     AtualizarSetorComponent,
     HomeAdmComponent,
     ExibicaoMemorandoComponent,
+    ListagemDeSetorComponent
   ],
   imports: [
     BrowserModule,

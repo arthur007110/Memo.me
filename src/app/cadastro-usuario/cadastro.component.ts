@@ -35,7 +35,7 @@ export class CadastroComponent implements OnInit {
 
       if(this.usuarioService.getUsuariosPorSiape(this.siape) == null){
 
-        this.usuarioService.setUsuario(this.nome, this.siape, this.senha, 0);
+        this.usuarioService.setUsuario(this.nome, this.siape, this.senha, null);
         alert("Usuário cadastrado.");
         this.irParaTelaDeLogin();
 

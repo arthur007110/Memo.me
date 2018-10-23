@@ -18,10 +18,8 @@ export class HomeAdmComponent implements OnInit {
   usuario: Usuario;
 
   items: MenuItem[];
-  setores: Setor[];
-  colunas: any[];
 
-  constructor(private router: Router, private setorService: SetorService, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
 
   ngOnInit() {
 
@@ -29,7 +27,6 @@ export class HomeAdmComponent implements OnInit {
       this.siape = params['id'];
     });
 
-    this.getSetores();
     this.getUsuario();
     
     this.items = [
@@ -37,10 +34,6 @@ export class HomeAdmComponent implements OnInit {
       {label: 'Atualizar Setor', routerLink: ['/atualizar-setor']}
     ];
 
-  }
-
-  getSetores(){
-    this.setores = this.setorService.getSetores();
   }
 
   getUsuario(){
