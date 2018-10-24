@@ -33,9 +33,13 @@ export class CadastroComponent implements OnInit {
 
       if(this.usuarioService.getUsuariosPorSiape(this.siape) == null){
 
+        if(this.verificaSiapeAvancado()){
+          alert("Por favor, preencha todos os campos da siape");
+        }else{
         this.usuarioService.setUsuario(this.nome, this.siape, this.senha, null);
         alert("Usuário cadastrado.");
         this.irParaTelaDeLogin();
+        }
 
       }else{
 
@@ -59,6 +63,16 @@ export class CadastroComponent implements OnInit {
       alert("Existem campos que ainda não foram preenchidos.");
       return false;
     }
+  }
+  verificaSiapeAvancado(){
+
+    for(let i=0;i<this.siape.length;i++){
+      if(this.siape.charAt(i)=='_'){
+        return true;
+      }
+    }
+    return false;
+
   }
 
 
