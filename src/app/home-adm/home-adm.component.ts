@@ -23,6 +23,7 @@ export class HomeAdmComponent implements OnInit {
 
   ngOnInit() {
 
+    
     this.sub = this.route.params.subscribe(params => {
       this.siape = params['id'];
     });
