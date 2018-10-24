@@ -10,16 +10,27 @@ import { Location } from '@angular/common';
 })
 export class AtualizarSetorComponent implements OnInit {
   novoNome: string;
-  idSetor: Number;
+  nomeAntigo: string;
   
   constructor(private router: Router,private setorS: SetorService,private location: Location) { }
 
-  atualizarSetor(idSetor){
-    
-    for(let i = 0; i < this.setorS.setores.length; i++){
-      if(idSetor=this.setorS.setores[i].getId()){
-        this.setorS.setores[i].setNome(this.novoNome);
-
+  atualizarSetor(){
+    if(this.novoNome == null || this.nomeAntigo == null || this.novoNome.length == 0 || this.nomeAntigo.length == 0){
+      alert("Preencha todos os campos.");
+    }else if(this.novoNome.length < 5){
+      alert("O nome do setor precisa ter no mínimo 5 caractéres");
+    }else{
+      if(this.setorS.getSetorPorNome(this.nomeAntigo) == null){
+        alert("O setor " + this.nomeAntigo + " não está cadastrado no sistema.");
+      }else if(this.setorS.getSetorPorNome(this.novoNome) != null){
+        alert("Já existe um setor cadastrado com esse nome.");
+      }else{
+        for(let i = 0; i < this.setorS.setores.length; i++){
+          if(this.nomeAntigo==this.setorS.setores[i].getNome()){
+            this.setorS.setores[i].setNome(this.novoNome);
+            this.voltar();
+          }
+        }
       }
     }
   }

@@ -52,7 +52,7 @@ export class CadastroComponent implements OnInit {
 
   verificarCampos(){
     //Verifica se não há campos vazios ou se as senhas não são iguais
-    if(this.nome != null && this.siape != null && this.siape.charAt(0) != "_" && this.senha != null && this.senha2 != null){
+    if(this.nome != null && this.siape != null && this.senha != null && this.senha2 != null){
       if(this.senha == this.senha2){
           return true;
       }else{
