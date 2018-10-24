@@ -12,7 +12,7 @@ export class UsuarioService {
   //user4 = new Usuario(5, "a", "4234566", "a",null);
   //user5 = new Usuario(6, "a", "5234566", "a",null);
   //usuarios: Usuario[] = [this.adm, this.user];
-  usuarios: Usuario[] = [];
+  usuarios: Usuario[] = [this.adm];
   
 
   constructor() { }
