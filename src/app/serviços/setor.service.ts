@@ -9,8 +9,9 @@ export class SetorService {
   
   constructor() { }
 
-  setor = new Setor(0,"Teste",new Usuario("","","","",""));
-  setores: Setor[] = [this.setor];
+  //setor = new Setor(0,"Teste",new Usuario("","","","",""));
+  //setores: Setor[] = [this.setor];
+  setores: Setor[] = [];
 
   getSetores(){
     return this.setores;
