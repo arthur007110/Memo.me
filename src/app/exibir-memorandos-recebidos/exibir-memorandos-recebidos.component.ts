@@ -5,23 +5,25 @@ import { Memorando } from '../models/Memorando';
 import { MemorandoService } from '../serviços/memorando.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
+import { UsuarioService } from '../serviços/usuario.service';
+import { Usuario } from '../models/Usuario';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './exibir-memorandos-recebidos.component.html',
+  styleUrls: ['./exibir-memorandos-recebidos.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ExibirMemorandosRecebidosComponent implements OnInit {
 
-  constructor(private router: Router, private memorandoS: MemorandoService, private setorS: SetorService) { }
+  constructor(private router: Router, private memorandoS: MemorandoService, private setorS: SetorService, private usuarioS: UsuarioService) { }
 
     items: MenuItem[];
     siape:string;
     memorandos:Memorando[];
     setores:Setor[];
+    usuario:Usuario;
 
     deslogar(){
-        sessionStorage.removeItem("siape");
         this.router.navigate(['/login']);
     }
     enviarMemorando(){
@@ -38,7 +40,15 @@ export class HomeComponent implements OnInit {
     mostrarMemorandosRecebidos(){
         this.router.navigate(['recebidos',this.siape]);
     }
-    
+    listarMemorandos(){
+
+    this.memorandos=this.memorandoS.getMemorandosRecebidosSetor(this.usuario.getsetor());
+
+    }
+
+    reconhecerUsuario(){
+        this.usuario=this.usuarioS.getUsuariosPorSiape(this.siape);
+    }
 
     listarSetores(){
 
@@ -52,7 +62,10 @@ export class HomeComponent implements OnInit {
     ngOnInit(){
 
         this.siape = sessionStorage.getItem("siape");
+        this.reconhecerUsuario();
+        this.listarMemorandos();
         
+
         this.items = [
             {
                 label: 'Memorando',

@@ -15,7 +15,7 @@ export class EnvioMemorandoComponent implements OnInit {
 
   setores:Setor[];
   emissor:string;
-  destinatario:string;
+  destinatario:Setor;
   mensagem:string;
   now= new Date;
   siape:string;
@@ -31,7 +31,7 @@ export class EnvioMemorandoComponent implements OnInit {
   enviarMemorando(){
     this.identificarServidorEmissor();
     this.gerarData();
-    this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario,this.data);
+    this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario.getId(),this.data);
     this.memorandoS.setMemorando(this.memorando);
     this.router.navigate(['home',this.siape]);
   }

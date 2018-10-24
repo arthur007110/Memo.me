@@ -12,6 +12,7 @@ export class ExibicaoMemorandoComponent implements OnInit {
 
   mensagem:string;
   id:string;
+  siape:string;
   memorando:Memorando;
 
 
@@ -19,13 +20,22 @@ export class ExibicaoMemorandoComponent implements OnInit {
 
   marcarVisto(){
 
+    this.memorandoS.getMemorandoPorId(this.id).marcarComoVisto();
+    this.router.navigate(['/home',this.siape]);
+
   }
   receberMemorandos(){
     this.memorando=this.memorandoS.getMemorandoPorId(this.id);
   }
+  exibirMensagem(){
+    this.mensagem=this.memorando.getmensagem();
+  }
 
   ngOnInit() {
     this.id=sessionStorage.getItem("id");
+    this.siape=sessionStorage.getItem("siape");
+    this.receberMemorandos();
+    this.exibirMensagem();
   }
 
 }

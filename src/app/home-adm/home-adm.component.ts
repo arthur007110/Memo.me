@@ -41,6 +41,7 @@ export class HomeAdmComponent implements OnInit {
   }
 
   deslogar(){
+    sessionStorage.removeItem("siape");
     this.router.navigate(['/login']);
   }
 
