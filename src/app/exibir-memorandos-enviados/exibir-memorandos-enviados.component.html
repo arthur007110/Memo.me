@@ -14,16 +14,19 @@
   <p-table [value]="memorandos">
     <ng-template pTemplate="header">
         <tr>
-            <th>ID Do Setor</th>
+            <th>ID Do Setor Destinatario</th>
             <th>Data</th>
             <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-memorando>
         <tr>
-            <td>{{memorando.idSetorEmissor}}</td>
+            <td>{{memorando.idSetorDestinatario}}</td>
             <td>{{memorando.dataEnvio}}</td>
-            <td><p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(0)"></p-button></td>
+            <td>
+            <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(0)"></p-button>
+            <p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" [(ngModel)]="memorando.visto" disabled></p-toggleButton>
+            </td>
         </tr>
     </ng-template>
   </p-table>

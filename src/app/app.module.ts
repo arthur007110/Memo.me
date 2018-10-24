@@ -23,6 +23,7 @@ import {MessageModule} from 'primeng/message';
 import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
@@ -34,6 +35,7 @@ import { ExibicaoMemorandoComponent } from './exibicao-memorando/exibicao-memora
 import { ExibirMemorandosRecebidosComponent } from './exibir-memorandos-recebidos/exibir-memorandos-recebidos.component';
 import { ExibirMemorandosEnviadosComponent } from './exibir-memorandos-enviados/exibir-memorandos-enviados.component';
 import { ListagemDeSetorComponent } from './listagem-de-setor/listagem-de-setor.component';
+import { ExibicaoMemorandoEnviadoComponent } from './exibicao-memorando-enviado/exibicao-memorando-enviado.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -44,6 +46,7 @@ export const rotas: Routes = [
   { path: 'home-adm/:id', component: HomeAdmComponent},
   { path: 'atualizar-setor', component: AtualizarSetorComponent},
   { path: 'vizualizar/:id', component: ExibicaoMemorandoComponent},
+  { path: 'vizualizar-enviado/:id', component: ExibicaoMemorandoEnviadoComponent},
   { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},
   { path: 'enviados/:id', component: ExibirMemorandosEnviadosComponent},
 ];
@@ -63,6 +66,7 @@ export const rotas: Routes = [
     ListagemDeSetorComponent,
     ExibirMemorandosRecebidosComponent,
     ExibirMemorandosEnviadosComponent,
+    ExibicaoMemorandoEnviadoComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +86,7 @@ export const rotas: Routes = [
     DropdownModule,
     TableModule,
     ScrollPanelModule,
+    ToggleButtonModule,
   ],
   providers: [UsuarioService],
   bootstrap: [AppComponent]

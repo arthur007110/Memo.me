@@ -21,9 +21,10 @@ export class LoginComponent implements OnInit {
 
   logar(){
     if(this.siape != null && this.senha != null){
-      console.log(this.siape);
       let usuario = this.usuarioService.getUsuariosPorSiape(this.siape);
       if(usuario != null){
+        if(usuario.getsetor()!=null){
+          console.log(usuario.getsetor());
         if(usuario.getSenha() == this.senha){
           sessionStorage.setItem("siape",this.siape);
           if(usuario.getID() == 0){
@@ -36,6 +37,9 @@ export class LoginComponent implements OnInit {
           this.siape = null;
           this.senha = null;
         }
+      }else{
+        alert("Este usuario não está cadastrado em nenhum setor, por favor comunique ao ADMIN")
+      }
       }else{
         alert("Não há usuários cadastrados com essa siape.");
         this.siape = null;

@@ -5,7 +5,7 @@ import { Usuario } from '../models/Usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  adm = new Usuario(0, "admin", "1234567", "admin",null);
+  adm = new Usuario(0, "admin", "1234567", "admin","ADMIN");
   user = new Usuario(1, "a", "1234566", "a",null);
   user2 = new Usuario(3, "a", "2234566", "a",null);
   user3 = new Usuario(4, "a", "3234566", "a",null);

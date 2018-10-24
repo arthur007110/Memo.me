@@ -30,10 +30,14 @@ export class EnvioMemorandoComponent implements OnInit {
 
   enviarMemorando(){
     this.identificarServidorEmissor();
+    if(this.verificarConflitoDeSetor()){
+      alert("Não é possivel enviar um memorando para o seu proprio setor");
+    }else{
     this.gerarData();
     this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario.getId(),this.data);
     this.memorandoS.setMemorando(this.memorando);
     this.router.navigate(['home',this.siape]);
+    }
   }
   irParaTelaHome(){
     this.router.navigate(['/home',this.siape]);
@@ -44,7 +48,14 @@ export class EnvioMemorandoComponent implements OnInit {
   receberSetores(){
     this.setores=this.setorS.getSetores();
   }
-  verificar
+  verificarConflitoDeSetor(){
+    let destinaratioId = this.destinatario.getId()+"";
+    if(destinaratioId==this.emissor){
+      return true;
+    }else{
+      return false;
+    }
+  }
   ngOnInit() {
     this.receberSetores();
     this.siape = sessionStorage.getItem("siape");
