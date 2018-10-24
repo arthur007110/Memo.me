@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
     exibirMemorando(i){
         sessionStorage.setItem("id",this.memorandos[i].getId());
         this.router.navigate(['/vizualizar',this.memorandos[i].getId()]);
-
     }
     mostrarMemorandosEnviados(){
         this.router.navigate(['enviados',this.siape]);
@@ -38,19 +37,11 @@ export class HomeComponent implements OnInit {
     mostrarMemorandosRecebidos(){
         this.router.navigate(['recebidos',this.siape]);
     }
-    
-
     listarSetores(){
-
-    }
-    atualizarSetor(){
-
-    }
-    cadastrarSetor(){
-        this.router.navigate(['/cadastro-setor']);
+        this.router.navigate(['listagem-setores/',this.siape]);
     }
     ngOnInit(){
-
+        
         this.siape = sessionStorage.getItem("siape");
         
         this.items = [
@@ -69,15 +60,9 @@ export class HomeComponent implements OnInit {
                 label: 'Setor',
                 icon: '',
                 items: [
-                    {label: 'Cadastrar Setor',
-                    icon: 'pi pi-fw pi-plus',
-                    command: (event: Event) => { this.cadastrarSetor(); }},
                     {label: 'Listar Setores',
                     icon: 'pi pi-fw pi-pencil',
-                    command: (event: Event) => { }},
-                    {label: 'Atualizar Dados do Setor',
-                    icon: 'pi pi-fw pi-refresh',
-                    command: (event: Event) => { }}
+                    command: (event: Event) => { this.listarSetores(); }}
                 ]
             }
         ];

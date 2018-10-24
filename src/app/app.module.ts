@@ -49,6 +49,7 @@ export const rotas: Routes = [
   { path: 'vizualizar-enviado/:id', component: ExibicaoMemorandoEnviadoComponent},
   { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},
   { path: 'enviados/:id', component: ExibirMemorandosEnviadosComponent},
+  { path: 'listagem-setores/:id', component: ListagemDeSetorComponent},
 ];
 
 @NgModule({
