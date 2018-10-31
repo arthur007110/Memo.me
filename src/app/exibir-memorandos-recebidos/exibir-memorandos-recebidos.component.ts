@@ -29,9 +29,9 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     enviarMemorando(){
         this.router.navigate(['/envio-memorando']);
     }
-    exibirMemorando(i){
-        sessionStorage.setItem("id",this.memorandos[i].getId());
-        this.router.navigate(['/vizualizar',this.memorandos[i].getId()]);
+    exibirMemorando(memorando){
+        sessionStorage.setItem("id",memorando.getId());
+        this.router.navigate(['/vizualizar',memorando.getId()]);
 
     }
     mostrarMemorandosEnviados(){
@@ -51,7 +51,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     }
 
     listarSetores(){
-
+        this.router.navigate(['/listagem-setores-de-usuario/', this.siape]);
     }
     atualizarSetor(){
 
@@ -82,15 +82,9 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
                 label: 'Setor',
                 icon: '',
                 items: [
-                    {label: 'Cadastrar Setor',
-                    icon: 'pi pi-fw pi-plus',
-                    command: (event: Event) => { this.cadastrarSetor(); }},
                     {label: 'Listar Setores',
                     icon: 'pi pi-fw pi-pencil',
-                    command: (event: Event) => { }},
-                    {label: 'Atualizar Dados do Setor',
-                    icon: 'pi pi-fw pi-refresh',
-                    command: (event: Event) => { }}
+                    command: (event: Event) => { this.listarSetores()}}
                 ]
             }
         ];

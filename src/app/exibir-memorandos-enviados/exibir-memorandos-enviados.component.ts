@@ -29,16 +29,16 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     enviarMemorando(){
         this.router.navigate(['/envio-memorando']);
     }
-    exibirMemorando(i){
-        sessionStorage.setItem("id",this.memorandos[i].getId());
-        this.router.navigate(['vizualizar-enviado/',this.memorandos[i].getId()]);
+    exibirMemorando(memorando){
+        sessionStorage.setItem("id",memorando.getId());
+        this.router.navigate(['vizualizar-enviado/',memorando.getId()]);
 
     }
     mostrarMemorandosEnviados(){
-        this.router.navigate(['enviados',this.siape]);
+        this.router.navigate(['/enviados',this.siape]);
     }
     mostrarMemorandosRecebidos(){
-        this.router.navigate(['recebidos',this.siape]);
+        this.router.navigate(['/recebidos',this.siape]);
     }
     listarMemorandos(){
 
@@ -51,7 +51,7 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     }
 
     listarSetores(){
-
+        this.router.navigate(['listagem-setores-de-usuario/', this.siape]);
     }
     atualizarSetor(){
 
@@ -82,15 +82,10 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
                 label: 'Setor',
                 icon: '',
                 items: [
-                    {label: 'Cadastrar Setor',
-                    icon: 'pi pi-fw pi-plus',
-                    command: (event: Event) => { this.cadastrarSetor(); }},
+                    
                     {label: 'Listar Setores',
                     icon: 'pi pi-fw pi-pencil',
-                    command: (event: Event) => { }},
-                    {label: 'Atualizar Dados do Setor',
-                    icon: 'pi pi-fw pi-refresh',
-                    command: (event: Event) => { }}
+                    command: (event: Event) => { this.listarSetores() }},
                 ]
             }
         ];

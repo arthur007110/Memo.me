@@ -36,6 +36,7 @@ import { ExibirMemorandosRecebidosComponent } from './exibir-memorandos-recebido
 import { ExibirMemorandosEnviadosComponent } from './exibir-memorandos-enviados/exibir-memorandos-enviados.component';
 import { ListagemDeSetorComponent } from './listagem-de-setor/listagem-de-setor.component';
 import { ExibicaoMemorandoEnviadoComponent } from './exibicao-memorando-enviado/exibicao-memorando-enviado.component';
+import { ListagemDeSetorDoUsuarioComponent } from './listagem-de-setor-do-usuario/listagem-de-setor-do-usuario.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -49,7 +50,7 @@ export const rotas: Routes = [
   { path: 'vizualizar-enviado/:id', component: ExibicaoMemorandoEnviadoComponent},
   { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},
   { path: 'enviados/:id', component: ExibirMemorandosEnviadosComponent},
-  { path: 'listagem-setores/:id', component: ListagemDeSetorComponent},
+  { path: 'listagem-setores-de-usuario/:id', component: ListagemDeSetorDoUsuarioComponent},
 ];
 
 @NgModule({
@@ -68,6 +69,7 @@ export const rotas: Routes = [
     ExibirMemorandosRecebidosComponent,
     ExibirMemorandosEnviadosComponent,
     ExibicaoMemorandoEnviadoComponent,
+    ListagemDeSetorDoUsuarioComponent
   ],
   imports: [
     BrowserModule,

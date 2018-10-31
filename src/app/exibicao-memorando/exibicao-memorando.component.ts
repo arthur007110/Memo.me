@@ -21,8 +21,8 @@ export class ExibicaoMemorandoComponent implements OnInit {
   marcarVisto(){
 
     this.memorandoS.getMemorandoPorId(this.id).marcarComoVisto();
+    sessionStorage.removeItem("id");
     this.router.navigate(['/home',this.siape]);
-
   }
   receberMemorandos(){
     this.memorando=this.memorandoS.getMemorandoPorId(this.id);

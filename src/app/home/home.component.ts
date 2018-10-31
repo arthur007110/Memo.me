@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['recebidos',this.siape]);
     }
     listarSetores(){
-        this.router.navigate(['listagem-setores/',this.siape]);
+        this.router.navigate(['listagem-setores-de-usuario/',this.siape]);
     }
     ngOnInit(){
         

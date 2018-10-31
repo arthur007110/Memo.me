@@ -8,7 +8,7 @@
   Menu
 </p-sidebar>
 <p-card title="Memorandos">
-<h3>{{vizualizando}}</h3>
+<h3>Enviados</h3>
 
 <p-card title="">
   <p-table [value]="memorandos">
@@ -24,7 +24,7 @@
             <td>{{memorando.idSetorDestinatario}}</td>
             <td>{{memorando.dataEnvio}}</td>
             <td>
-            <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(0)"></p-button>
+            <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)"></p-button>
             <p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" [(ngModel)]="memorando.visto" disabled></p-toggleButton>
             </td>
         </tr>

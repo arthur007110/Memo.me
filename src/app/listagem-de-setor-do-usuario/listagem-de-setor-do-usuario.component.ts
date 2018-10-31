@@ -4,13 +4,13 @@ import { SetorService } from '../serviços/setor.service';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 
-@Component({
-  selector: 'app-listagem-de-setor',
-  templateUrl: './listagem-de-setor.component.html',
-  styleUrls: ['./listagem-de-setor.component.css']
-})
-export class ListagemDeSetorComponent implements OnInit {
 
+@Component({
+  selector: 'app-listagem-de-setor-do-usuario',
+  templateUrl: './listagem-de-setor-do-usuario.component.html',
+  styleUrls: ['./listagem-de-setor-do-usuario.component.css']
+})
+export class ListagemDeSetorDoUsuarioComponent implements OnInit {
   setores: Setor[];
   items: MenuItem[];
   siape:string;
@@ -19,13 +19,13 @@ export class ListagemDeSetorComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   enviarMemorando(){
-    this.router.navigate(['/envio-memorando']);
+    this.router.navigate(["/envio-memorando"]);
   }
   mostrarMemorandosEnviados(){
-    this.router.navigate(['enviados',this.siape]);
+    this.router.navigate(["/enviados/", this.siape]);
   }
   mostrarMemorandosRecebidos(){
-    this.router.navigate(['recebidos',this.siape]);
+  this.router.navigate(["/recebidos/", this.siape]);
   }
   listarSetores(){
     this.router.navigate(['/listagem-de-setor']);
@@ -39,6 +39,7 @@ export class ListagemDeSetorComponent implements OnInit {
   constructor(private setorService: SetorService, private router: Router) { }
 
   ngOnInit() {
+    this.siape = sessionStorage.getItem("siape");
     this.getSetores();
     this.items = [
       {
