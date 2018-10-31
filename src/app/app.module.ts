@@ -24,6 +24,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import {ToastModule} from 'primeng/toast';
 
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
@@ -69,7 +70,8 @@ export const rotas: Routes = [
     ExibirMemorandosRecebidosComponent,
     ExibirMemorandosEnviadosComponent,
     ExibicaoMemorandoEnviadoComponent,
-    ListagemDeSetorDoUsuarioComponent
+    ListagemDeSetorDoUsuarioComponent,
+    ToastModule,
   ],
   imports: [
     BrowserModule,

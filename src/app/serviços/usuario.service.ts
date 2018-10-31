@@ -61,4 +61,52 @@ export class UsuarioService {
       }
     }
   }
+
+
+  verificarUsuario(nome,siape,senha,senha2){
+    if(this.verificarCampos(nome,siape,senha,senha2)){
+
+      if(this.getUsuariosPorSiape(siape) == null){
+
+        if(this.verificaSiapeAvancado(siape)){
+          alert("Por favor, preencha todos os campos da siape");
+        }else{
+        this.setUsuario(nome,siape,senha,null);
+        return true;
+        }
+
+      }else{
+        return false;
+       // this.msgErroSiape = true;
+       // this.siape = null;
+
+      }
+    }
+  }
+
+  verificarCampos(nome,siape,senha,senha2){
+    //Verifica se não há campos vazios ou se as senhas não são iguais
+    if(nome != null && siape != null && senha != null && senha2 != null){
+      if(senha == senha2){
+          return true;
+      }else{
+        //this.msgErroSenha = true;
+        return false;
+      }
+    }else{
+      alert("Existem campos que ainda não foram preenchidos.");
+      return false;
+    }
+  }
+  verificaSiapeAvancado(siape){
+
+    for(let i=0;i<siape.length;i++){
+      if(siape.charAt(i)=='_'){
+        return true;
+      }
+    }
+    return false;
+
+  }
+  
 }
