@@ -7,6 +7,8 @@ import { MessageService } from 'primeng/api';
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css'],
+  providers: [MessageService]
+
 })
 export class CadastroComponent implements OnInit {
 
@@ -22,27 +24,38 @@ export class CadastroComponent implements OnInit {
   constructor(private router: Router, private usuarioService: UsuarioService,private messageService: MessageService) { }
 
   ngOnInit() {
-
   }
 
   irParaTelaDeLogin(){
-    this.router.navigate(["/login"])
+    this.router.navigate(["/login"]);
+    return null;
   }
 
   cadastrar(){
     if(this.usuarioService.verificarUsuario(this.nome,this.siape,this.senha,this.senha2)){
-
       this.mostrarSucesso();
-
+      this.executarTimer();
     }else{
       this.msgErroSiape = true;
     }
+  }
+  executarTimer(){
 
-    
+    let timeLeft: number = 1;
+    let interval;
+
+    interval = setInterval(() => {
+      if(timeLeft > 0) {
+        timeLeft--;
+      } else {
+        clearInterval(interval);
+        this.irParaTelaDeLogin();
+      }
+    },1000);
   }
 
   mostrarSucesso() {
-    this.messageService.add({severity:'Cadastrado', summary: 'Success Message', detail:'Cadastro feito com sucesso!'});
+    this.messageService.add({severity:'success', summary: 'Cadastrado!', detail:'cadastro feito com sucesso'});
 }
 
 }

@@ -71,7 +71,7 @@ export const rotas: Routes = [
     ExibirMemorandosEnviadosComponent,
     ExibicaoMemorandoEnviadoComponent,
     ListagemDeSetorDoUsuarioComponent,
-    ToastModule,
+    
   ],
   imports: [
     BrowserModule,
@@ -92,6 +92,7 @@ export const rotas: Routes = [
     TableModule,
     ScrollPanelModule,
     ToggleButtonModule,
+    ToastModule,
   ],
   providers: [UsuarioService],
   bootstrap: [AppComponent]

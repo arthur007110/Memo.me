@@ -94,7 +94,6 @@ export class UsuarioService {
         return false;
       }
     }else{
-      alert("Existem campos que ainda não foram preenchidos.");
       return false;
     }
   }
