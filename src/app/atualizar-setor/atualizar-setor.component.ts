@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SetorService } from '../serviços/setor.service';
-import { Location } from '@angular/common';
+import { Setor } from '../models/Setor';
 
 @Component({
   selector: 'app-atualizar-setor',
@@ -9,36 +9,36 @@ import { Location } from '@angular/common';
   styleUrls: ['./atualizar-setor.component.css']
 })
 export class AtualizarSetorComponent implements OnInit {
-  novoNome: string;
-  nomeAntigo: string;
+  siape: string;
+  setores: Setor[] = [];
+  setorSelecionado: Setor;
+  novoNome: string = "";
+  msgErro: boolean = false;
   
-  constructor(private router: Router,private setorS: SetorService,private location: Location) { }
+  constructor(private router: Router,private setorService: SetorService) { }
 
   atualizarSetor(){
-    if(this.novoNome == null || this.nomeAntigo == null || this.novoNome.length == 0 || this.nomeAntigo.length == 0){
-      alert("Preencha todos os campos.");
-    }else if(this.novoNome.length < 5){
-      alert("O nome do setor precisa ter no mínimo 5 caractéres");
-    }else{
-      if(this.setorS.getSetorPorNome(this.nomeAntigo) == null){
-        alert("O setor " + this.nomeAntigo + " não está cadastrado no sistema.");
-      }else if(this.setorS.getSetorPorNome(this.novoNome) != null){
-        alert("Já existe um setor cadastrado com esse nome.");
+    if(this.novoNome.length > 0 && this.setorSelecionado != null){
+      if(this.setorService.getSetorPorNome(this.novoNome) != null && this.novoNome != this.setorSelecionado.getNome()){
+        this.msgErro = true;
       }else{
-        for(let i = 0; i < this.setorS.setores.length; i++){
-          if(this.nomeAntigo==this.setorS.setores[i].getNome()){
-            this.setorS.setores[i].setNome(this.novoNome);
-            this.voltar();
-          }
-        }
+        this.setorService.atualizarSetor(this.setorSelecionado.getId(), this.novoNome);
+        this.router.navigate(['/listar-setores', this.siape]);
       }
     }
   }
-  voltar(){
-    this.location.back();
-  }
 
   ngOnInit() {
+    this.siape = sessionStorage.getItem("siape");
+    this.getSetores();
+  }
+
+  getSetores(){
+    this.setores = this.setorService.getSetores();
+  }
+
+  mostrarMsg(){
+    this.msgErro = false;
   }
 
 }

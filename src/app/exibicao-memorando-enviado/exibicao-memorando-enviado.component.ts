@@ -16,11 +16,11 @@ export class ExibicaoMemorandoEnviadoComponent implements OnInit {
   memorando:Memorando;
 
 
-  constructor(private router: Router,private memorandoS: MemorandoService) { }
+  constructor(private router: Router, private memorandoS: MemorandoService) { }
 
   voltar(){
     sessionStorage.removeItem("id");
-    this.router.navigate(['/home',this.siape]);
+    this.router.navigate(['/enviados',this.siape]);
   }
   receberMemorandos(){
     this.memorando=this.memorandoS.getMemorandoPorId(this.id);

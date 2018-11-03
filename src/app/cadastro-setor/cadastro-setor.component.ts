@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { SetorService } from 'src/app/serviços/setor.service';
 import { Usuario } from '../models/Usuario';
 import { UsuarioService } from '../serviços/usuario.service';
-import { Location } from '@angular/common';
 
 
 @Component({
@@ -18,7 +17,10 @@ export class CadastroSetorComponent implements OnInit {
   usuarioSelecionado: Usuario;
   msgErro: boolean = false;
 
-  constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService, private location: Location){}
+  constructor(
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private setorService: SetorService){}
 
   siape: string;
 
@@ -28,7 +30,7 @@ export class CadastroSetorComponent implements OnInit {
   }
 
   cadastrarSetor(){
-    if(this.nome != null && this.nome.length >= 5 && this.usuarioSelecionado != null){
+    if(this.nome != null && this.usuarioSelecionado != null){
       if(this.setorService.getSetorPorNome(this.nome) != null){
         this.msgErro = true;
       }else{
@@ -38,13 +40,9 @@ export class CadastroSetorComponent implements OnInit {
         let idDoSetor = this.setorService.getSetores().length;
         let idDoUsuario = this.usuarioSelecionado.getID();
         this.usuarioService.atualizaSetorDeUsuario(idDoUsuario, idDoSetor);
-        this.voltar();
+        this.router.navigate(['/listar-setores', this.siape]);
       }
     }
-  }
-
-  voltar(){
-    this.location.back();
   }
 
   mostrarMsg(){

@@ -22,7 +22,11 @@ export class EnvioMemorandoComponent implements OnInit {
   data:string="";
   memorando:Memorando;
 
-  constructor(private router: Router, private memorandoS: MemorandoService, private usuarioS:UsuarioService, private setorS: SetorService) { }
+  constructor(
+    private router: Router,
+    private memorandoS: MemorandoService,
+    private usuarioS:UsuarioService,
+    private setorS: SetorService) { }
 
   gerarData(){
     this.data=(this.now.getDay()+"-"+this.now.getMonth()+"-"+this.now.getFullYear());
@@ -30,35 +34,32 @@ export class EnvioMemorandoComponent implements OnInit {
 
   enviarMemorando(){
     this.identificarServidorEmissor();
-    if(this.verificarConflitoDeSetor()){
-      alert("Não é possivel enviar um memorando para o seu proprio setor");
-    }else{
     this.gerarData();
     this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario.getId(),this.data);
     this.memorandoS.setMemorando(this.memorando);
-    this.router.navigate(['home',this.siape]);
-    }
+    this.router.navigate(['/enviados',this.siape]);
   }
   irParaTelaHome(){
-    this.router.navigate(['/home',this.siape]);
+    this.router.navigate(['/enviados',this.siape]);
   }
   identificarServidorEmissor(){
     this.emissor=this.usuarioS.getUsuariosPorSiape(this.siape).getsetor();
   }
   receberSetores(){
-    this.setores=this.setorS.getSetores();
-  }
-  verificarConflitoDeSetor(){
-    let destinaratioId = this.destinatario.getId()+"";
-    if(destinaratioId==this.emissor){
-      return true;
-    }else{
-      return false;
+    this.setores = [];
+    let setoresCadastrados = this.setorS.getSetores();
+
+    //Excluindo o seu própio setor da lista
+    for(let i = 0; i < setoresCadastrados.length; i++){
+      if(setoresCadastrados[i].getUsuario().getSiape() != this.siape){
+        this.setores.push(setoresCadastrados[i]);
+      }
     }
   }
+
   ngOnInit() {
-    this.receberSetores();
     this.siape = sessionStorage.getItem("siape");
+    this.receberSetores();
   }
 
 }

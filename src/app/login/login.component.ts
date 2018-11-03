@@ -50,11 +50,11 @@ export class LoginComponent implements OnInit {
   }
 
   irParaTelaHome(){
-    this.router.navigate(["/home",this.siape]);
+    this.router.navigate(["/enviados",this.siape]);
   }
   
   irParaTelaHomeAdm(){
-    this.router.navigate(["/home-adm", this.siape]);
+    this.router.navigate(["/listar-setores", this.siape]);
   }
 
   irParaTelaDeCadastro(){

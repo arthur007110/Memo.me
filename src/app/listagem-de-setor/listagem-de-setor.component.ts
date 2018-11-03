@@ -18,50 +18,11 @@ export class ListagemDeSetorComponent implements OnInit {
   deslogar(){
     this.router.navigate(['/login']);
   }
-  enviarMemorando(){
-    this.router.navigate(['/envio-memorando']);
-  }
-  mostrarMemorandosEnviados(){
-    this.router.navigate(['enviados',this.siape]);
-  }
-  mostrarMemorandosRecebidos(){
-    this.router.navigate(['recebidos',this.siape]);
-  }
-  listarSetores(){
-    this.router.navigate(['/listagem-de-setor']);
-  }
-  atualizarSetor(){
 
-  }
-  cadastrarSetor(){
-    this.router.navigate(['/cadastro-setor']);
-  }
   constructor(private setorService: SetorService, private router: Router) { }
 
   ngOnInit() {
     this.getSetores();
-    this.items = [
-      {
-        label: 'Memorando',
-        items: [
-          {label: 'Enviar',
-          command: (event: Event) => {this.enviarMemorando();}},
-          {label: 'Mostrar Enviados',
-          command: (event: Event) => { this.mostrarMemorandosEnviados();}},
-          {label: 'Mostrar Recebidos',
-          command: (event: Event) => { this.mostrarMemorandosRecebidos();}}
-        ]
-      },
-      {
-        label: 'Setor',
-        icon: '',
-        items: [
-          {label: 'Listar Setores',
-          icon: 'pi pi-fw pi-pencil',
-          command: (event: Event) => { this.listarSetores()}}
-        ]
-      }
-    ];
   }
 
   getSetores(){

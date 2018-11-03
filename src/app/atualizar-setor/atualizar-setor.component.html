@@ -1,15 +1,11 @@
-<p-card title="Atualizar Setor">
+<app-home-adm></app-home-adm>
+<p-card title="Atualizar">
   <span class="ui-float-label">
-    <input id="float-input" type="text" size="30" pInputText [(ngModel)]="nomeAntigo" >
-    <label for="float-input">Nome do Setor desejado</label> 
-  </span><br>
-  <span class="ui-float-label">
-    <input id="float-input" type="text" size="30" pInputText [(ngModel)]="novoNome" >
+    <input id="float-input" type="text" size="30" [(ngModel)]="novoNome" (focus)="mostrarMsg()" pInputText>
     <label for="float-input">Novo nome do Setor</label> 
-  </span>
-  <br>
-  <button pButton type="button" label="Atualizar" (click)="atualizarSetor()"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;                                                        
-  <button pButton type="button" label="Voltar" (click)="voltar()"></button>
-  <br>
-  <br>
+  </span><br>
+  <p-dropdown [options]="setores" placeholder="Selecione o Setor" [(ngModel)]="setorSelecionado" optionLabel="nome"></p-dropdown>
+  &#160;&#160;<button pButton type="button" label="Atualizar" (click)="atualizarSetor()"></button>
+  <br *ngIf="setores.length == 0"><br *ngIf="setores.length == 0">&#160;<p-message severity="warn" *ngIf="setores.length == 0" text="Não há setores disponíveis."></p-message>
+  <br *ngIf="msgErro"><br *ngIf="msgErro">&#160;<p-message severity="error" *ngIf="msgErro" text="Já existe um setor com esse nome."></p-message>
 </p-card>

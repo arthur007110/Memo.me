@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Setor } from '../models/Setor';
-import { SetorService } from '../serviços/setor.service';
 import { UsuarioService } from '../serviços/usuario.service';
 import { Usuario } from '../models/Usuario';
 
@@ -31,8 +29,13 @@ export class HomeAdmComponent implements OnInit {
     this.getUsuario();
     
     this.items = [
-      {label: 'Cadastar Setor', routerLink: ['/cadastro-setor']},
-      {label: 'Atualizar Setor', routerLink: ['/atualizar-setor']}
+      {
+        label: 'Opções',
+        items: [
+          {label: 'Atualizar Setor', routerLink: ['/atualizar-setor']},
+          {label: 'Cadastar Setor', routerLink: ['/cadastro-setor']},
+          {label: 'Listar Setores', routerLink: ['/listar-setores', this.siape]}]
+      }
     ];
 
   }

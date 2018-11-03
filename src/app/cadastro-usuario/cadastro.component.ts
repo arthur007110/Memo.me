@@ -26,6 +26,11 @@ export class CadastroComponent implements OnInit {
   ngOnInit() {
   }
 
+  mostrarMsg(){
+    this.msgErroSiape = false;
+    this.msgErroSenha = false;
+  }
+
   irParaTelaDeLogin(){
     this.router.navigate(["/login"]);
     return null;
@@ -56,6 +61,6 @@ export class CadastroComponent implements OnInit {
 
   mostrarSucesso() {
     this.messageService.add({severity:'success', summary: 'Cadastrado!', detail:'cadastro feito com sucesso'});
-}
+  }
 
 }

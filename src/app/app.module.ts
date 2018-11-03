@@ -38,6 +38,7 @@ import { ExibirMemorandosEnviadosComponent } from './exibir-memorandos-enviados/
 import { ListagemDeSetorComponent } from './listagem-de-setor/listagem-de-setor.component';
 import { ExibicaoMemorandoEnviadoComponent } from './exibicao-memorando-enviado/exibicao-memorando-enviado.component';
 import { ListagemDeSetorDoUsuarioComponent } from './listagem-de-setor-do-usuario/listagem-de-setor-do-usuario.component';
+import { SetorService } from './serviços/setor.service';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -52,6 +53,7 @@ export const rotas: Routes = [
   { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},
   { path: 'enviados/:id', component: ExibirMemorandosEnviadosComponent},
   { path: 'listagem-setores-de-usuario/:id', component: ListagemDeSetorDoUsuarioComponent},
+  { path: 'listar-setores/:id', component: ListagemDeSetorComponent}
 ];
 
 @NgModule({
@@ -94,7 +96,7 @@ export const rotas: Routes = [
     ToggleButtonModule,
     ToastModule,
   ],
-  providers: [UsuarioService],
+  providers: [UsuarioService, SetorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

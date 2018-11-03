@@ -13,6 +13,15 @@ export class SetorService {
   //setores: Setor[] = [this.setor];
   setores: Setor[] = [];
 
+  atualizarSetor(id, novoNome){
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].id == id){
+        this.setores[i].setNome(novoNome);
+        return;
+      }
+    }
+  }
+
   getSetores(){
     return this.setores;
   }

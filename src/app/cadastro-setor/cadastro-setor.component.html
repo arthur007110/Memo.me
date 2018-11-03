@@ -1,13 +1,11 @@
-<p-card title="Cadastro">
+<app-home-adm></app-home-adm>
+<p-card title="Cadastrar">
     <span class="ui-float-label">
         <input id="float-input" [(ngModel)]="nome" type="text" size="30" (focus)="mostrarMsg()" pInputText>
-        &#160;<p-message severity="warn" *ngIf="!nome" text="No mínimo 5 caracteres"></p-message>
         <label for="float-input">Nome do Setor</label>
     </span><br>
     <p-dropdown [options]="usuarios" placeholder="Selecione o Usuário" [(ngModel)]="usuarioSelecionado" optionLabel="nome"></p-dropdown>
     &#160;&#160;<button pButton type="button" label="Cadastrar" (click)="cadastrarSetor()"></button>
-    &#160;<p-message severity="warn" *ngIf="usuarios.length == 0" text="Não há usuários disponíveis."></p-message>
-    <br><br>
-    <button pButton type="button" label="Voltar" (click)="voltar()"></button>
-    &#160;<p-message severity="error" *ngIf="msgErro"text="Esse nome já está sendo usado"></p-message>
+    <br *ngIf="usuarios.length == 0"><br *ngIf="usuarios.length == 0">&#160;<p-message severity="warn" *ngIf="usuarios.length == 0" text="Não há usuários disponíveis."></p-message>
+    <br *ngIf="msgErro"><br *ngIf="msgErro">&#160;<p-message severity="error" *ngIf="msgErro" text="Esse nome já está sendo usado"></p-message>
 </p-card>
