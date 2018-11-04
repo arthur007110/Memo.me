@@ -4,8 +4,8 @@
         <input id="float-input" [(ngModel)]="nome" type="text" size="30" (focus)="mostrarMsg()" pInputText>
         <label for="float-input">Nome do Setor</label>
     </span><br>
-    <p-dropdown [options]="usuarios" placeholder="Selecione o Usuário" [(ngModel)]="usuarioSelecionado" optionLabel="nome"></p-dropdown>
-    &#160;&#160;<button pButton type="button" label="Cadastrar" (click)="cadastrarSetor()"></button>
-    <br *ngIf="usuarios.length == 0"><br *ngIf="usuarios.length == 0">&#160;<p-message severity="warn" *ngIf="usuarios.length == 0" text="Não há usuários disponíveis."></p-message>
-    <br *ngIf="msgErro"><br *ngIf="msgErro">&#160;<p-message severity="error" *ngIf="msgErro" text="Esse nome já está sendo usado"></p-message>
+    <p-dropdown [options]="usuarios" placeholder="Selecione o Usuário" [(ngModel)]="usuarioSelecionado" optionLabel="siape"></p-dropdown>
+    &#160;&#160;<button pButton type="button" label="Cadastrar" (click)="cadastrarSetor()"></button><br>
+    <br *ngIf="usuarios.length == 0">&#160;<p-message severity="warn" *ngIf="usuarios.length == 0" text="Não há usuários disponíveis."></p-message>
+    <br *ngIf="msgErro">&#160;<p-message severity="error" *ngIf="msgErro" text="Esse nome já está sendo usado"></p-message>
 </p-card>

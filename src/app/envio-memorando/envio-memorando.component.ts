@@ -33,14 +33,17 @@ export class EnvioMemorandoComponent implements OnInit {
   }
 
   enviarMemorando(){
+    if(this.destinatario == null){
+      return;
+    }
     this.identificarServidorEmissor();
     this.gerarData();
     this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario.getId(),this.data);
     this.memorandoS.setMemorando(this.memorando);
-    this.router.navigate(['/enviados',this.siape]);
+    this.router.navigate(['/recebidos',this.siape]);
   }
   irParaTelaHome(){
-    this.router.navigate(['/enviados',this.siape]);
+    this.router.navigate(['/recebidos',this.siape]);
   }
   identificarServidorEmissor(){
     this.emissor=this.usuarioS.getUsuariosPorSiape(this.siape).getsetor();
@@ -61,5 +64,4 @@ export class EnvioMemorandoComponent implements OnInit {
     this.siape = sessionStorage.getItem("siape");
     this.receberSetores();
   }
-
 }

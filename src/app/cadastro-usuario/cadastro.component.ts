@@ -21,7 +21,10 @@ export class CadastroComponent implements OnInit {
   msgErroSiape: boolean = false;
   msgErroSenha: boolean = false;
 
-  constructor(private router: Router, private usuarioService: UsuarioService,private messageService: MessageService) { }
+  constructor(
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private messageService: MessageService) { }
 
   ngOnInit() {
   }
@@ -32,7 +35,7 @@ export class CadastroComponent implements OnInit {
   }
 
   irParaTelaDeLogin(){
-    this.router.navigate(["/login"]);
+    this.router.navigate([""]);
     return null;
   }
 

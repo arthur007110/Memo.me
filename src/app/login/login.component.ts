@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   irParaTelaHome(){
-    this.router.navigate(["/enviados",this.siape]);
+    this.router.navigate(["/recebidos",this.siape]);
   }
   
   irParaTelaHomeAdm(){

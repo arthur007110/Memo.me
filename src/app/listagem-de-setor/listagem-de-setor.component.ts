@@ -14,14 +14,11 @@ export class ListagemDeSetorComponent implements OnInit {
   setores: Setor[];
   items: MenuItem[];
   siape:string;
-  
-  deslogar(){
-    this.router.navigate(['/login']);
-  }
 
   constructor(private setorService: SetorService, private router: Router) { }
 
   ngOnInit() {
+    this.siape = sessionStorage.getItem('siape');
     this.getSetores();
   }
 

@@ -3,8 +3,6 @@ import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Memorando } from '../models/Memorando';
 import { MemorandoService } from '../serviços/memorando.service';
-import { SetorService } from '../serviços/setor.service';
-import { Setor } from '../models/Setor';
 
 @Component({
   selector: 'app-home',
@@ -13,16 +11,15 @@ import { Setor } from '../models/Setor';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router, private memorandoS: MemorandoService, private setorS: SetorService) { }
+  constructor(private router: Router, private memorandoS: MemorandoService) { }
 
     items: MenuItem[];
     siape:string;
     memorandos:Memorando[];
-    setores:Setor[];
 
     deslogar(){
         sessionStorage.removeItem("siape");
-        this.router.navigate(['/login']);
+        this.router.navigate(['']);
     }
     enviarMemorando(){
         this.router.navigate(['/envio-memorando']);
@@ -38,7 +35,7 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['recebidos',this.siape]);
     }
     listarSetores(){
-        this.router.navigate(['listagem-setores-de-usuario/',this.siape]);
+        this.router.navigate(['listar-setores/',this.siape]);
     }
     ngOnInit(){
         

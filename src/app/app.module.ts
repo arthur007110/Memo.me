@@ -42,7 +42,7 @@ import { SetorService } from './serviços/setor.service';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'home/:id', component: HomeComponent },
   { path: 'cadastro-setor', component: CadastroSetorComponent},
   { path: 'envio-memorando', component: EnvioMemorandoComponent},

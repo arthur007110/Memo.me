@@ -6,14 +6,14 @@
   <p-table [value]="memorandos">
     <ng-template pTemplate="header">
         <tr>
-            <th>ID Do Setor Emissor</th>
+            <th>Setor Emissor</th>
             <th>Data</th>
             <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-memorando>
         <tr>
-            <td>{{memorando.idSetorEmissor}}</td>
+            <td>{{getNomeDoSetorEmissor(memorando.idSetorEmissor)}}</td>
             <td>{{memorando.dataEnvio}}</td>
             <td><p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)"></p-button></td>
         </tr>
