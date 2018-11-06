@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { MemorandoService } from '../serviços/memorando.service';
 import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-envio-memorando',
   templateUrl: './envio-memorando.component.html',
-  styleUrls: ['./envio-memorando.component.css']
+  styleUrls: ['./envio-memorando.component.css'],
+  providers: [MessageService]
 })
 export class EnvioMemorandoComponent implements OnInit {
 
@@ -20,7 +22,8 @@ export class EnvioMemorandoComponent implements OnInit {
   constructor(
     private router: Router,
     private memorandoS: MemorandoService,
-    private setorS: SetorService) { }
+    private setorS: SetorService,
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.siape = sessionStorage.getItem("siape");
@@ -35,7 +38,7 @@ export class EnvioMemorandoComponent implements OnInit {
     if(verificacao == 0){
       this.irParaTelaHome();
     }else if(verificacao == 1){
-      alert("Preencha todos os campos.");
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
     }
   }
 
