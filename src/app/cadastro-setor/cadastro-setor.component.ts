@@ -30,18 +30,17 @@ export class CadastroSetorComponent implements OnInit {
   }
 
   cadastrarSetor(){
-    if(this.nome != null && this.usuarioSelecionado != null){
-      if(this.setorService.getSetorPorNome(this.nome) != null){
-        this.msgErro = true;
-      }else{
-        this.setorService.setSetor(this.nome, this.usuarioSelecionado);
-
-        // Obtém o id do setor e do usuário
-        let idDoSetor = this.setorService.getSetores().length;
-        let idDoUsuario = this.usuarioSelecionado.getID();
-        this.usuarioService.atualizaSetorDeUsuario(idDoUsuario, idDoSetor);
-        this.router.navigate(['/listar-setores', this.siape]);
-      }
+    // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
+    let verificacao = this.setorService.verificacaoDeCadastro(this.nome, this.usuarioSelecionado);
+    if(verificacao == 0){
+      this.router.navigate(['/listar-setores', this.siape]);
+    }else if(verificacao == 1){
+      alert("Preencha todos os campos.");
+    }else if(verificacao == 2){
+      alert("Nome inválido.");
+    }else if(verificacao == 3){
+      alert("Esse nome já está sendo utilizado.");
+      this.msgErro = true;
     }
   }
 

@@ -15,8 +15,14 @@ export class ExibicaoMemorandoComponent implements OnInit {
   siape:string;
   memorando:Memorando;
 
+  constructor(private router: Router, private memorandoS: MemorandoService) { }
 
-  constructor(private router: Router,private memorandoS: MemorandoService) { }
+  ngOnInit() {
+    this.id=sessionStorage.getItem("id");
+    this.siape=sessionStorage.getItem("siape");
+    this.receberMemorandos();
+    this.exibirMensagem();
+  }
 
   marcarVisto(){
 
@@ -30,12 +36,4 @@ export class ExibicaoMemorandoComponent implements OnInit {
   exibirMensagem(){
     this.mensagem=this.memorando.getmensagem();
   }
-
-  ngOnInit() {
-    this.id=sessionStorage.getItem("id");
-    this.siape=sessionStorage.getItem("siape");
-    this.receberMemorandos();
-    this.exibirMensagem();
-  }
-
 }

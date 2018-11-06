@@ -40,11 +40,19 @@ export class CadastroComponent implements OnInit {
   }
 
   cadastrar(){
-    if(this.usuarioService.verificarUsuario(this.nome,this.siape,this.senha,this.senha2)){
+    // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
+    let verificacao = this.usuarioService.verificacaoDeCadastro(this.nome,this.siape,this.senha,this.senha2);
+    if(verificacao == 0){
       this.mostrarSucesso();
       this.executarTimer();
-    }else{
-      this.msgErroSiape = true;
+    }else if(verificacao == 1){
+      alert("Preencha todos os campos.");
+    }else if(verificacao == 2){
+      alert("Nome inválido.");
+    }else if(verificacao == 3){
+      alert("Está siape já está sendo utilizada.");
+    }else if(verificacao == 4){
+      alert("Senhas não coincidem.");
     }
   }
   executarTimer(){

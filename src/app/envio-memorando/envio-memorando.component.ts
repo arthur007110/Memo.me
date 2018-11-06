@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MemorandoService } from '../serviços/memorando.service';
-import { Memorando } from '../models/Memorando';
-import { UsuarioService } from '../serviços/usuario.service';
 import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 
@@ -17,37 +15,34 @@ export class EnvioMemorandoComponent implements OnInit {
   emissor:string;
   destinatario:Setor;
   mensagem:string;
-  now= new Date;
   siape:string;
-  data:string="";
-  memorando:Memorando;
 
   constructor(
     private router: Router,
     private memorandoS: MemorandoService,
-    private usuarioS:UsuarioService,
     private setorS: SetorService) { }
 
-  gerarData(){
-    this.data=(this.now.getDay()+"-"+this.now.getMonth()+"-"+this.now.getFullYear());
+  ngOnInit() {
+    this.siape = sessionStorage.getItem("siape");
+    this.receberSetores();
   }
 
+
   enviarMemorando(){
-    if(this.destinatario == null){
-      return;
+    // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
+    let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.destinatario, this.siape, this.mensagem);
+
+    if(verificacao == 0){
+      this.irParaTelaHome();
+    }else if(verificacao == 1){
+      alert("Preencha todos os campos.");
     }
-    this.identificarServidorEmissor();
-    this.gerarData();
-    this.memorando= new Memorando(this.mensagem,this.emissor,this.destinatario.getId(),this.data);
-    this.memorandoS.setMemorando(this.memorando);
-    this.router.navigate(['/recebidos',this.siape]);
   }
+
   irParaTelaHome(){
     this.router.navigate(['/recebidos',this.siape]);
   }
-  identificarServidorEmissor(){
-    this.emissor=this.usuarioS.getUsuariosPorSiape(this.siape).getsetor();
-  }
+
   receberSetores(){
     this.setores = [];
     let setoresCadastrados = this.setorS.getSetores();
@@ -58,10 +53,5 @@ export class EnvioMemorandoComponent implements OnInit {
         this.setores.push(setoresCadastrados[i]);
       }
     }
-  }
-
-  ngOnInit() {
-    this.siape = sessionStorage.getItem("siape");
-    this.receberSetores();
   }
 }

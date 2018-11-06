@@ -1,5 +1,5 @@
-<app-home-adm *ngIf="siape == 1234567" ></app-home-adm>
-<app-home *ngIf="siape != 1234567" ></app-home>
+<app-home-adm *ngIf="siape == 0000000" ></app-home-adm>
+<app-home *ngIf="siape != 0000000" ></app-home>
 <p-card title="Lista de Setores">
   <p-table [value]="setores">
     <ng-template pTemplate="header">
@@ -7,6 +7,7 @@
             <th>Nome Do Setor</th>
             <th>Usuário</th>
             <th>Siape do Usuário</th>
+            <th *ngIf="siape == 0000000"></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-setor>
@@ -14,6 +15,9 @@
             <td>{{setor.nome}}</td>
             <td>{{setor.usuario.nome}}</td>
             <td>{{setor.usuario.siape}}</td>
+            <td *ngIf="siape == 0000000">
+                <button pButton type="button" label="Atualizar" (click)="atualizar(setor.id)"></button>
+            </td>
         </tr>
     </ng-template>
   </p-table>

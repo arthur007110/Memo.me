@@ -18,34 +18,24 @@ export class LoginComponent implements OnInit {
     
   }
 
-  logar(){
-    if(this.siape != null && this.senha != null){
-      let usuario = this.usuarioService.getUsuariosPorSiape(this.siape);
-      if(usuario != null){
-        if(usuario.getsetor()!=null){
-          console.log(usuario.getsetor());
-        if(usuario.getSenha() == this.senha){
-          sessionStorage.setItem("siape",this.siape);
-          if(usuario.getID() == 0){
-            this.irParaTelaHomeAdm();
-          }else{
-            this.irParaTelaHome();
-          }
-        }else{
-          alert("Siape ou senha incorretos.");
-          this.siape = null;
-          this.senha = null;
-        }
-      }else{
-        alert("Este usuario não está cadastrado em nenhum setor, por favor comunique ao ADMIN")
-      }
-      }else{
-        alert("Não há usuários cadastrados com essa siape.");
-        this.siape = null;
-        this.senha = null;
-      }
-    }else{
-      alert("Existem campos que ainda não foram preenchidos.");
+  fazerLogin(){
+    // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
+    let verificacao = this.usuarioService.verificacaoDeLogin(this.siape, this.senha);
+    console.log(verificacao);
+    if(verificacao == 0){
+      sessionStorage.setItem('siape', this.siape);
+      this.irParaTelaHome();
+    }else if(verificacao == 1){
+      sessionStorage.setItem('siape', this.siape);
+      this.irParaTelaHomeAdm();
+    }else if(verificacao == 2){
+      alert("Preencha todos os campos.");
+    }else if(verificacao ==  3){
+      alert("Esse usuário não consta no sistema.");
+    }else if(verificacao ==  4){
+      alert("Siape e senha não coincidem.");
+    }else if(verificacao == 5){
+      alert("Este usuario não está cadastrado em nenhum setor, por favor comunique ao ADMIN");
     }
   }
 

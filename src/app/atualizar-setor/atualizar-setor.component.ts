@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
 
@@ -10,31 +10,39 @@ import { Setor } from '../models/Setor';
 })
 export class AtualizarSetorComponent implements OnInit {
   siape: string;
-  setores: Setor[] = [];
-  setorSelecionado: Setor;
+  setorSelecionado: Setor = null;
   novoNome: string = "";
   msgErro: boolean = false;
   
-  constructor(private router: Router,private setorService: SetorService) { }
+  constructor(
+    private router: Router,
+    private setorService: SetorService,
+    private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    let id = this.route.params.subscribe(params => {
+      this.setorSelecionado = this.setorService.getSetorPorId(params['id']);
+    })
+    this.siape = sessionStorage.getItem("siape");
+  }
 
   atualizarSetor(){
-    if(this.novoNome.length > 0 && this.setorSelecionado != null){
-      if(this.setorService.getSetorPorNome(this.novoNome) != null && this.novoNome != this.setorSelecionado.getNome()){
-        this.msgErro = true;
-      }else{
-        this.setorService.atualizarSetor(this.setorSelecionado.getId(), this.novoNome);
-        this.router.navigate(['/listar-setores', this.siape]);
-      }
+    // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
+    let verificacao = this.setorService.verificacaoDeAtualizar(this.setorSelecionado.nome, this.novoNome);
+    if(verificacao == 0){
+      this.voltar();
+    }else if(verificacao == 1){
+      alert("Preencha todos os campos.");
+    }else if(verificacao == 2){
+      alert("Nome inválido.");
+    }else if(verificacao == 3){
+      alert("Esse nome já está sendo utilizado.");
+      this.msgErro = true;
     }
   }
 
-  ngOnInit() {
-    this.siape = sessionStorage.getItem("siape");
-    this.getSetores();
-  }
-
-  getSetores(){
-    this.setores = this.setorService.getSetores();
+  voltar(){
+    this.router.navigate(['/listar-setores', this.siape]);
   }
 
   mostrarMsg(){

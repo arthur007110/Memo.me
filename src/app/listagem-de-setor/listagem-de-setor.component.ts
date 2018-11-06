@@ -26,4 +26,8 @@ export class ListagemDeSetorComponent implements OnInit {
     this.setores = this.setorService.getSetores();
   }
 
+  atualizar(id){
+    this.router.navigate(['/atualizar-setor', id]);
+  }
+
 }

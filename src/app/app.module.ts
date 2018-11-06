@@ -47,7 +47,7 @@ export const rotas: Routes = [
   { path: 'cadastro-setor', component: CadastroSetorComponent},
   { path: 'envio-memorando', component: EnvioMemorandoComponent},
   { path: 'home-adm/:id', component: HomeAdmComponent},
-  { path: 'atualizar-setor', component: AtualizarSetorComponent},
+  { path: 'atualizar-setor/:id', component: AtualizarSetorComponent},
   { path: 'vizualizar/:id', component: ExibicaoMemorandoComponent},
   { path: 'vizualizar-enviado/:id', component: ExibicaoMemorandoEnviadoComponent},
   { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},

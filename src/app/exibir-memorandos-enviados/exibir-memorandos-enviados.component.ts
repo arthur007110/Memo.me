@@ -18,6 +18,13 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     private usuarioS: UsuarioService,
     private setorS: SetorService) { }
 
+    ngOnInit(){
+
+        this.siape = sessionStorage.getItem("siape");
+        this.reconhecerUsuario();
+        this.listarMemorandos();
+    }
+
     siape:string;
     memorandos:Memorando[];
     usuario:Usuario;
@@ -37,12 +44,5 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
 
     reconhecerUsuario(){
         this.usuario=this.usuarioS.getUsuariosPorSiape(this.siape);
-    }
-
-    ngOnInit(){
-
-        this.siape = sessionStorage.getItem("siape");
-        this.reconhecerUsuario();
-        this.listarMemorandos();
     }
 }

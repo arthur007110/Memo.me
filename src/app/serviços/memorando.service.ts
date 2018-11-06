@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Memorando } from '../models/Memorando';
+import { SetorService } from './setor.service';
+import { UsuarioService } from './usuario.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemorandoService {
 
-  constructor() { }
+  constructor(private setorService: SetorService,
+    private usuarioService: UsuarioService) { }
 
   //memorando = new Memorando("teste",12345,12355,"20-10-2018");
   //memorandos:Memorando[] = [this.memorando];
@@ -49,5 +52,25 @@ export class MemorandoService {
       }
     }
     return requesicao;
+  }
+
+  //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
+
+  verificacaoEnviarMemorando(setorDeDestino, siape, mensagem){
+    /*
+      0: TUDO OK              1: CAMPOS SEM PREENCHER
+    */
+
+    if(setorDeDestino == null || siape == null || mensagem == null || mensagem.length <= 0){
+      return 1;
+    }else{
+      let now = new Date();
+      let data = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
+      let setorEmissor = this.usuarioService.getUsuariosPorSiape(siape).getsetor();
+      let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.getId(), data);
+      this.setMemorando(memorando);
+      return 0;
+    }
+
   }
 }

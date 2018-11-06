@@ -32,7 +32,6 @@ export class HomeAdmComponent implements OnInit {
       {
         label: 'Opções',
         items: [
-          {label: 'Atualizar Setor', routerLink: ['/atualizar-setor']},
           {label: 'Cadastar Setor', routerLink: ['/cadastro-setor']},
           {label: 'Listar Setores', routerLink: ['/listar-setores', this.siape]}]
       }

@@ -5,7 +5,7 @@ import { Usuario } from '../models/Usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  adm = new Usuario(0, "admin", "1234567", "admin","ADMIN");
+  adm = new Usuario(0, "admin", "0000000", "admin","ADMIN");
   //user = new Usuario(1, "a", "1234566", "a",null);
   //user2 = new Usuario(3, "a", "2234566", "a",null);
   //user3 = new Usuario(4, "a", "3234566", "a",null);
@@ -62,50 +62,55 @@ export class UsuarioService {
     }
   }
 
+  //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificarUsuario(nome,siape,senha,senha2){
-    if(this.verificarCampos(nome,siape,senha,senha2)){
+  verificacaoDeCadastro(nome: string, siape: string, senha: string, senha2: string){
+    /*
+      0: TUDO OK              1: CAMPOS SEM PREENCHER
+      2: NOME INVÁLIDO        3: SIAPE JÁ EM USO
+      4: SENHA NÃO BATEM          
+    */
 
-      if(this.getUsuariosPorSiape(siape) == null){
-
-        if(this.verificaSiapeAvancado(siape)){
-          alert("Por favor, preencha todos os campos da siape");
-        }else{
-        this.setUsuario(nome,siape,senha,null);
-        return true;
-        }
-
-      }else{
-        return false;
-       // this.msgErroSiape = true;
-       // this.siape = null;
-
-      }
-    }
-  }
-
-  verificarCampos(nome,siape,senha,senha2){
-    //Verifica se não há campos vazios ou se as senhas não são iguais
-    if(nome != null && siape != null && senha != null && senha2 != null){
-      if(senha == senha2){
-          return true;
-      }else{
-        //this.msgErroSenha = true;
-        return false;
-      }
+    if(nome == undefined || nome.length <= 0 || siape == undefined || siape.length <= 0 || siape.indexOf("_") >= 0
+     || senha == undefined || senha.length <= 0 || senha == undefined || senha2.length <= 0){
+      return 1;
+    }else if(nome.length < 1 || nome[0] == " "){
+      return 2;
+    }else if(this.getUsuariosPorSiape(siape) != null){
+      return 3;
+    }else if(senha != senha2){
+      return 4;
     }else{
-      return false;
+      this.setUsuario(nome, siape, senha, null);
+      console.log(siape);
+      return 0;
     }
-  }
-  verificaSiapeAvancado(siape){
 
-    for(let i=0;i<siape.length;i++){
-      if(siape.charAt(i)=='_'){
-        return true;
+  }
+
+  verificacaoDeLogin(siape, senha){
+    /*
+      0: TUDO OK        1: ADM
+      2: CAMPOS SEM PREENCHER   3: USUÁRIO INEXISTENTE
+      4: A SIAPE E A SENHA NÃO BATEM    5: USUÁRIO AINDA NÃO POSSUI UM SETOR
+    */
+
+    let usuario = this.getUsuariosPorSiape(siape);
+
+    if(siape == undefined || siape.length <= 0 || siape.indexOf("_") >= 0 || senha == undefined || senha.length <= 0){
+      return 2;
+    }else if(usuario == null){
+      return 3;
+    }else if(usuario.getSenha() != senha){
+      return 4;
+    }else if(usuario.getsetor() == null){
+      return 5;
+    }else{
+      if(siape == "0000000"){
+        return 1;
+      }else{
+        return 0;
       }
     }
-    return false;
-
   }
-  
 }
