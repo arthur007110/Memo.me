@@ -14,6 +14,7 @@ export class HomeAdmComponent implements OnInit {
   siape: string;
   private sub: any;
   usuario: Usuario;
+  busca:String;
 
   items: MenuItem[];
 

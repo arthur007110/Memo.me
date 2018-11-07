@@ -1,4 +1,6 @@
 <p-menubar [model]="items">
-  <input type="text" pInputText placeholder="Buscar">
-  <button pButton label="Deslogar" (click)="deslogar()" icon="fa fa-sign-out"></button>
+  <input type="text" pInputText placeholder="Buscar Setor" [(ngModel)]="busca">
+  <button pButton label="Buscar" (click)="buscar()" icon="pi pi-fw pi-search" style="margin-left:.25em"></button>
+  <button pButton label="Logout" (clsick)="deslogar()" icon="pi pi-fw pi-times" style="margin-left:.25em"></button>
+
 </p-menubar>
