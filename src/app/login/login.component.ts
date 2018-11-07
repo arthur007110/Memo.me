@@ -31,8 +31,9 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('siape', this.siape);
       this.executarTimer();
     }else if(verificacao == 1){
+      this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso,Bem vindo ADM'});
       sessionStorage.setItem('siape', this.siape);
-      this.irParaTelaHomeAdm();
+      this.executarTimerAdm();
     }else if(verificacao == 2){
       this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
     }else if(verificacao ==  3){
@@ -67,6 +68,20 @@ export class LoginComponent implements OnInit {
       } else {
         clearInterval(interval);
         this.irParaTelaHome();
+      }
+    },1000);
+  }
+  executarTimerAdm(){
+
+    let timeLeft: number = 1;
+    let interval;
+
+    interval = setInterval(() => {
+      if(timeLeft > 0) {
+        timeLeft--;
+      } else {
+        clearInterval(interval);
+        this.irParaTelaHomeAdm();
       }
     },1000);
   }

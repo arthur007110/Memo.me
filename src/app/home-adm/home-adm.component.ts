@@ -49,4 +49,9 @@ export class HomeAdmComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  buscar(){
+    //ainda sem funcionalidade
+    console.log("ainda sem funcionalidade");
+  }
+
 }
