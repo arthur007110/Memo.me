@@ -21,7 +21,7 @@ export class ListagemDeSetorDoUsuarioComponent implements OnInit {
   }
 
   getSetores(){
-    this.setores = this.setorService.getSetores();
+    //this.setores = this.setorService.getSetores();
   }
 
 }

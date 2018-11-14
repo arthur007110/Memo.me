@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit(){
-    
   }
 
   fazerLogin(){

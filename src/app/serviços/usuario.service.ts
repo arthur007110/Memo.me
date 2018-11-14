@@ -1,65 +1,92 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/Usuario';
+import { AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  adm = new Usuario(0, "admin", "0000000", "admin","ADMIN");
-  //user = new Usuario(1, "a", "1234566", "a",null);
-  //user2 = new Usuario(3, "a", "2234566", "a",null);
-  //user3 = new Usuario(4, "a", "3234566", "a",null);
-  //user4 = new Usuario(5, "a", "4234566", "a",null);
-  //user5 = new Usuario(6, "a", "5234566", "a",null);
-  //usuarios: Usuario[] = [this.adm, this.user];
-  usuarios: Usuario[] = [this.adm];
-  
+  usuarioCollection: AngularFirestoreCollection<Usuario>;
+  usuarios: Usuario[];
 
-  constructor() { }
+  constructor(private afs: AngularFirestore) {
+    this.usuarioCollection = afs.collection<Usuario>('usuario');
+    this.listarTodos().subscribe(userArr => {
+      this.usuarios = userArr;
+    })
 
-  getUsuarios(){
-    return this.usuarios;
   }
 
-  getUsuarioPorId(id): Usuario{
+  //FUNÇÕES PARA O BANCO DE DADOS ==>
+
+  cadastrar(nome, siape, senha, idDoSetor){
+    let usuario: Usuario = {nome: nome, siape: siape, senha: senha, idDoSetor: idDoSetor};
+    this.usuarioCollection.add(usuario).then(resultado => {
+      let userDoc = this.usuarioCollection.doc(resultado.id);
+      userDoc.update({id: resultado.id});
+    });
+  }
+
+  listarPorId(id){
+    return new Observable(observer => {
+      let doc = this.usuarioCollection.doc(id);
+      doc.snapshotChanges().subscribe(result => {
+        let id = result.payload.id;
+        let data = result.payload.data();
+        let document = {id: id, ...data};
+        observer.next(document);
+        observer.complete();
+      })
+    })
+  }
+
+  /*
+  listarPorSiape(siape): Observable<Usuario>{
+    let usuario;
+    this.listarTodos().subscribe(userArr => {
+      for(let i = 0; i < userArr.length; i++){
+        if(userArr[i].siape == siape){
+          usuario = userArr[i];
+        }
+      }
+    });
+
+    return usuario;
+  }
+  */
+
+  listarPorSiape(siape){
+    this.listarTodos().subscribe(resultado => {
+      this.usuarios = resultado;
+    })
     for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].getID() == id){
+      if(this.usuarios[i].siape == siape){
         return this.usuarios[i];
       }
     }
   }
 
-  getUsuarioPorNome(nome): Usuario{
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].getNome() == nome){
-        return this.usuarios[i];
-      }
-    }
-  }
-
-  getUsuariosPorSiape(siape): Usuario{
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].getSiape() == siape){
-        return this.usuarios[i];
-      }
-    }
-
-    return null;
-  }
-
-  setUsuario(nome, siape, senha, setor){
-    //Obtém um id para o usuário
-    let id = this.usuarios.length;
-    //Salva usuário no array
-    this.usuarios.push(new Usuario(id, nome, siape, senha, setor));
+  listarTodos(): Observable<any[]>{
+    let resultados: any[] = [];
+    let meuObservable = new Observable<any[]>(observer => {
+      this.usuarioCollection.snapshotChanges().subscribe(result => {
+        result.map(documents => {
+          let id = documents.payload.newIndex;
+          let data = documents.payload.doc.data();
+          let document = {id: id, ...data};
+          resultados.push(document);
+        });
+        observer.next(resultados);
+        observer.complete();
+      });});
+      return meuObservable;
   }
 
   atualizaSetorDeUsuario(id, idDoSetor){
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].getID() == id){
-        this.usuarios[i].setsetor(idDoSetor);
-      }
-    }
+    let usuarioDoc = this.afs.doc('usuario/'+id);
+    usuarioDoc.update({idDoSetor: idDoSetor});
+
   }
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
@@ -70,18 +97,20 @@ export class UsuarioService {
       2: NOME INVÁLIDO        3: SIAPE JÁ EM USO
       4: SENHA NÃO BATEM          
     */
+   
+    let usuario = this.listarPorSiape(siape);
 
     if(nome == undefined || nome.length <= 0 || siape == undefined || siape.length <= 0 || siape.indexOf("_") >= 0
      || senha == undefined || senha.length <= 0 || senha == undefined || senha2.length <= 0){
       return 1;
     }else if(nome.length < 1 || nome[0] == " "){
       return 2;
-    }else if(this.getUsuariosPorSiape(siape) != null){
+    }else if(usuario != null){
       return 3;
     }else if(senha != senha2){
       return 4;
     }else{
-      this.setUsuario(nome, siape, senha, null);
+      this.cadastrar(nome, siape, senha, null);
       console.log(siape);
       return 0;
     }
@@ -95,15 +124,15 @@ export class UsuarioService {
       4: A SIAPE E A SENHA NÃO BATEM    5: USUÁRIO AINDA NÃO POSSUI UM SETOR
     */
 
-    let usuario = this.getUsuariosPorSiape(siape);
-
+    let usuario = this.listarPorSiape(siape);
+    
     if(siape == undefined || siape.length <= 0 || siape.indexOf("_") >= 0 || senha == undefined || senha.length <= 0){
       return 2;
     }else if(usuario == null){
       return 3;
-    }else if(usuario.getSenha() != senha){
+    }else if(usuario.senha != senha){
       return 4;
-    }else if(usuario.getsetor() == null){
+    }else if(usuario.idDoSetor == null){
       return 5;
     }else{
       if(siape == "0000000"){

@@ -48,13 +48,16 @@ export class EnvioMemorandoComponent implements OnInit {
 
   receberSetores(){
     this.setores = [];
-    let setoresCadastrados = this.setorS.getSetores();
+    let setoresCadastrados;
+    this.setorS.listarTodos().subscribe(setorArr => {
+      setoresCadastrados = setorArr;
+      //Excluindo o seu própio setor da lista
 
-    //Excluindo o seu própio setor da lista
-    for(let i = 0; i < setoresCadastrados.length; i++){
-      if(setoresCadastrados[i].getUsuario().getSiape() != this.siape){
-        this.setores.push(setoresCadastrados[i]);
+      for(let i = 0; i < setoresCadastrados.length; i++){
+        if(setoresCadastrados[i].usuario.siape != this.siape){
+          this.setores.push(setoresCadastrados[i]);
+        }
       }
-    }
+    });
   }
 }

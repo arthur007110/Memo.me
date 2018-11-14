@@ -1,11 +1,12 @@
-export class Usuario{
+export interface Usuario{
 
-    private id: number;
-    private nome: string;
-    private siape: string;
-    private senha: string;
-    private idDoSetor: string;
+    id?: string;
+    nome: string;
+    siape: string;
+    senha: string;
+    idDoSetor: string;
 
+    /*
     constructor(id, nome, siape, senha,setor){
         this.id = id;
         this.nome = nome;
@@ -13,6 +14,7 @@ export class Usuario{
         this.senha = senha;
         this.idDoSetor = setor;
     }
+
 
     public getsetor() : string {
         return this.idDoSetor;
@@ -44,5 +46,7 @@ export class Usuario{
     public setSenha(senha){
         this.senha=senha;
     }
+
+    */
 
 }

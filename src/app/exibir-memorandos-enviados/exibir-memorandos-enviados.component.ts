@@ -13,24 +13,28 @@ import { SetorService } from '../serviços/setor.service';
 })
 export class ExibirMemorandosEnviadosComponent implements OnInit {
 
-  constructor(private router: Router,
-    private memorandoS: MemorandoService,
-    private usuarioS: UsuarioService,
-    private setorS: SetorService) { }
+    siape:string;
+    memorandos:Memorando[];
+    usuario: Usuario;
+
+    constructor(
+        private router: Router,
+        private memorandoS: MemorandoService,
+        private usuarioS: UsuarioService,
+        private setorS: SetorService) { }
 
     ngOnInit(){
-
         this.siape = sessionStorage.getItem("siape");
         this.reconhecerUsuario();
         this.listarMemorandos();
     }
 
-    siape:string;
-    memorandos:Memorando[];
-    usuario:Usuario;
-
     getNomeDoSetorDeDestino(id){
-        return this.setorS.getSetorPorId(id).nome;
+        let setor;
+        this.setorS.listarPorId(id).subscribe(resultado => {
+            setor = resultado;
+            return setor.nome;
+        });
     }
 
     exibirMemorando(memorando){
@@ -39,10 +43,16 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     }
     
     listarMemorandos(){
-        this.memorandos=this.memorandoS.getMemorandosEnviadosSetor(this.usuario.getsetor());
+        this.memorandos=this.memorandoS.getMemorandosEnviadosSetor(this.usuario.idDoSetor);
     }
 
     reconhecerUsuario(){
-        this.usuario=this.usuarioS.getUsuariosPorSiape(this.siape);
+        this.usuarioS.listarTodos().subscribe(userArr => {
+            for(let i = 0; i < userArr.length; i++){
+                if(userArr[i].siape == this.siape){
+                    this.usuario = userArr[i];
+                }
+            }
+        });
     }
 }

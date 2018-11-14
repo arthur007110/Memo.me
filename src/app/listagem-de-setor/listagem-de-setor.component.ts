@@ -23,10 +23,15 @@ export class ListagemDeSetorComponent implements OnInit {
   }
 
   getSetores(){
-    this.setores = this.setorService.getSetores();
+    this.setorService.listarTodos().subscribe(listaSetores=>{
+      this.setores = listaSetores;
+    });
+    
+    //this.setorService.getSetores();
   }
 
   atualizar(id){
+    console.log("Id do Setor: ", id);
     this.router.navigate(['/atualizar-setor', id]);
   }
 

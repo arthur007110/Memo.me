@@ -1,11 +1,12 @@
 import { Usuario } from "./Usuario";
 
-export class Setor{
+export interface Setor{
 
-    id:number;
-    nome:string;
-    usuario:Usuario;
+    id?: string;
+    nome: string;
+    usuario: Usuario;
 
+    /*
     constructor(id, nome, usuario){
         this.id = id;
         this.nome = nome;
@@ -30,6 +31,5 @@ export class Setor{
     setUsuario(usuario){
         this.usuario = usuario;
     }
-
-
+    */
 }

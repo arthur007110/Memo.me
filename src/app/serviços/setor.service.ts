@@ -1,74 +1,110 @@
 import { Injectable } from '@angular/core';
 import { Setor } from '../models/Setor';
-import { Usuario } from '../models/Usuario';
 import { UsuarioService } from './usuario.service';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SetorService {
+  setorCollection: AngularFirestoreCollection<Setor>;
+  setores: Setor[];
   
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private afs: AngularFirestore, private usuarioService: UsuarioService) {
+    this.setorCollection = afs.collection<Setor>('setores');
+    this.listarTodos().subscribe(resultado => {
+      this.setores = resultado;
+    })
+  }
 
-  //setor = new Setor(0,"Teste",new Usuario("","","","",""));
-  //setores: Setor[] = [this.setor];
-  setores: Setor[] = [];
+  //FUNÇÕES PARA O BANCO DE DADOS ==>
 
-  atualizarSetor(id, novoNome){
-    for(let i = 0; i < this.setores.length; i++){
-      if(this.setores[i].id == id){
-        this.setores[i].setNome(novoNome);
-        return;
+  cadastrar(nome, usuario){
+    let setor: Setor = {nome: nome, usuario: usuario};
+    this.setorCollection.add(setor).then(resultado => {
+      let setorDoc = this.setorCollection.doc(resultado.id);
+      setorDoc.update({id: resultado.id});
+      this.usuarioService.atualizaSetorDeUsuario(usuario.id, resultado.id);
+    });
+  }
+
+  listarPorId(id){
+    return new Observable(observer => {
+      let doc = this.setorCollection.doc(id);
+      doc.snapshotChanges().subscribe(result => {
+        let id = result.payload.id;
+        let data = result.payload.data();
+        let document = {id: id, ...data};
+        observer.next(document);
+        observer.complete();
+      });
+    });
+  }
+
+  /*
+  listarPorNome(nome): Observable<Setor>{
+    let setor;
+    this.listarTodos().subscribe(setorArr => {
+      for(let i = 0; i < setorArr.length; i++){
+        if(setorArr[i].nome == nome){
+          setor = setor[i];
+        }
       }
-    }
-  }
+    });
 
-  getSetores(){
-    return this.setores;
+    return setor;
   }
-  
-  getSetorPorNome(nome){
+  */
+
+  listarPorNome(nome){
     for(let i = 0; i < this.setores.length; i++){
       if(this.setores[i].nome == nome){
         return this.setores[i];
       }
     }
   }
-
-  getSetorPorId(id){
-    for(let i = 0; i < this.setores.length; i++){
-      if(this.setores[i].id == id){
-        return this.setores[i];
-      }
-    }
+  
+  listarTodos(): Observable<any[]>{
+    let resultados: any[] = [];
+    let meuObservable = new Observable<any[]>(observer => {
+      this.setorCollection.snapshotChanges().subscribe(result => {
+        result.map(documents => {
+          let id = documents.payload.newIndex;
+          let data = documents.payload.doc.data();
+          let document = {id: id, ...data};
+          resultados.push(document);
+        });
+        observer.next(resultados);
+        observer.complete();
+      });});
+      return meuObservable;
   }
 
-  setSetor(nome: string, usuario: Usuario){
-    let id = this.setores.length;
-    let setor = new Setor(id, nome, usuario);
-    this.setores.push(setor);
-
-    //Atualiza as informações do usuário quanto ao setor.
-    this.usuarioService.atualizaSetorDeUsuario(usuario.getID(), id);
-
+  atualizarSetor(id, novoNome){
+    let setorDoc = this.afs.doc('setores/' + id);
+    setorDoc.update({nome: novoNome});
   }
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificacaoDeAtualizar(nome, novoNome){
+  verificacaoDeAtualizar(id, nome, novoNome){
     /*
       0: TUDO OK              1: CAMPOS SEM PREENCHER
       2: NOME INVÁLIDO        3: NOME JÁ EM USO
     */
 
+    let setor = this.listarPorNome(novoNome);
+
     if(novoNome == undefined || novoNome.length <= 0){
       return 1;
     }else if(novoNome[0] == " "){
       return 2;
-    }else if(nome != novoNome && this.getSetorPorNome(novoNome) != null){
+    }else if(nome != novoNome && setor != null){
+      console.log("Elif de Atualizar");
       return 3;
     }else{
-      this.atualizarSetor(this.getSetorPorNome(nome).id, novoNome);
+      this.atualizarSetor(id, novoNome);
       return 0;
     }
   }
@@ -79,14 +115,16 @@ export class SetorService {
       2: NOME INVÁLIDO        3: NOME JÁ EM USO
     */
 
+   let setor = this.listarPorNome(nome);
+
     if(nome == undefined || nome.length <= 0 || usuario == null){
       return 1;
     }else if(nome[0] == " "){
       return 2;
-    }else if(this.getSetorPorNome(nome) != null){
+    }else if(setor != null){
       return 3;
     }else{
-      this.setSetor(nome, usuario);
+      this.cadastrar(nome, usuario);
       return 0;
     }
 

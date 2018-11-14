@@ -7,6 +7,8 @@ import { CadastroComponent } from './cadastro-usuario/cadastro.component';
 
 import {FormsModule} from '@angular/forms';
 import{RouterModule, Routes} from '@angular/router';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import {PasswordModule} from 'primeng/password';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -39,6 +41,7 @@ import { ListagemDeSetorComponent } from './listagem-de-setor/listagem-de-setor.
 import { ExibicaoMemorandoEnviadoComponent } from './exibicao-memorando-enviado/exibicao-memorando-enviado.component';
 import { ListagemDeSetorDoUsuarioComponent } from './listagem-de-setor-do-usuario/listagem-de-setor-do-usuario.component';
 import { SetorService } from './serviços/setor.service';
+import { configuracao } from 'src/environments/firebase.config';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -95,8 +98,9 @@ export const rotas: Routes = [
     ScrollPanelModule,
     ToggleButtonModule,
     ToastModule,
+    AngularFireModule.initializeApp(configuracao)
   ],
-  providers: [UsuarioService, SetorService],
+  providers: [UsuarioService, SetorService, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

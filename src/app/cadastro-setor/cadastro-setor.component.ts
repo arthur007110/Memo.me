@@ -49,15 +49,18 @@ export class CadastroSetorComponent implements OnInit {
   }
 
   getUsuarios(){
-    this.usuarios = [];
-    let usuariosCadastrados = this.usuarioService.getUsuarios();
-
-    //Busca apenas os usuários que não possuem um setor cadastrado.
-    for(let i = 0; i < usuariosCadastrados.length; i++){
-      if(usuariosCadastrados[i].getsetor() == null){
-        this.usuarios.push(usuariosCadastrados[i]);
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      this.usuarios = resultado;
+      let i = this.usuarios.length;
+      let j = 0;
+      while(j != i){
+        if(this.usuarios[j].idDoSetor == null){
+          j++;
+        }else{
+          this.usuarios.splice(j, 1);
+          --i;
+        }
       }
-    }
+    });
   }
-  
 }

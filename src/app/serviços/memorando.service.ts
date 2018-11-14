@@ -60,13 +60,21 @@ export class MemorandoService {
     /*
       0: TUDO OK              1: CAMPOS SEM PREENCHER
     */
+   let usuario;
+   this.usuarioService.listarTodos().subscribe(userArr => {
+     for(let i = 0; i < userArr.length; i++){
+       if(userArr[i].siape == siape){
+         usuario = userArr[i];
+        }
+      }
+    });
 
     if(setorDeDestino == null || siape == null || mensagem == null || mensagem.length <= 0){
       return 1;
     }else{
       let now = new Date();
       let data = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
-      let setorEmissor = this.usuarioService.getUsuariosPorSiape(siape).getsetor();
+      let setorEmissor = usuario.idDoSetor;
       let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.getId(), data);
       this.setMemorando(memorando);
       return 0;

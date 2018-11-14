@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SetorService } from '../serviços/setor.service';
-import { Setor } from '../models/Setor';
 
 @Component({
   selector: 'app-atualizar-setor',
@@ -10,7 +9,7 @@ import { Setor } from '../models/Setor';
 })
 export class AtualizarSetorComponent implements OnInit {
   siape: string;
-  setorSelecionado: Setor = null;
+  setorSelecionado;
   novoNome: string = "";
   msgErro: boolean = false;
   
@@ -20,15 +19,23 @@ export class AtualizarSetorComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = this.route.params.subscribe(params => {
-      this.setorSelecionado = this.setorService.getSetorPorId(params['id']);
-    })
+    let id;
+
+    this.route.params.subscribe(params => {
+      id = params['id'];
+    });
+
+    this.setorService.listarPorId(id).subscribe(resultado => {
+      this.setorSelecionado = resultado;
+    });
+
     this.siape = sessionStorage.getItem("siape");
   }
 
   atualizarSetor(){
     // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
-    let verificacao = this.setorService.verificacaoDeAtualizar(this.setorSelecionado.nome, this.novoNome);
+    let id = this.setorSelecionado.id;
+    let verificacao = this.setorService.verificacaoDeAtualizar(id, this.setorSelecionado.nome, this.novoNome);
     if(verificacao == 0){
       this.voltar();
     }else if(verificacao == 1){

@@ -21,8 +21,6 @@ export class HomeAdmComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
 
   ngOnInit() {
-
-    
     this.sub = this.route.params.subscribe(params => {
       this.siape = params['id'];
     });
@@ -41,7 +39,13 @@ export class HomeAdmComponent implements OnInit {
   }
 
   getUsuario(){
-    this.usuario = this.usuarioService.getUsuariosPorSiape(this.siape);
+    this.usuarioService.listarTodos().subscribe(userArr => {
+      for(let i = 0; i < userArr.length; i++){
+          if(userArr[i].siape == this.siape){
+              this.usuario = userArr[i];
+          }
+      }
+    });
   }
 
   deslogar(){
