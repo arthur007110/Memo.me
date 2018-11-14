@@ -46,7 +46,7 @@ export class EnvioMemorandoComponent implements OnInit {
     this.router.navigate(['/recebidos',this.siape]);
   }
 
-  receberSetores(){
+  /*receberSetores(){
     this.setores = [];
     let setoresCadastrados;
     this.setorS.listarTodos().subscribe(setorArr => {
@@ -56,6 +56,23 @@ export class EnvioMemorandoComponent implements OnInit {
       for(let i = 0; i < setoresCadastrados.length; i++){
         if(setoresCadastrados[i].usuario.siape != this.siape){
           this.setores.push(setoresCadastrados[i]);
+        }
+      }
+    });
+  }*/
+
+  receberSetores(){
+    this.setorS.listarTodos().subscribe(resultado => {
+      this.setores = resultado;
+      let i = this.setores.length;
+      let j = 0;
+      while(j != i){
+        if(this.setores[j].usuario.siape == this.siape){
+          this.setores.splice(j, 1);
+          --i;
+        }else{
+          j++;
+         
         }
       }
     });

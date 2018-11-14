@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Memorando } from '../models/Memorando';
 import { SetorService } from './setor.service';
 import { UsuarioService } from './usuario.service';
+import { Usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,7 @@ export class MemorandoService {
     /*
       0: TUDO OK              1: CAMPOS SEM PREENCHER
     */
-   let usuario;
+   let usuario:Usuario;
    this.usuarioService.listarTodos().subscribe(userArr => {
      for(let i = 0; i < userArr.length; i++){
        if(userArr[i].siape == siape){
