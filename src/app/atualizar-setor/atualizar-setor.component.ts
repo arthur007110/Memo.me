@@ -35,17 +35,21 @@ export class AtualizarSetorComponent implements OnInit {
   atualizarSetor(){
     // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
     let id = this.setorSelecionado.id;
-    let verificacao = this.setorService.verificacaoDeAtualizar(id, this.setorSelecionado.nome, this.novoNome);
-    if(verificacao == 0){
-      this.voltar();
-    }else if(verificacao == 1){
-      alert("Preencha todos os campos.");
-    }else if(verificacao == 2){
-      alert("Nome inválido.");
-    }else if(verificacao == 3){
-      alert("Esse nome já está sendo utilizado.");
-      this.msgErro = true;
-    }
+    let setores;
+    this.setorService.listarTodos().subscribe(resultado => {
+      setores = resultado;
+      let verificacao = this.setorService.verificacaoDeAtualizar(id, this.setorSelecionado.nome, this.novoNome, setores);
+      if(verificacao == 0){
+        this.voltar();
+      }else if(verificacao == 1){
+        alert("Preencha todos os campos.");
+      }else if(verificacao == 2){
+        alert("Nome inválido.");
+      }else if(verificacao == 3){
+        alert("Esse nome já está sendo utilizado.");
+        this.msgErro = true;
+      }
+    });
   }
 
   voltar(){

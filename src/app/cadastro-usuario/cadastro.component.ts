@@ -41,19 +41,22 @@ export class CadastroComponent implements OnInit {
 
   cadastrar(){
     // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
-    let verificacao = this.usuarioService.verificacaoDeCadastro(this.nome,this.siape,this.senha,this.senha2);
-    if(verificacao == 0){
-      this.messageService.add({severity:'success', summary: 'Cadastrado!', detail:'cadastro feito com sucesso'});
-      this.executarTimer();
-    }else if(verificacao == 1){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
-    }else if(verificacao == 2){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'nome inválido.'});
-    }else if(verificacao == 3){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'está siape já está sendo utilizada.'});
-    }else if(verificacao == 4){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'senhas não coincidem.'});
-    }
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      let usuarios = resultado;
+      let verificacao = this.usuarioService.verificacaoDeCadastro(this.nome,this.siape,this.senha,this.senha2, usuarios);
+      if(verificacao == 0){
+        this.messageService.add({severity:'success', summary: 'Cadastrado!', detail:'cadastro feito com sucesso'});
+        this.executarTimer();
+      }else if(verificacao == 1){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
+      }else if(verificacao == 2){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'nome inválido.'});
+      }else if(verificacao == 3){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'está siape já está sendo utilizada.'});
+      }else if(verificacao == 4){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'senhas não coincidem.'});
+      }
+    });
   }
   executarTimer(){
 

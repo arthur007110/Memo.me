@@ -23,25 +23,27 @@ export class LoginComponent implements OnInit {
 
   fazerLogin(){
     // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
-    let verificacao = this.usuarioService.verificacaoDeLogin(this.siape, this.senha);
-    console.log(verificacao);
-    if(verificacao == 0){
-      this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso'});
-      sessionStorage.setItem('siape', this.siape);
-      this.executarTimer();
-    }else if(verificacao == 1){
-      this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso,Bem vindo ADM'});
-      sessionStorage.setItem('siape', this.siape);
-      this.executarTimerAdm();
-    }else if(verificacao == 2){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
-    }else if(verificacao ==  3){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'este usuário não consta no sistema.'});
-    }else if(verificacao ==  4){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'siape e senha não coincidem.'});
-    }else if(verificacao == 5){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'este usuario não está cadastrado em nenhum setor, por favor comunique ao ADMIN'});
-    }
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      let usuarios = resultado;
+      let verificacao = this.usuarioService.verificacaoDeLogin(this.siape, this.senha, usuarios);
+      if(verificacao == 0){
+        this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso'});
+        sessionStorage.setItem('siape', this.siape);
+        this.executarTimer();
+      }else if(verificacao == 1){
+        this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso,Bem vindo ADM'});
+        sessionStorage.setItem('siape', this.siape);
+        this.executarTimerAdm();
+      }else if(verificacao == 2){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
+      }else if(verificacao ==  3){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'este usuário não consta no sistema.'});
+      }else if(verificacao ==  4){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'siape e senha não coincidem.'});
+      }else if(verificacao == 5){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'este usuario não está cadastrado em nenhum setor, por favor comunique ao ADMIN'});
+      }
+    });
   }
 
   irParaTelaHome(){

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ListagemDeSetorComponent implements OnInit {
 
-  setores: Setor[];
+  setores: Setor[] = [];
   items: MenuItem[];
   siape:string;
 
@@ -23,8 +23,10 @@ export class ListagemDeSetorComponent implements OnInit {
   }
 
   getSetores(){
+    this.setores = [];
     this.setorService.listarTodos().subscribe(listaSetores=>{
-      this.setores = listaSetores;
+      let setArr = listaSetores;
+      this.setores = setArr;
     });
     
     //this.setorService.getSetores();

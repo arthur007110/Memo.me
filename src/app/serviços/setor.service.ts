@@ -15,7 +15,7 @@ export class SetorService {
     this.setorCollection = afs.collection<Setor>('setores');
     this.listarTodos().subscribe(resultado => {
       this.setores = resultado;
-    })
+    });
   }
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
@@ -58,11 +58,14 @@ export class SetorService {
   */
 
   listarPorNome(nome){
-    for(let i = 0; i < this.setores.length; i++){
-      if(this.setores[i].nome == nome){
-        return this.setores[i];
+    this.listarTodos().subscribe(resultado => {
+      this.setores = resultado;
+      for(let i = 0; i < this.setores.length; i++){
+        if(this.setores[i].nome == nome){
+          return this.setores[i];
+        }
       }
-    }
+    });
   }
   
   listarTodos(): Observable<any[]>{
@@ -88,13 +91,19 @@ export class SetorService {
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificacaoDeAtualizar(id, nome, novoNome){
+  verificacaoDeAtualizar(id, nome, novoNome, setores){
     /*
       0: TUDO OK              1: CAMPOS SEM PREENCHER
       2: NOME INVÁLIDO        3: NOME JÁ EM USO
     */
 
-    let setor = this.listarPorNome(novoNome);
+    let setor;
+    for(let i = 0; i < setores.length; i++){
+      if(setores[i].nome == novoNome){
+        setor = setores[i];
+        break;
+      }
+    }
 
     if(novoNome == undefined || novoNome.length <= 0){
       return 1;
@@ -109,13 +118,19 @@ export class SetorService {
     }
   }
 
-  verificacaoDeCadastro(nome, usuario){
+  verificacaoDeCadastro(nome, usuario, setores){
     /*
       0: TUDO OK              1: CAMPOS SEM PREENCHER
       2: NOME INVÁLIDO        3: NOME JÁ EM USO
     */
 
-   let setor = this.listarPorNome(nome);
+   let setor;
+    for(let i = 0; i < setores.length; i++){
+      if(setores[i].nome == nome){
+        setor = setores[i];
+        break;
+      }
+    }
 
     if(nome == undefined || nome.length <= 0 || usuario == null){
       return 1;

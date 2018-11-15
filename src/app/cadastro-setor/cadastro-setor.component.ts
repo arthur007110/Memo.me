@@ -31,17 +31,21 @@ export class CadastroSetorComponent implements OnInit {
 
   cadastrarSetor(){
     // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
-    let verificacao = this.setorService.verificacaoDeCadastro(this.nome, this.usuarioSelecionado);
-    if(verificacao == 0){
-      this.router.navigate(['/listar-setores', this.siape]);
-    }else if(verificacao == 1){
-      alert("Preencha todos os campos.");
-    }else if(verificacao == 2){
-      alert("Nome inválido.");
-    }else if(verificacao == 3){
-      alert("Esse nome já está sendo utilizado.");
-      this.msgErro = true;
-    }
+    let setores;
+    this.setorService.listarTodos().subscribe(resultado => {
+      setores = resultado;
+      let verificacao = this.setorService.verificacaoDeCadastro(this.nome, this.usuarioSelecionado, setores);
+      if(verificacao == 0){
+        this.router.navigate(['/listar-setores', this.siape]);
+      }else if(verificacao == 1){
+        alert("Preencha todos os campos.");
+      }else if(verificacao == 2){
+        alert("Nome inválido.");
+      }else if(verificacao == 3){
+        alert("Esse nome já está sendo utilizado.");
+        this.msgErro = true;
+      }
+    });
   }
 
   mostrarMsg(){

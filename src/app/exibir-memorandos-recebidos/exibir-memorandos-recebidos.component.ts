@@ -25,8 +25,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
 
     ngOnInit(){
         this.siape = sessionStorage.getItem("siape");
-        this.reconhecerUsuario();
-        this.listarMemorandos();
+        this.listarMemorandosEReconhecerUsuario();
     }
 
     getNomeDoSetorEmissor(id){
@@ -42,17 +41,14 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         this.router.navigate(['/vizualizar',memorando.getId()]);
     }
 
-    listarMemorandos(){
-        this.memorandos=this.memorandoS.getMemorandosRecebidosSetor(this.usuario.idDoSetor);
-    }
-
-    reconhecerUsuario(){
+    listarMemorandosEReconhecerUsuario(){
         this.usuarioS.listarTodos().subscribe(userArr => {
             for(let i = 0; i < userArr.length; i++){
                 if(userArr[i].siape == this.siape){
                     this.usuario = userArr[i];
                 }
             }
+            this.memorandos=this.memorandoS.getMemorandosRecebidosSetor(this.usuario.idDoSetor);
         });
     }
 
