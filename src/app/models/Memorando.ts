@@ -1,5 +1,3 @@
-import { SetorService } from "../serviços/setor.service";
-
 export class Memorando{
     
     private id : string;

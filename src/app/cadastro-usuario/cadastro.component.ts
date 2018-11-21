@@ -21,10 +21,7 @@ export class CadastroComponent implements OnInit {
   msgErroSiape: boolean = false;
   msgErroSenha: boolean = false;
 
-  constructor(
-    private router: Router,
-    private usuarioService: UsuarioService,
-    private messageService: MessageService) { }
+  constructor(private router: Router, private usuarioService: UsuarioService, private messageService: MessageService) { }
 
   ngOnInit() {
   }

@@ -10,36 +10,36 @@ import { MemorandoService } from '../serviços/memorando.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private router: Router, private memorandoS: MemorandoService) { }
-
+    id: string;
     items: MenuItem[];
-    siape:string;
-    memorandos:Memorando[];
-
+    memorandos: Memorando[];
+    
+    constructor(private router: Router, private memorandoS: MemorandoService) { }
+    
     deslogar(){
-        sessionStorage.removeItem("siape");
+        sessionStorage.removeItem("id-usuario");
+        sessionStorage.removeItem("id-setor");
+        sessionStorage.removeItem("id-memorando");
         this.router.navigate(['']);
     }
     enviarMemorando(){
         this.router.navigate(['/envio-memorando']);
     }
     exibirMemorando(i){
-        sessionStorage.setItem("id",this.memorandos[i].getId());
-        this.router.navigate(['/vizualizar',this.memorandos[i].getId()]);
+        sessionStorage.setItem("id-usuario", this.memorandos[i].getId());
+        this.router.navigate(['/vizualizar', this.memorandos[i].getId()]);
     }
     mostrarMemorandosEnviados(){
-        this.router.navigate(['enviados',this.siape]);
+        this.router.navigate(['enviados', this.id]);
     }
     mostrarMemorandosRecebidos(){
-        this.router.navigate(['recebidos',this.siape]);
+        this.router.navigate(['recebidos', this.id]);
     }
     listarSetores(){
-        this.router.navigate(['listar-setores/',this.siape]);
+        this.router.navigate(['listar-setores-de-usuario/', this.id]);
     }
     ngOnInit(){
-        
-        this.siape = sessionStorage.getItem("siape");
+        this.id = sessionStorage.getItem('id-usuario');
         
         this.items = [
             {

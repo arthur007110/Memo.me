@@ -1,12 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { CadastroComponent } from './cadastro-usuario/cadastro.component';
-
-import {FormsModule} from '@angular/forms';
-import{RouterModule, Routes} from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -28,6 +23,9 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ToastModule} from 'primeng/toast';
 
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { CadastroComponent } from './cadastro-usuario/cadastro.component';
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
 import { UsuarioService } from './serviços/usuario.service';
@@ -42,6 +40,7 @@ import { ExibicaoMemorandoEnviadoComponent } from './exibicao-memorando-enviado/
 import { ListagemDeSetorDoUsuarioComponent } from './listagem-de-setor-do-usuario/listagem-de-setor-do-usuario.component';
 import { SetorService } from './serviços/setor.service';
 import { configuracao } from 'src/environments/firebase.config';
+import { MemorandoService } from './serviços/memorando.service';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -55,7 +54,7 @@ export const rotas: Routes = [
   { path: 'vizualizar-enviado/:id', component: ExibicaoMemorandoEnviadoComponent},
   { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},
   { path: 'enviados/:id', component: ExibirMemorandosEnviadosComponent},
-  { path: 'listagem-setores-de-usuario/:id', component: ListagemDeSetorDoUsuarioComponent},
+  { path: 'listar-setores-de-usuario/:id', component: ListagemDeSetorDoUsuarioComponent},
   { path: 'listar-setores/:id', component: ListagemDeSetorComponent}
 ];
 
@@ -100,7 +99,7 @@ export const rotas: Routes = [
     ToastModule,
     AngularFireModule.initializeApp(configuracao)
   ],
-  providers: [UsuarioService, SetorService, AngularFirestore],
+  providers: [UsuarioService, SetorService, MemorandoService, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

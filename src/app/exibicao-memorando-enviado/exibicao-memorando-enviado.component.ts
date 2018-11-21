@@ -12,22 +12,22 @@ export class ExibicaoMemorandoEnviadoComponent implements OnInit {
 
   mensagem:string;
   id:string;
-  siape:string;
+  idUsuario:string;
   memorando:Memorando;
 
 
   constructor(private router: Router, private memorandoS: MemorandoService) { }
 
   ngOnInit() {
-    this.id=sessionStorage.getItem("id");
-    this.siape=sessionStorage.getItem("siape");
+    this.id=sessionStorage.getItem("id-memorando");
+    this.idUsuario=sessionStorage.getItem("id-usuario");
     this.receberMemorandos();
     this.exibirMensagem();
   }
 
   voltar(){
-    sessionStorage.removeItem("id");
-    this.router.navigate(['/enviados',this.siape]);
+    sessionStorage.removeItem("id-memorando");
+    this.router.navigate(['/enviados',this.idUsuario]);
   }
   receberMemorandos(){
     this.memorando=this.memorandoS.getMemorandoPorId(this.id);

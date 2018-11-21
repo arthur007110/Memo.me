@@ -11,7 +11,7 @@ export class UsuarioService {
   usuarios: Usuario[];
 
   constructor(private afs: AngularFirestore) {
-    this.usuarioCollection = afs.collection<Usuario>('usuario');
+    this.usuarioCollection = afs.collection<Usuario>('usuarios');
     this.listarTodos().subscribe(userArr => {
       this.usuarios = userArr;
     })
@@ -73,7 +73,7 @@ export class UsuarioService {
   }
 
   atualizaSetorDeUsuario(id, idDoSetor){
-    let usuarioDoc = this.afs.doc('usuario/'+id);
+    let usuarioDoc = this.afs.doc('usuarios/'+id);
     usuarioDoc.update({idDoSetor: idDoSetor});
 
   }
@@ -133,7 +133,7 @@ export class UsuarioService {
       return 3;
     }else if(usuario.senha != senha){
       return 4;
-    }else if(usuario.idDoSetor == null){
+    }else if(siape != "0000000" && usuario.idDoSetor == null){
       return 5;
     }else{
       if(siape == "0000000"){

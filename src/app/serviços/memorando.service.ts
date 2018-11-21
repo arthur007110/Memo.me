@@ -2,19 +2,17 @@ import { Injectable } from '@angular/core';
 import { Memorando } from '../models/Memorando';
 import { SetorService } from './setor.service';
 import { UsuarioService } from './usuario.service';
-import { Usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemorandoService {
 
-  constructor(private setorService: SetorService,
-    private usuarioService: UsuarioService) { }
+  constructor(private setorService: SetorService, private usuarioService: UsuarioService) { }
 
   //memorando = new Memorando("teste",12345,12355,"20-10-2018");
   //memorandos:Memorando[] = [this.memorando];
-  memorandos:Memorando[]=[];
+  memorandos:Memorando[] = [];
 
   public getMemorandos(){
     return this.memorandos;
@@ -57,29 +55,20 @@ export class MemorandoService {
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificacaoEnviarMemorando(setorDeDestino, siape, mensagem){
+  verificacaoEnviarMemorando(setorDeDestino, usuario, mensagem){
     /*
-      0: TUDO OK              1: CAMPOS SEM PREENCHER
+    0: TUDO OK              1: CAMPOS SEM PREENCHER
     */
-   let usuario:Usuario;
-   this.usuarioService.listarTodos().subscribe(userArr => {
-     for(let i = 0; i < userArr.length; i++){
-       if(userArr[i].siape == siape){
-         usuario = userArr[i];
-        }
-      }
-    });
 
-    if(setorDeDestino == null || siape == null || mensagem == null || mensagem.length <= 0){
+    if(setorDeDestino == null || usuario == null || mensagem == null || mensagem.length <= 0){
       return 1;
     }else{
       let now = new Date();
       let data = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
-      let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.getId(), data);
+      let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
       this.setMemorando(memorando);
       return 0;
     }
-
   }
 }

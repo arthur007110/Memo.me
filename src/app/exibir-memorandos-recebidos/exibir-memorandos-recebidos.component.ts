@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Memorando } from '../models/Memorando';
 import { MemorandoService } from '../serviços/memorando.service';
 import { UsuarioService } from '../serviços/usuario.service';
-import { Usuario } from '../models/Usuario';
 import { SetorService } from '../serviços/setor.service';
+import { Setor } from '../models/Setor';
 
 @Component({
   selector: 'app-exibir-memorandos-recebidos',
@@ -12,47 +12,38 @@ import { SetorService } from '../serviços/setor.service';
   styleUrls: ['./exibir-memorandos-recebidos.component.css']
 })
 export class ExibirMemorandosRecebidosComponent implements OnInit {
-
-    siape:string;
+    id: string;
     memorandos:Memorando[];
-    usuario: Usuario;
-    
-    constructor(
-        private router: Router,
-        private memorandoS: MemorandoService,
-        private usuarioS: UsuarioService,
-        private setorS: SetorService) { }
+    setores: Setor[];
+    usuario;
+
+    constructor(private router: Router, private memorandoS: MemorandoService, private usuarioS: UsuarioService,private setorS: SetorService) { }
 
     ngOnInit(){
-        this.siape = sessionStorage.getItem("siape");
+        this.id = sessionStorage.getItem('id-usuario');
         this.listarMemorandosEReconhecerUsuario();
     }
 
     getNomeDoSetorEmissor(id){
-        let setor;
-        this.setorS.listarPorId(id).subscribe(resultado => {
-            setor = resultado;
-            return setor.nome;
-        });
+        for(let i = 0; i < this.setores.length; i++){
+            if(this.setores[i].id == id){
+                return this.setores[i].nome;
+            }
+        }
     }
 
     exibirMemorando(memorando){
-        sessionStorage.setItem("id",memorando.getId());
+        sessionStorage.setItem("id-memorando",memorando.getId());
         this.router.navigate(['/vizualizar',memorando.getId()]);
     }
-
+    
     listarMemorandosEReconhecerUsuario(){
-        this.usuarioS.listarTodos().subscribe(userArr => {
-            for(let i = 0; i < userArr.length; i++){
-                if(userArr[i].siape == this.siape){
-                    this.usuario = userArr[i];
-                }
-            }
-            this.memorandos=this.memorandoS.getMemorandosRecebidosSetor(this.usuario.idDoSetor);
+        this.usuarioS.listarPorId(this.id).subscribe(resultado => {
+            this.usuario = resultado;
+            this.setorS.listarTodos().subscribe(resultado => {
+                this.setores = resultado;
+                this.memorandos=this.memorandoS.getMemorandosRecebidosSetor(this.usuario.idDoSetor);
+            });
         });
-    }
-
-    listarSetores(){
-        this.router.navigate(['/listagem-setores-de-usuario/', this.siape]);
     }
 }

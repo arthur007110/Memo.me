@@ -8,28 +8,27 @@ import { SetorService } from '../serviços/setor.service';
   styleUrls: ['./atualizar-setor.component.css']
 })
 export class AtualizarSetorComponent implements OnInit {
-  siape: string;
+  id: string;
+  nome = "";
   setorSelecionado;
   novoNome: string = "";
   msgErro: boolean = false;
   
-  constructor(
-    private router: Router,
-    private setorService: SetorService,
-    private route: ActivatedRoute) { }
+  constructor(private router: Router, private setorService: SetorService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let id;
-
+    
     this.route.params.subscribe(params => {
       id = params['id'];
     });
 
     this.setorService.listarPorId(id).subscribe(resultado => {
       this.setorSelecionado = resultado;
+      this.nome = this.setorSelecionado.nome;
     });
 
-    this.siape = sessionStorage.getItem("siape");
+    this.id = sessionStorage.getItem('id-usuario');
   }
 
   atualizarSetor(){
@@ -46,14 +45,13 @@ export class AtualizarSetorComponent implements OnInit {
       }else if(verificacao == 2){
         alert("Nome inválido.");
       }else if(verificacao == 3){
-        alert("Esse nome já está sendo utilizado.");
         this.msgErro = true;
       }
     });
   }
 
   voltar(){
-    this.router.navigate(['/listar-setores', this.siape]);
+    this.router.navigate(['/listar-setores', this.id]);
   }
 
   mostrarMsg(){

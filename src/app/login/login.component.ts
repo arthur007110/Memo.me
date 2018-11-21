@@ -14,9 +14,7 @@ export class LoginComponent implements OnInit {
   siape: string;
   senha: string;
 
-  constructor(private router: Router,
-    private usuarioService: UsuarioService,
-    private messageService: MessageService) { }
+  constructor(private router: Router, private usuarioService: UsuarioService, private messageService: MessageService) { }
 
   ngOnInit(){
   }
@@ -28,11 +26,9 @@ export class LoginComponent implements OnInit {
       let verificacao = this.usuarioService.verificacaoDeLogin(this.siape, this.senha, usuarios);
       if(verificacao == 0){
         this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso'});
-        sessionStorage.setItem('siape', this.siape);
         this.executarTimer();
       }else if(verificacao == 1){
         this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso,Bem vindo ADM'});
-        sessionStorage.setItem('siape', this.siape);
         this.executarTimerAdm();
       }else if(verificacao == 2){
         this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
@@ -47,11 +43,25 @@ export class LoginComponent implements OnInit {
   }
 
   irParaTelaHome(){
-    this.router.navigate(["/recebidos",this.siape]);
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      for(let i = 0; i < resultado.length; i++){
+        if(resultado[i].siape == this.siape){
+          sessionStorage.setItem('id-usuario', resultado[i].id);
+          this.router.navigate(["/recebidos", resultado[i].id]);
+        }
+      }
+    });
   }
   
   irParaTelaHomeAdm(){
-    this.router.navigate(["/listar-setores", this.siape]);
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      for(let i = 0; i < resultado.length; i++){
+        if(resultado[i].siape == this.siape){
+          sessionStorage.setItem('id-usuario', resultado[i].id);
+          this.router.navigate(["/listar-setores", resultado[i].id]);
+        }
+      }
+    });
   }
 
   irParaTelaDeCadastro(){

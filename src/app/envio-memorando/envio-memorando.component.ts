@@ -4,6 +4,7 @@ import { MemorandoService } from '../serviços/memorando.service';
 import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 import { MessageService } from 'primeng/api';
+import { UsuarioService } from '../serviços/usuario.service';
 
 @Component({
   selector: 'app-envio-memorando',
@@ -12,38 +13,35 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class EnvioMemorandoComponent implements OnInit {
-
+  id: string;
   setores:Setor[];
   emissor:string;
   destinatario:Setor;
   mensagem:string;
-  siape:string;
 
-  constructor(
-    private router: Router,
-    private memorandoS: MemorandoService,
-    private setorS: SetorService,
-    private messageService: MessageService) { }
+  constructor(private router: Router, private memorandoS: MemorandoService, 
+    private setorS: SetorService, private messageService: MessageService, private usuarioService: UsuarioService) { }
 
   ngOnInit() {
-    this.siape = sessionStorage.getItem("siape");
+    this.id = sessionStorage.getItem('id-usuario');
     this.receberSetores();
   }
 
 
   enviarMemorando(){
     // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
-    let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.destinatario, this.siape, this.mensagem);
-
-    if(verificacao == 0){
-      this.irParaTelaHome();
-    }else if(verificacao == 1){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
-    }
+    this.usuarioService.listarPorId(this.id).subscribe(resultado => {
+      let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.destinatario, resultado, this.mensagem);
+      if(verificacao == 0){
+        this.irParaTelaHome();
+      }else if(verificacao == 1){
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
+      }
+    });
   }
 
   irParaTelaHome(){
-    this.router.navigate(['/recebidos',this.siape]);
+    this.router.navigate(['/recebidos', this.id]);
   }
 
   /*receberSetores(){
@@ -67,7 +65,7 @@ export class EnvioMemorandoComponent implements OnInit {
       let i = this.setores.length;
       let j = 0;
       while(j != i){
-        if(this.setores[j].usuario.siape == this.siape){
+        if(this.setores[j].idDoUsuario == this.id){
           this.setores.splice(j, 1);
           --i;
         }else{

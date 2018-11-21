@@ -11,22 +11,17 @@ import { UsuarioService } from '../serviços/usuario.service';
   styleUrls: ['./cadastro-setor.component.css']
 })
 export class CadastroSetorComponent implements OnInit {
-
+  id: string;
   nome: string;
   usuarios: Usuario[] = [];
   usuarioSelecionado: Usuario;
   msgErro: boolean = false;
 
-  constructor(
-    private router: Router,
-    private usuarioService: UsuarioService,
-    private setorService: SetorService){}
-
-  siape: string;
+  constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService){}
 
   ngOnInit(){
     this.getUsuarios();
-    this.siape = sessionStorage.getItem("siape");
+    this.id = sessionStorage.getItem('id-usuario');
   }
 
   cadastrarSetor(){
@@ -36,13 +31,12 @@ export class CadastroSetorComponent implements OnInit {
       setores = resultado;
       let verificacao = this.setorService.verificacaoDeCadastro(this.nome, this.usuarioSelecionado, setores);
       if(verificacao == 0){
-        this.router.navigate(['/listar-setores', this.siape]);
+        this.router.navigate(['/listar-setores', this.id]);
       }else if(verificacao == 1){
         alert("Preencha todos os campos.");
       }else if(verificacao == 2){
         alert("Nome inválido.");
       }else if(verificacao == 3){
-        alert("Esse nome já está sendo utilizado.");
         this.msgErro = true;
       }
     });
@@ -58,7 +52,7 @@ export class CadastroSetorComponent implements OnInit {
       let i = this.usuarios.length;
       let j = 0;
       while(j != i){
-        if(this.usuarios[j].idDoSetor == null){
+        if(this.usuarios[j].idDoSetor == null && this.usuarios[j].siape != "0000000"){
           j++;
         }else{
           this.usuarios.splice(j, 1);

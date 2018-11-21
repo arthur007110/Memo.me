@@ -5,12 +5,14 @@
         <tr>
             <th>Nome Do Setor</th>
             <th>Usuário</th>
+            <th>Siape do Usuário</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-setor>
         <tr>
             <td>{{setor.nome}}</td>
-            <td>{{setor.usuario.nome}} {{setor.usuario.siape}}</td>
+            <td>{{getNomeDoUsuario(setor.idDoUsuario)}}</td>
+            <td>{{getSiapeDoUsuario(setor.idDoUsuario)}}</td>
         </tr>
     </ng-template>
   </p-table>

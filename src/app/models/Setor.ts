@@ -1,10 +1,8 @@
-import { Usuario } from "./Usuario";
-
 export interface Setor{
 
     id?: string;
     nome: string;
-    usuario: Usuario;
+    idDoUsuario?: string;
 
     /*
     constructor(id, nome, usuario){

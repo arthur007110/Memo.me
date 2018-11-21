@@ -20,12 +20,12 @@ export class SetorService {
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
 
-  cadastrar(nome, usuario){
-    let setor: Setor = {nome: nome, usuario: usuario};
+  cadastrar(nome, idDoUsuario){
+    let setor: Setor = {nome: nome, idDoUsuario: idDoUsuario};
     this.setorCollection.add(setor).then(resultado => {
       let setorDoc = this.setorCollection.doc(resultado.id);
       setorDoc.update({id: resultado.id});
-      this.usuarioService.atualizaSetorDeUsuario(usuario.id, resultado.id);
+      this.usuarioService.atualizaSetorDeUsuario(idDoUsuario, resultado.id);
     });
   }
 
@@ -139,7 +139,7 @@ export class SetorService {
     }else if(setor != null){
       return 3;
     }else{
-      this.cadastrar(nome, usuario);
+      this.cadastrar(nome, usuario.id);
       return 0;
     }
 
