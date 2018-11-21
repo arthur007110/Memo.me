@@ -33,17 +33,19 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     }
 
     exibirMemorando(memorando){
-        sessionStorage.setItem("id-memorando",memorando.getId());
-        this.router.navigate(['/vizualizar',memorando.getId()]);
+        sessionStorage.setItem("id-memorando",memorando.id);
+        this.router.navigate(['/vizualizar',memorando.id]);
     }
     
     listarMemorandosEReconhecerUsuario(){
         this.usuarioS.listarPorId(this.id).subscribe(resultado => {
             this.usuario = resultado;
-            this.setorS.listarTodos().subscribe(resultado => {
-                this.setores = resultado;
-                this.memorandos=this.memorandoS.getMemorandosRecebidosSetor(this.usuario.idDoSetor);
-            });
+        });
+        this.setorS.listarTodos().subscribe(resultado => {
+            this.setores = resultado;
+        });
+        this.memorandoS.listarTodos().subscribe(resultado => {
+            this.memorandos = this.memorandoS.getMemorandosRecebidosSetor(this.usuario.idDoSetor, resultado);
         });
     }
 }

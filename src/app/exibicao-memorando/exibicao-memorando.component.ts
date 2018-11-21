@@ -12,7 +12,7 @@ export class ExibicaoMemorandoComponent implements OnInit {
   id:string;
   idUsuario: string;
   mensagem:string;
-  memorando:Memorando;
+  memorando;
 
   constructor(private router: Router, private memorandoS: MemorandoService) { }
 
@@ -20,20 +20,22 @@ export class ExibicaoMemorandoComponent implements OnInit {
     this.id = sessionStorage.getItem("id-memorando");
     this.idUsuario=sessionStorage.getItem("id-usuario");
     this.receberMemorandos();
-    this.exibirMensagem();
   }
 
   marcarVisto(){
-    this.memorandoS.getMemorandoPorId(this.id).marcarComoVisto();
+    this.memorandoS.marcarComoVisto(this.id);
     sessionStorage.removeItem("id-memorando");
     this.router.navigate(['/recebidos',this.idUsuario]);
   }
 
   receberMemorandos(){
-    this.memorando=this.memorandoS.getMemorandoPorId(this.id);
+    this.memorandoS.listarPorId(this.id).subscribe(resultado => {
+      this.memorando = resultado;
+      this.exibirMensagem();
+    });
   }
   
   exibirMensagem(){
-    this.mensagem=this.memorando.getmensagem();
+    this.mensagem=this.memorando.mensagem;
   }
 }

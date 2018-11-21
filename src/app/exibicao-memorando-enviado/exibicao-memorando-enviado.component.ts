@@ -9,11 +9,10 @@ import { MemorandoService } from '../serviços/memorando.service';
   styleUrls: ['./exibicao-memorando-enviado.component.css']
 })
 export class ExibicaoMemorandoEnviadoComponent implements OnInit {
-
   mensagem:string;
   id:string;
   idUsuario:string;
-  memorando:Memorando;
+  memorando;
 
 
   constructor(private router: Router, private memorandoS: MemorandoService) { }
@@ -22,7 +21,6 @@ export class ExibicaoMemorandoEnviadoComponent implements OnInit {
     this.id=sessionStorage.getItem("id-memorando");
     this.idUsuario=sessionStorage.getItem("id-usuario");
     this.receberMemorandos();
-    this.exibirMensagem();
   }
 
   voltar(){
@@ -30,9 +28,12 @@ export class ExibicaoMemorandoEnviadoComponent implements OnInit {
     this.router.navigate(['/enviados',this.idUsuario]);
   }
   receberMemorandos(){
-    this.memorando=this.memorandoS.getMemorandoPorId(this.id);
+    this.memorandoS.listarPorId(this.id).subscribe(resultado => {
+      this.memorando = resultado;
+      this.exibirMensagem();
+    });
   }
   exibirMensagem(){
-    this.mensagem=this.memorando.getmensagem();
+    this.mensagem=this.memorando.mensagem;
   }
 }

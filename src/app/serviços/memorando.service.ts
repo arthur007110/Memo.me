@@ -2,55 +2,21 @@ import { Injectable } from '@angular/core';
 import { Memorando } from '../models/Memorando';
 import { SetorService } from './setor.service';
 import { UsuarioService } from './usuario.service';
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemorandoService {
+  memorandosCollection: AngularFirestoreCollection<Memorando>;
+  memorandos: Memorando[] = [];
 
-  constructor(private setorService: SetorService, private usuarioService: UsuarioService) { }
-
-  //memorando = new Memorando("teste",12345,12355,"20-10-2018");
-  //memorandos:Memorando[] = [this.memorando];
-  memorandos:Memorando[] = [];
-
-  public getMemorandos(){
-    return this.memorandos;
-  }
-
-  setMemorando(memorando:Memorando){
-    //Obtém um id para o memorando
-    let id = ""+this.memorandos.length;
-    memorando.setId(id);
-    //Salva memorando no array
-    this.memorandos.push(memorando);
-  }
-  getMemorandoPorId(id){
-    for(let i = 0; i < this.memorandos.length; i++){
-      if(this.memorandos[i].getId() == id){
-        return this.memorandos[i];
-      }
-    }
-  }
-  getMemorandosRecebidosSetor(idSetor){
-
-    let requesicao:Memorando[]=[];
-    for(let i = 0; i < this.memorandos.length; i++){
-      if(this.memorandos[i].getsetorDestinatario() == idSetor){
-       requesicao.push(this.memorandos[i]);
-      }
-    }
-    return requesicao;
-  }
-  getMemorandosEnviadosSetor(idSetor){
-
-    let requesicao:Memorando[]=[];
-    for(let i = 0; i < this.memorandos.length; i++){
-      if(this.memorandos[i].getsetorEmissor() == idSetor){
-       requesicao.push(this.memorandos[i]);
-      }
-    }
-    return requesicao;
+  constructor(private afs: AngularFirestore, private setorService: SetorService, private usuarioService: UsuarioService) {
+    this.memorandosCollection = afs.collection<Memorando>('memorandos');
+    this.listarTodos().subscribe(resultado => {
+      this.memorandos = resultado;
+    });
   }
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
@@ -66,9 +32,79 @@ export class MemorandoService {
       let now = new Date();
       let data = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
-      let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
-      this.setMemorando(memorando);
+      //let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
+      let memorando: Memorando = {id: "", mensagem: mensagem, idSetorEmissor: setorEmissor,
+        idSetorDestinatario: setorDeDestino.id, dataEnvio: data, visto: false};
+      this.cadastrar(memorando);
       return 0;
     }
   }
+
+  //FUNÇÕES PARA O BANCO DE DADOS ==>
+
+  cadastrar(memorando){
+    this.memorandosCollection.add(memorando).then(resultado => {
+      let memorandoDoc = this.memorandosCollection.doc(resultado.id);
+      memorandoDoc.update({id: resultado.id});
+    });
+  }
+
+  listarPorId(id){
+    return new Observable(observer => {
+      let doc = this.memorandosCollection.doc(id);
+      doc.snapshotChanges().subscribe(result => {
+        let id = result.payload.id;
+        let data = result.payload.data();
+        let document = {id: id, ...data};
+        observer.next(document);
+        observer.complete();
+      });
+    });
+  }
+
+  listarTodos(): Observable<any[]>{
+    let resultados: any[] = [];
+    let meuObservable = new Observable<any[]>(observer => {
+      this.memorandosCollection.snapshotChanges().subscribe(result => {
+        result.map(documents => {
+          let id = documents.payload.newIndex;
+          let data = documents.payload.doc.data();
+          let document = {id: id, ...data};
+          resultados.push(document);
+        });
+        observer.next(resultados);
+        observer.complete();
+      });});
+      return meuObservable;
+  }
+
+  getMemorandosRecebidosSetor(idDoSetor, memorandos){
+    let memorandosRecebidos: Memorando[] = [];
+
+    for(let i = 0; i < memorandos.length; i++){
+      if(memorandos[i].idSetorDestinatario == idDoSetor){
+        memorandosRecebidos.push(memorandos[i]);
+      }
+    }
+
+    return memorandosRecebidos;
+  }
+
+  getMemorandosEnviadosSetor(idDoSetor, memorandos){
+    let memorandosEnviados: Memorando[] = [];
+
+    for(let i = 0; i < memorandos.length; i++){
+      if(memorandos[i].idSetorEmissor == idDoSetor){
+        memorandosEnviados.push(memorandos[i]);
+      }
+    }
+
+    return memorandosEnviados;
+  }
+
+  marcarComoVisto(id){
+    let memroandoDoc = this.afs.doc('memorandos/' + id);
+    memroandoDoc.update({visto: true});
+  }
+  
 }
