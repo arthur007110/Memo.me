@@ -80,7 +80,8 @@ export class SetorService {
         });
         observer.next(resultados);
         observer.complete();
-      });});
+      });
+    });
       return meuObservable;
   }
 

@@ -4,7 +4,7 @@
     <input id="float-input" type="text" size="30" [(ngModel)]="novoNome" (focus)="mostrarMsg()" pInputText>
     <label for="float-input">Novo nome do Setor</label> 
   </span><br>
-  <button pButton type="button" label="Atualizar" (click)="atualizarSetor()"></button>
-  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<button pButton type="button" label="Voltar" (click)="voltar()"></button><br>
+  <button pButton type="button" label="Atualizar" (click)="atualizarSetor()" class="ui-button-raised ui-button-success"></button>
+  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<button pButton type="button" label="Voltar" (click)="voltar()" class="ui-button-raised ui-button-success"></button><br>
   <br *ngIf="msgErro">&#160;<p-message severity="error" *ngIf="msgErro" text="Já existe um setor com esse nome."></p-message>
 </p-card>

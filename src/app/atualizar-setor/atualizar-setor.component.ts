@@ -39,7 +39,7 @@ export class AtualizarSetorComponent implements OnInit {
       setores = resultado;
       let verificacao = this.setorService.verificacaoDeAtualizar(id, this.setorSelecionado.nome, this.novoNome, setores);
       if(verificacao == 0){
-        this.voltar();
+       // this.voltar();
       }else if(verificacao == 1){
         alert("Preencha todos os campos.");
       }else if(verificacao == 2){

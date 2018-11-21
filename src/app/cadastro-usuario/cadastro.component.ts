@@ -37,6 +37,9 @@ export class CadastroComponent implements OnInit {
   }
 
   cadastrar(){
+
+  
+
     // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
     this.usuarioService.listarTodos().subscribe(resultado => {
       let usuarios = resultado;

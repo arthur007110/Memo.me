@@ -16,8 +16,8 @@
             <td>{{getNomeDoSetorDeDestino(memorando.idSetorDestinatario)}}</td>
             <td>{{memorando.dataEnvio}}</td>
             <td>
-            <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)"></p-button>
-            <p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" [(ngModel)]="memorando.visto" disabled></p-toggleButton>
+            <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
+            <p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" [(ngModel)]="memorando.visto" disabled class="ui-button-raised ui-button-success"></p-toggleButton>
             </td>
         </tr>
     </ng-template>
