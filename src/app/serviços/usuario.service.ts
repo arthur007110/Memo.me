@@ -7,22 +7,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuarioCollection: AngularFirestoreCollection<Usuario>;
-  usuarios: Usuario[];
+  usuarioCollection: AngularFirestoreCollection<any>;
 
   constructor(private afs: AngularFirestore) {
-    this.usuarioCollection = afs.collection<Usuario>('usuarios');
-    this.listarTodos().subscribe(userArr => {
-      this.usuarios = userArr;
-    })
+    this.usuarioCollection = afs.collection<any>('usuarios');
 
   }
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
 
-  cadastrar(nome, siape, senha, idDoSetor){
-    let usuario: Usuario = {nome: nome, siape: siape, senha: senha, idDoSetor: idDoSetor};
-    this.usuarioCollection.add(usuario).then(resultado => {
+  cadastrar(usuario: Usuario){
+    this.usuarioCollection.add(usuario.toFireBase()).then(resultado => {
       let userDoc = this.usuarioCollection.doc(resultado.id);
       userDoc.update({id: resultado.id});
     });
@@ -40,21 +35,6 @@ export class UsuarioService {
       })
     })
   }
-
-  /*
-  listarPorSiape(siape): Observable<Usuario>{
-    let usuario;
-    this.listarTodos().subscribe(userArr => {
-      for(let i = 0; i < userArr.length; i++){
-        if(userArr[i].siape == siape){
-          usuario = userArr[i];
-        }
-      }
-    });
-
-    return usuario;
-  }
-  */
 
   listarTodos(): Observable<any[]>{
     let resultados: any[] = [];
@@ -80,67 +60,46 @@ export class UsuarioService {
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificacaoDeCadastro(nome: string, siape: string, senha: string, senha2: string, usuarios){
-    /*
-      0: TUDO OK              1: CAMPOS SEM PREENCHER
-      2: NOME INVÁLIDO        3: SIAPE JÁ EM USO
-      4: SENHA NÃO BATEM          
-    */
-   
-   let usuario;
-   for(let i = 0; i < usuarios.length; i++){
-     if(usuarios[i].siape == siape){
-       usuario = usuarios[i];
-       break;
-     }
-   }
-
-    if(nome == undefined || nome.length <= 0 || siape == undefined || siape.length <= 0 || siape.indexOf("_") >= 0
-     || senha == undefined || senha.length <= 0 || senha == undefined || senha2.length <= 0){
-      return 1;
-    }else if(nome.length < 1 || nome[0] == " "){
-      return 2;
-    }else if(usuario != null){
-      return 3;
-    }else if(senha != senha2){
-      return 4;
-    }else{
-      this.cadastrar(nome, siape, senha, null);
-      console.log(siape);
-      return 0;
-    }
-
+  verificarCadastro(usuario): Observable<any>{
+    let meuObservable = new Observable<any>(observer => {
+      let collectionFiltrada = this.afs.collection<any>('usuarios', ref=>ref.where('siape', '==', usuario.getSiape()));
+      let resultado = collectionFiltrada.valueChanges();
+      resultado.subscribe(userArr => {
+        if(userArr.length == 0){
+          this.cadastrar(usuario); // Não existe um usuário cadastro com aquela siape;
+          observer.next(true);
+        }else{
+          observer.next(false); // Existe um usuário cadastro com aquela siape
+        }
+        observer.complete();
+      });
+    });
+    return meuObservable;
   }
 
-  verificacaoDeLogin(siape, senha, usuarios){
-    /*
-      0: TUDO OK        1: ADM
-      2: CAMPOS SEM PREENCHER   3: USUÁRIO INEXISTENTE
-      4: A SIAPE E A SENHA NÃO BATEM    5: USUÁRIO AINDA NÃO POSSUI UM SETOR
-    */
-
-   let usuario;
-   for(let i = 0; i < usuarios.length; i++){
-     if(usuarios[i].siape == siape){
-       usuario = usuarios[i];
-       break;
-     }
-   }
-    
-    if(siape == undefined || siape.length <= 0 || siape.indexOf("_") >= 0 || senha == undefined || senha.length <= 0){
-      return 2;
-    }else if(usuario == null){
-      return 3;
-    }else if(usuario.senha != senha){
-      return 4;
-    }else if(siape != "0000000" && usuario.idDoSetor == null){
-      return 5;
-    }else{
-      if(siape == "0000000"){
-        return 1;
-      }else{
-        return 0;
+  verificarLogin(siape, senha): Observable<any>{
+    let meuObservable = new Observable<any>(observer => {
+      if(siape == null || senha == null || siape.indexOf('_') != -1){
+        observer.next(false);
+        observer.complete();
       }
-    }
+      let collectionFiltrada = this.afs.collection<any>('usuarios', 
+      ref => ref.where('siape', '==', siape).where('senha', '==', senha));
+      let resultado = collectionFiltrada.valueChanges();
+      resultado.subscribe(userArr=>{
+        console.log(userArr.length);
+        if(userArr.length == 0){
+          observer.next(3);
+        }else if(userArr[0].idDoSetor == ""){
+          console.log("UserArr:" + userArr[0]);
+          observer.next(1);
+        }else{
+          observer.next(2);
+        }
+        observer.complete();
+      });
+    });
+
+    return meuObservable;
   }
 }

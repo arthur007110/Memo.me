@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 import { Router } from '@angular/router';
-import { Usuario } from '../models/Usuario';
 import { UsuarioService } from '../serviços/usuario.service';
 
 @Component({
@@ -13,7 +12,7 @@ import { UsuarioService } from '../serviços/usuario.service';
 export class ListagemDeSetorComponent implements OnInit {
   id: string;
   setores: Setor[] = [];
-  usuarios: Usuario[] = [];
+  usuarios = [];
 
   constructor(private setorService: SetorService, private router: Router, private usuariosService: UsuarioService) { }
 

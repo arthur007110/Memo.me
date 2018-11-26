@@ -19,25 +19,22 @@ export class LoginComponent implements OnInit {
   ngOnInit(){
   }
 
-  fazerLogin(){
-    // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
-    this.usuarioService.listarTodos().subscribe(resultado => {
-      let usuarios = resultado;
-      let verificacao = this.usuarioService.verificacaoDeLogin(this.siape, this.senha, usuarios);
-      if(verificacao == 0){
-        this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso'});
-        this.executarTimer();
-      }else if(verificacao == 1){
-        this.messageService.add({severity:'success', summary: 'Logado!', detail:'login feito com sucesso,Bem vindo ADM'});
-        this.executarTimerAdm();
-      }else if(verificacao == 2){
-        this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
-      }else if(verificacao ==  3){
-        this.messageService.add({severity:'error', summary: 'Erro!', detail:'este usuário não consta no sistema.'});
-      }else if(verificacao ==  4){
-        this.messageService.add({severity:'error', summary: 'Erro!', detail:'siape e senha não coincidem.'});
-      }else if(verificacao == 5){
-        this.messageService.add({severity:'error', summary: 'Erro!', detail:'este usuario não está cadastrado em nenhum setor, por favor comunique ao ADMIN'});
+  logar(){
+    this.usuarioService.verificarLogin(this.siape, this.senha).subscribe(resultado => {
+      if(resultado == 1){
+        console.log("Resultado: " + resultado);
+        console.log("Resultado == 1: " + (resultado == 0));
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'Esse usuário ainda não possui um setor. Por favor contate o adm.'});
+      }else if(resultado == 2){
+        if(this.siape == "0000000"){
+          this.messageService.add({severity:'success', summary: 'Logado!', detail:'Login feito com sucesso. Bem vindo ADM!'});
+          this.executarTimerAdm();
+        }else{
+          this.messageService.add({severity:'success', summary: 'Logado!', detail:'Login feito com sucesso. Bem vindo!'});
+          this.executarTimer();
+        }
+      }else{
+        this.messageService.add({severity:'error', summary: 'Erro!', detail:'Login ou senha incorretos.'});
       }
     });
   }

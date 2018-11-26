@@ -1,25 +1,45 @@
-export interface Usuario{
+export class Usuario{
 
-    id?: string;
-    nome: string;
-    siape: string;
-    senha: string;
-    idDoSetor: string;
-
-    /*
+    private id?: string;
+    private nome: string;
+    private siape: string;
+    private senha: string;
+    private idDoSetor: string;
+    
     constructor(id, nome, siape, senha,setor){
-        this.id = id;
-        this.nome = nome;
-        this.siape = siape;
-        this.senha = senha;
-        this.idDoSetor = setor;
+      this.id = id;
+      this.nome = nome;
+      this.siape = siape;
+      this.senha = senha;
+      this.idDoSetor = setor;
+    }
+
+    toFireBase(){
+        return{id: "", nome: this.nome, siape: this.siape, senha: this.senha, idDoSetor: this.idDoSetor}
+    }
+
+    //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
+
+    verificarCampos(){
+        console.log("Nome:" + this.nome);
+        console.log("Siape:" + this.siape);
+        console.log("Senha:" + this.senha);
+        if(this.nome != undefined && this.siape != undefined && this.senha != undefined){
+            if(this.nome.length <= 0 || this.siape.length <= 0 || this.siape.indexOf("_") >= 0  || this.senha.length <= 0){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
     }
 
 
-    public getsetor() : string {
+    public getSetor() : string {
         return this.idDoSetor;
     }
-    public setsetor(setor : string) {
+    public setSetor(setor : string) {
         this.idDoSetor = setor;
     }
     public getNome(){
@@ -46,7 +66,4 @@ export interface Usuario{
     public setSenha(senha){
         this.senha=senha;
     }
-
-    */
-
 }

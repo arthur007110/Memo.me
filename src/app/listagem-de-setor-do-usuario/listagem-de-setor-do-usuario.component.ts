@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 import { Router } from '@angular/router';
-import { Usuario } from '../models/Usuario';
 import { UsuarioService } from '../serviços/usuario.service';
 
 
@@ -14,7 +13,7 @@ import { UsuarioService } from '../serviços/usuario.service';
 export class ListagemDeSetorDoUsuarioComponent implements OnInit {
   id: string;
   setores: Setor[] = [];
-  usuarios: Usuario[] = [];
+  usuarios = [];
   
   constructor(private setorService: SetorService, private router: Router, private usuariosService: UsuarioService) { }
 
@@ -22,18 +21,20 @@ export class ListagemDeSetorDoUsuarioComponent implements OnInit {
     this.id = sessionStorage.getItem('id-usuario');
     this.getSetores();
   }
-
-  getNomeDoUsuario(idDoUsuario){
+  
+  getNomeDoUsuario(setor){
+    let id = setor.id;
     for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].id == idDoUsuario){
+      if(this.usuarios[i].idDoSetor == id){
         return this.usuarios[i].nome;
       }
     }
   }
 
-  getSiapeDoUsuario(idDoUsuario){
+  getSiapeDoUsuario(setor){
+    let id = setor.id;
     for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].id == idDoUsuario){
+      if(this.usuarios[i].idDoSetor == id){
         return this.usuarios[i].siape;
       }
     }
@@ -51,7 +52,7 @@ export class ListagemDeSetorDoUsuarioComponent implements OnInit {
     this.usuariosService.listarTodos().subscribe(listaDeUsuarios=>{
       let userArr = listaDeUsuarios;
       this.usuarios = userArr;
-    })
+    });
   }
 
 }

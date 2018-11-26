@@ -13,8 +13,8 @@ import { UsuarioService } from '../serviços/usuario.service';
 export class CadastroSetorComponent implements OnInit {
   id: string;
   nome: string;
-  usuarios: Usuario[] = [];
-  usuarioSelecionado: Usuario;
+  usuarios = [];
+  usuarioSelecionado;
   msgErro: boolean = false;
 
   constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService){}
