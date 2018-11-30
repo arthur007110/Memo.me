@@ -90,7 +90,7 @@ export class UsuarioService {
         console.log(userArr.length);
         if(userArr.length == 0){
           observer.next(3);
-        }else if(userArr[0].idDoSetor == ""){
+        }else if(userArr[0].idDoSetor == null && siape != "0000000"){
           console.log("UserArr:" + userArr[0]);
           observer.next(1);
         }else{
