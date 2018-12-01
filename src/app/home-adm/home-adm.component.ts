@@ -32,7 +32,8 @@ export class HomeAdmComponent implements OnInit {
         label: 'Opções',
         items: [
           {label: 'Cadastar Setor', routerLink: ['/cadastro-setor']},
-          {label: 'Listar Setores', routerLink: ['/listar-setores', this.id]}]
+          {label: 'Listar Setores', routerLink: ['/listar-setores', this.id]},
+        {label: 'Cadastrar Usúario', routerLink: ['/cadastro']}]
       }
     ];
 

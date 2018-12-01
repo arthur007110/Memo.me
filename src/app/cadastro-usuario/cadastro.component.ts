@@ -32,10 +32,6 @@ export class CadastroComponent implements OnInit {
     this.msgErroSenha = false;
   }
 
-  irParaTelaDeLogin(){
-    this.router.navigate([""]);
-    return null;
-  }
 
   cadastrar(){
 
@@ -63,6 +59,17 @@ export class CadastroComponent implements OnInit {
     }
   }
 
+  voltar(){
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      for(let i = 0; i < resultado.length; i++){
+        if(resultado[i].siape == this.siape){
+          sessionStorage.setItem('id-usuario', resultado[i].id);
+          this.router.navigate(["/listar-setores", resultado[i].id]);
+        }
+      }
+    });
+  }
+
   executarTimer(){
 
     let timeLeft: number = 1;
@@ -73,7 +80,7 @@ export class CadastroComponent implements OnInit {
         timeLeft--;
       } else {
         clearInterval(interval);
-        this.irParaTelaDeLogin();
+        this.voltar();
       }
     },1000);
   }

@@ -61,10 +61,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  irParaTelaDeCadastro(){
-    this.router.navigate(["/cadastro"]);
-  }
-
   executarTimer(){
 
     let timeLeft: number = 1;
