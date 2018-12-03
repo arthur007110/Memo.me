@@ -14,14 +14,54 @@ import { Setor } from '../models/Setor';
 export class ExibirMemorandosEnviadosComponent implements OnInit {
     id: string;
     memorandos:Memorando[];
+    memorandosDoUsuario: Memorando[];
     setores: Setor[];
     usuario;
+
+    text: string;
+    results: string[];
 
     constructor(private router: Router, private memorandoS: MemorandoService, private usuarioS: UsuarioService, private setorS: SetorService) { }
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
         this.listarMemorandosEReconhecerUsuario();
+    }
+
+    search(event){
+        let resultado = [];
+        for(let i = 0; i < this.setores.length; i++){
+            if(this.setores[i].nome.toLowerCase().indexOf(this.text.toLowerCase()) != -1){
+                resultado.push(this.setores[i].nome);
+                this.results = resultado;
+            }
+        }
+
+        if(resultado.length == 1){
+            let idDoSetor = this.getIdDoSetorPorNome(resultado[0]);
+            if(idDoSetor != undefined){
+                this.atualizarMemorandosDoSetor(idDoSetor);
+            }
+        }else if(event.querry == undefined){
+            this.memorandos = this.memorandosDoUsuario;
+        }
+    }
+
+    atualizarMemorandosDoSetor(idDoSetor){
+        this.memorandos = [];
+        for(let i = 0; i < this.memorandosDoUsuario.length; i++){
+            if(this.memorandosDoUsuario[i].idSetorDestinatario == idDoSetor){
+                this.memorandos.push(this.memorandosDoUsuario[i]);
+            }
+        }
+    }
+
+    getIdDoSetorPorNome(nomeDoSetor){
+        for(let i = 0; i < this.setores.length; i++){
+            if(this.setores[i].nome == nomeDoSetor){
+                return this.setores[i].id;
+            }
+        }
     }
 
     getNomeDoSetorDeDestino(id){
@@ -45,7 +85,8 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
             this.setores = resultado;
         });
         this.memorandoS.listarTodos().subscribe(resultado => {
-            this.memorandos = this.memorandoS.getMemorandosEnviadosSetor(this.usuario.idDoSetor, resultado);
+            this.memorandosDoUsuario = this.memorandoS.getMemorandosEnviadosSetor(this.usuario.idDoSetor, resultado);
+            this.memorandos = this.memorandosDoUsuario;
         });
     }
 }

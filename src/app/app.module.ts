@@ -22,6 +22,7 @@ import {TableModule} from 'primeng/table';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ToastModule} from 'primeng/toast';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -97,6 +98,7 @@ export const rotas: Routes = [
     ScrollPanelModule,
     ToggleButtonModule,
     ToastModule,
+    AutoCompleteModule,
     AngularFireModule.initializeApp(configuracao)
   ],
   providers: [UsuarioService, SetorService, MemorandoService, AngularFirestore],
