@@ -1,14 +1,17 @@
-export interface Setor{
+export class Setor{
 
     id?: string;
     nome: string;
     idDoUsuario?: string;
 
-    /*
-    constructor(id, nome, usuario){
+    constructor(id, nome, idDoUsuario){
         this.id = id;
         this.nome = nome;
-        this.usuario = usuario;
+        this.idDoUsuario = idDoUsuario;
+    }
+
+    toFirebase(){
+        return {id: "", nome: this.nome, idDoUsuario: this.idDoUsuario};
     }
 
     getId(){
@@ -23,11 +26,10 @@ export interface Setor{
     setNome(nome){
         this.nome=nome;
     }
-    getUsuario(){
-        return this.usuario;
+    getIdDoUsuario(){
+        return this.idDoUsuario;
     }
-    setUsuario(usuario){
-        this.usuario = usuario;
+    setIdDoUsuario(idDoUsuario){
+        this.idDoUsuario = idDoUsuario;
     }
-    */
 }

@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SetorService {
-  setorCollection: AngularFirestoreCollection<Setor>;
+  setorCollection: AngularFirestoreCollection<any>;
   setores: Setor[];
   
   constructor(private afs: AngularFirestore, private usuarioService: UsuarioService) {
-    this.setorCollection = afs.collection<Setor>('setores');
+    this.setorCollection = afs.collection<any>('setores');
     this.listarTodos().subscribe(resultado => {
       this.setores = resultado;
     });
@@ -20,12 +20,11 @@ export class SetorService {
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
 
-  cadastrar(nome, idDoUsuario){
-    let setor: Setor = {nome: nome, idDoUsuario: idDoUsuario};
-    this.setorCollection.add(setor).then(resultado => {
+  cadastrar(setor: Setor){
+    this.setorCollection.add(setor.toFirebase()).then(resultado => {
       let setorDoc = this.setorCollection.doc(resultado.id);
       setorDoc.update({id: resultado.id});
-      this.usuarioService.atualizaSetorDeUsuario(idDoUsuario, resultado.id);
+      this.usuarioService.atualizaSetorDeUsuario(setor.getIdDoUsuario(), resultado.id);
     });
   }
 
@@ -41,21 +40,6 @@ export class SetorService {
       });
     });
   }
-
-  /*
-  listarPorNome(nome): Observable<Setor>{
-    let setor;
-    this.listarTodos().subscribe(setorArr => {
-      for(let i = 0; i < setorArr.length; i++){
-        if(setorArr[i].nome == nome){
-          setor = setor[i];
-        }
-      }
-    });
-
-    return setor;
-  }
-  */
 
   listarPorNome(nome){
     this.listarTodos().subscribe(resultado => {
@@ -119,31 +103,21 @@ export class SetorService {
     }
   }
 
-  verificacaoDeCadastro(nome, usuario, setores){
-    /*
-      0: TUDO OK              1: CAMPOS SEM PREENCHER
-      2: NOME INVÁLIDO        3: NOME JÁ EM USO
-    */
-
-   let setor;
-    for(let i = 0; i < setores.length; i++){
-      if(setores[i].nome == nome){
-        setor = setores[i];
-        break;
-      }
-    }
-
-    if(nome == undefined || nome.length <= 0 || usuario == null){
-      return 1;
-    }else if(nome[0] == " "){
-      return 2;
-    }else if(setor != null){
-      return 3;
-    }else{
-      this.cadastrar(nome, usuario.id);
-      return 0;
-    }
-
+  verificarCadastro(setor): Observable<any>{
+    let meuObservable = new Observable<any>(observer => {
+      let collectionFiltrada = this.afs.collection<any>('setores', ref=>ref.where('nome', '==', setor.getNome()));
+      let resultado = collectionFiltrada.valueChanges();
+      resultado.subscribe(setorArr => {
+        if(setorArr.length == 0){
+          this.cadastrar(setor); // Não existe um setor cadastro com aquela nome;
+          observer.next(true);
+        }else{
+          observer.next(false); // Existe um setor cadastro com aquela nome
+        }
+        observer.complete();
+      });
+    });
+    return meuObservable;
   }
 
 }
