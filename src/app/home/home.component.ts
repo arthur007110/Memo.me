@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Memorando } from '../models/Memorando';
 import { MemorandoService } from '../serviços/memorando.service';
@@ -7,21 +7,43 @@ import { MemorandoService } from '../serviços/memorando.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [MessageService]
 })
 export class HomeComponent implements OnInit {
     id: string;
     items: MenuItem[];
     memorandos: Memorando[];
     
-    constructor(private router: Router, private memorandoS: MemorandoService) { }
+    constructor(private router: Router, 
+                private memorandoS: MemorandoService,
+                private messageService: MessageService) { }
     
     deslogar(){
         sessionStorage.removeItem("id-usuario");
         sessionStorage.removeItem("id-setor");
         sessionStorage.removeItem("id-memorando");
+        sessionStorage.setItem('toast','11');
         this.router.navigate(['']);
     }
+
+    mostrarAviso() {
+        this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Deseja relamente sair?', detail:'pressione o sim para sair'});
+    }
+
+    onConfirm() {
+        this.messageService.clear('c');
+        this.deslogar();
+    }
+
+    onReject() {
+        this.messageService.clear('c');
+    }
+    
+    clear() {
+        this.messageService.clear();
+    }
+
     enviarMemorando(){
         this.router.navigate(['/envio-memorando']);
     }

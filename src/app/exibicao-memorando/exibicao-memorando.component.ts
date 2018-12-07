@@ -20,10 +20,10 @@ export class ExibicaoMemorandoComponent implements OnInit {
     this.id = sessionStorage.getItem("id-memorando");
     this.idUsuario=sessionStorage.getItem("id-usuario");
     this.receberMemorandos();
+    this.memorandoS.marcarComoVisto(this.id);
   }
 
-  marcarVisto(){
-    this.memorandoS.marcarComoVisto(this.id);
+  voltar(){
     sessionStorage.removeItem("id-memorando");
     this.router.navigate(['/recebidos',this.idUsuario]);
   }

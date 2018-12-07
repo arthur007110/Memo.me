@@ -19,8 +19,11 @@ export class EnvioMemorandoComponent implements OnInit {
   destinatario:Setor;
   mensagem:string;
 
-  constructor(private router: Router, private memorandoS: MemorandoService, 
-    private setorS: SetorService, private messageService: MessageService, private usuarioService: UsuarioService) { }
+  constructor(private router: Router, 
+              private memorandoS: MemorandoService, 
+              private setorS: SetorService, 
+              private messageService: MessageService, 
+              private usuarioService: UsuarioService) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
@@ -33,11 +36,22 @@ export class EnvioMemorandoComponent implements OnInit {
     this.usuarioService.listarPorId(this.id).subscribe(resultado => {
       let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.destinatario, resultado, this.mensagem);
       if(verificacao == 0){
+        sessionStorage.setItem('toast','10')
         this.irParaTelaHome();
       }else if(verificacao == 1){
-        this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
+        this.mostrarErro(5);
       }
     });
+  }
+
+  mostrarErro(erro){
+
+    if(erro==5){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
+    }else if(erro=='~'){
+      
+    }
+
   }
 
   irParaTelaHome(){

@@ -5,11 +5,13 @@ import { MemorandoService } from '../serviços/memorando.service';
 import { UsuarioService } from '../serviços/usuario.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-exibir-memorandos-recebidos',
   templateUrl: './exibir-memorandos-recebidos.component.html',
-  styleUrls: ['./exibir-memorandos-recebidos.component.css']
+  styleUrls: ['./exibir-memorandos-recebidos.component.css'],
+  providers: [MessageService]
 })
 export class ExibirMemorandosRecebidosComponent implements OnInit {
     id: string;
@@ -21,12 +23,43 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     text: string;
     results: string[];
 
-    constructor(private router: Router, private memorandoS: MemorandoService, private usuarioS: UsuarioService, private setorS: SetorService) { }
+    constructor(private router: Router,
+                private memorandoS: MemorandoService,
+                private usuarioS: UsuarioService, 
+                private setorS: SetorService, 
+                private messageService: MessageService) { }
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
         this.listarMemorandosEReconhecerUsuario();
+        let toast = sessionStorage.getItem('toast');
+        this.executarTimer(toast);
     }
+
+    mostrarToast(toast){
+        if(toast=='2'){
+            this.messageService.add({severity:'success', summary: 'Logado!', detail:'Login feito com sucesso. Bem vindo!'});
+            sessionStorage.removeItem('toast');
+        }else if(toast=='10'){
+            this.messageService.add({severity:'success', summary: 'Enviado!', detail:'Seu Memorando foi enviado com sucesso!'});
+            sessionStorage.removeItem('toast');
+        }
+    
+      }
+
+      executarTimer(toast){
+        let timeLeft: number = 1;
+        let interval;
+    
+        interval = setInterval(() => {
+          if(timeLeft > 0) {
+            timeLeft--;
+          } else {
+            clearInterval(interval);
+            this.mostrarToast(toast);
+          }
+        },200);
+      }
 
     search(event){
         let resultado = [];

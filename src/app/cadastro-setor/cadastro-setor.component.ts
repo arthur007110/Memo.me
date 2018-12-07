@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SetorService } from 'src/app/serviços/setor.service';
 import { Usuario } from '../models/Usuario';
 import { UsuarioService } from '../serviços/usuario.service';
 import { Setor } from '../models/Setor';
+import { SetorService } from '../serviços/setor.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
   selector: 'app-cadastro-setor',
   templateUrl: './cadastro-setor.component.html',
-  styleUrls: ['./cadastro-setor.component.css']
+  styleUrls: ['./cadastro-setor.component.css'],
+  providers: [MessageService]
 })
 export class CadastroSetorComponent implements OnInit {
   id: string;
@@ -19,7 +21,10 @@ export class CadastroSetorComponent implements OnInit {
   texto: string;
   resultados: string[] = [];
 
-  constructor(private router: Router, private usuarioService: UsuarioService, private setorService: SetorService){}
+  constructor(private router: Router, 
+              private usuarioService: UsuarioService, 
+              private setorService: SetorService,
+              private messageService: MessageService,){}
 
   ngOnInit(){
     this.getUsuarios();
@@ -60,18 +65,28 @@ export class CadastroSetorComponent implements OnInit {
       //Tenta cadastrar no banco
       this.setorService.verificarCadastro(setor).subscribe(resultado => {
         if(resultado){
-          alert('Cadastro realizado com sucesso');
-          this.executarTimer();
+          sessionStorage.setItem('toast','12');
+          this.voltar();
         }else{
-          alert('Este nome já está sendo utilizado.');
+          this.mostrarErro(13);
         }
       });
     }else{
-      alert('Preencha todos os campos corretamente');
+      this.mostrarErro(14);
     }
   }
 
-  executarTimer(){
+  mostrarErro(erro){
+
+    if(erro=='13'){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'este nome já está sendo utilizado.'});
+    }else if(erro=='14'){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos corretamente.'});
+    }
+
+  }
+
+  /*executarTimer(){
 
     let timeLeft: number = 1;
     let interval;
@@ -84,6 +99,10 @@ export class CadastroSetorComponent implements OnInit {
         this.router.navigate(['listar-setores/',this.id]);
       }
     },1000);
+  }*/
+
+  voltar(){
+    this.router.navigate(['listar-setores/',this.id]);
   }
 
   mostrarMsg(){

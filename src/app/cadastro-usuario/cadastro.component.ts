@@ -37,7 +37,7 @@ export class CadastroComponent implements OnInit {
 
     //Verifica sem as duas senhas são iguais
     if(this.senha != this.senha2){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'Senhas não coincidem.'});
+      this.mostrarErro(7);
       return;
     }
 
@@ -48,15 +48,27 @@ export class CadastroComponent implements OnInit {
       //Tenta cadastrar no banco
       this.usuarioService.verificarCadastro(usuario).subscribe(resultado => {
         if(resultado){
-          this.messageService.add({severity:'success', summary: 'Cadastrado!', detail:'Cadastro realizado com sucesso'});
-          this.executarTimer();
+          sessionStorage.setItem('toast','6');
+          this.voltar();
         }else{
-          this.messageService.add({severity:'error', summary: 'Erro!', detail:'Esta siape já está sendo utilizada.'});
+          this.mostrarErro(8);
         }
       });
     }else{
+      this.mostrarErro(9);
+    }
+  }
+
+  mostrarErro(erro){
+
+    if(erro==7){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'Senhas não coincidem.'});
+    }else if(erro==8){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'Esta siape já está sendo utilizada.'});
+    }else if(erro==9){
       this.messageService.add({severity:'error', summary: 'Erro!', detail:'Preencha todos os campos corretamente.'});
     }
+
   }
 
   voltar(){
@@ -70,7 +82,7 @@ export class CadastroComponent implements OnInit {
     });
   }
 
-  executarTimer(){
+  /*executarTimer(){
 
     let timeLeft: number = 1;
     let interval;
@@ -83,6 +95,6 @@ export class CadastroComponent implements OnInit {
         this.voltar();
       }
     },1000);
-  }
+  }*/
 
 }

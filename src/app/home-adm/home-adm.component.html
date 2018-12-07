@@ -1,6 +1,25 @@
+<p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Sim" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="Não" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
 <p-menubar [model]="items">
-  <input type="text" pInputText placeholder="Buscar Setor" [(ngModel)]="busca">
-  <button pButton label="Buscar" (click)="buscar()" icon="pi pi-fw pi-search" style="margin-left:.25em" class="ui-button-raised ui-button-success"></button>
-  <button pButton label="Logout" (click)="deslogar()" icon="pi pi-fw pi-times" style="margin-left:.25em" class="ui-button-raised ui-button-success"></button>
+  
+  <button pButton label="Logout" (click)="mostrarAviso()" icon="pi pi-fw pi-times" style="margin-left:.25em" class="ui-button-raised ui-button-success"></button>
 
 </p-menubar>
