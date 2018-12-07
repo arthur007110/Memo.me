@@ -21,7 +21,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     text: string;
     results: string[];
 
-    constructor(private router: Router, private memorandoS: MemorandoService, private usuarioS: UsuarioService,private setorS: SetorService) { }
+    constructor(private router: Router, private memorandoS: MemorandoService, private usuarioS: UsuarioService, private setorS: SetorService) { }
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
@@ -43,6 +43,12 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
                 this.atualizarMemorandosDoSetor(idDoSetor);
             }
         }else if(event.querry == undefined){
+            this.memorandos = this.memorandosDoUsuario;
+        }
+    }
+
+    atualizarResultados(event){
+        if(this.text.length == 0){
             this.memorandos = this.memorandosDoUsuario;
         }
     }

@@ -3,7 +3,7 @@
 <h3>Recebidos</h3>
 <p>
     Buscar: 
-    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)" placeholder="Setores" [minLength]="1"></p-autoComplete></p>
+    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)" (onClear)="atualizarResultados($event)" placeholder="Setores" [minLength]="1"></p-autoComplete></p>
 <br>
 <p-card title="">
   <p-table [value]="memorandos">

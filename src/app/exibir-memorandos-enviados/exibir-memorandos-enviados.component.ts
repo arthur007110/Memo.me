@@ -42,9 +42,19 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
             if(idDoSetor != undefined){
                 this.atualizarMemorandosDoSetor(idDoSetor);
             }
-        }else if(event.querry == undefined){
+        }
+    }
+
+    atualizarResultados(event){
+        console.log(this.text);
+        console.log("AtualizarResultado: ");
+        console.log(event);
+        if(this.text.length == 0){
+            console.log("AtualizarResultado 1: ");
             this.memorandos = this.memorandosDoUsuario;
         }
+
+        console.log("AtualizarResultado 2: ");
     }
 
     atualizarMemorandosDoSetor(idDoSetor){
