@@ -13,19 +13,43 @@ export class SetorService {
   
   constructor(private afs: AngularFirestore, private usuarioService: UsuarioService) {
     this.setorCollection = afs.collection<any>('setores');
-    this.listarTodos().subscribe(resultado => {
-      this.setores = resultado;
-    });
   }
 
-  //FUNÇÕES PARA O BANCO DE DADOS ==>
+  cadastrar(setor: Setor): Observable<any>{
+    let meuObservable = new Observable<any>(observer => {
+      this.verificarSeExisteONome(setor).subscribe(resultado => {
+        if(resultado){
+          observer.next(false); //Nome já existe. Falha no cadastro.
+        }else{
+          this.setorCollection.add(setor.toFirebase()).then(resultado => {
+            let setorDoc = this.setorCollection.doc(resultado.id);
+            setorDoc.update({id: resultado.id});
+            this.usuarioService.atualizaSetorDeUsuario(setor.getIdDoUsuario(), resultado.id);
+          });
+          observer.next(true); //Cadastro realizado com sucesso.
+        }
+        observer.complete();
+      })
+    })
 
-  cadastrar(setor: Setor){
-    this.setorCollection.add(setor.toFirebase()).then(resultado => {
-      let setorDoc = this.setorCollection.doc(resultado.id);
-      setorDoc.update({id: resultado.id});
-      this.usuarioService.atualizaSetorDeUsuario(setor.getIdDoUsuario(), resultado.id);
-    });
+    return meuObservable;
+  }
+
+  atualizar(setor): Observable<any>{
+    let meuObservable = new Observable<any>(observer => {
+      this.verificarSeExisteONome(setor).subscribe(resultado => {
+        if(resultado){
+          observer.next(false); //Nome já existe. Falha ao atualizar.
+        }else{
+          let setorDoc = this.afs.doc('setores/' + setor.getId());
+          setorDoc.update({nome: setor.getNome()});
+          observer.next(true); //Atualização realizada com sucesso.
+        }
+        observer.complete();
+      })
+    })
+
+    return meuObservable;
   }
 
   listarPorId(id){
@@ -42,14 +66,8 @@ export class SetorService {
   }
 
   listarPorNome(nome){
-    this.listarTodos().subscribe(resultado => {
-      this.setores = resultado;
-      for(let i = 0; i < this.setores.length; i++){
-        if(this.setores[i].nome == nome){
-          return this.setores[i];
-        }
-      }
-    });
+    let setores = this.afs.collection<any>('setores', ref=>ref.where('nome', '==', nome));
+    return setores.valueChanges();
   }
   
   listarTodos(): Observable<any[]>{
@@ -69,54 +87,18 @@ export class SetorService {
       return meuObservable;
   }
 
-  atualizarSetor(id, novoNome){
-    let setorDoc = this.afs.doc('setores/' + id);
-    setorDoc.update({nome: novoNome});
-  }
-
-  //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
-
-  verificacaoDeAtualizar(id, nome, novoNome, setores){
-    /*
-      0: TUDO OK              1: CAMPOS SEM PREENCHER
-      2: NOME INVÁLIDO        3: NOME JÁ EM USO
-    */
-
-    let setor;
-    for(let i = 0; i < setores.length; i++){
-      if(setores[i].nome == novoNome){
-        setor = setores[i];
-        break;
-      }
-    }
-
-    if(novoNome == undefined || novoNome.length <= 0){
-      return 1;
-    }else if(novoNome[0] == " "){
-      return 2;
-    }else if(nome != novoNome && setor != null){
-      console.log("Elif de Atualizar");
-      return 3;
-    }else{
-      this.atualizarSetor(id, novoNome);
-      return 0;
-    }
-  }
-
-  verificarCadastro(setor): Observable<any>{
+  verificarSeExisteONome(setor): Observable<any>{
     let meuObservable = new Observable<any>(observer => {
-      let collectionFiltrada = this.afs.collection<any>('setores', ref=>ref.where('nome', '==', setor.getNome()));
-      let resultado = collectionFiltrada.valueChanges();
-      resultado.subscribe(setorArr => {
-        if(setorArr.length == 0){
-          this.cadastrar(setor); // Não existe um setor cadastro com aquela nome;
+      this.listarPorNome(setor.getNome()).subscribe(resultado => {
+        if(resultado.length > 0){
           observer.next(true);
         }else{
-          observer.next(false); // Existe um setor cadastro com aquela nome
+          observer.next(false);
         }
         observer.complete();
-      });
-    });
+      })
+    })
+
     return meuObservable;
   }
 

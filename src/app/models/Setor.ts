@@ -14,6 +14,14 @@ export class Setor{
         return {id: "", nome: this.nome, idDoUsuario: this.idDoUsuario};
     }
 
+    verificarCampos(){
+        if(this.nome != null && this.nome.length > 0 && this.nome[0] != " " && this.idDoUsuario != null){
+            return true; //Campos preenchidos corretamente
+        }else{
+            return false;
+        }
+    }
+
     getId(){
         return this.id;
     }
