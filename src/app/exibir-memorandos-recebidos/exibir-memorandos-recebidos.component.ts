@@ -6,6 +6,7 @@ import { UsuarioService } from '../serviços/usuario.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
 import { MessageService } from 'primeng/api';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-exibir-memorandos-recebidos',
@@ -27,7 +28,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
                 private memorandoS: MemorandoService,
                 private usuarioS: UsuarioService, 
                 private setorS: SetorService, 
-                private messageService: MessageService) { }
+                private messageService: MessageService,) { }
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
@@ -35,6 +36,16 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         let toast = sessionStorage.getItem('toast');
         this.executarTimer(toast);
     }
+
+    /*gerarPDF() {
+
+        let documento = new jsPDF();
+      
+        documento.text("Relatório em PDF no Angular", 10, 10);
+      
+        documento.output("dataurlnewwindow");
+      
+    }*/
 
     mostrarToast(toast){
         if(toast=='2'){

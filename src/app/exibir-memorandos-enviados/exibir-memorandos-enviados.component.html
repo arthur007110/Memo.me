@@ -22,6 +22,7 @@
             <td>
             <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
             <p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" [(ngModel)]="memorando.visto" disabled class="ui-button-raised ui-button-success"></p-toggleButton>
+            <p-button label="gerar PDF" styleClass="ui-button-success" (click)="gerarPDF(memorando)" class="ui-button-raised ui-button-success"></p-button>
             </td>
         </tr>
     </ng-template>
