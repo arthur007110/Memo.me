@@ -21,12 +21,12 @@ export class MemorandoService {
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificacaoEnviarMemorando(setorDeDestino, usuario, mensagem){
+  verificacaoEnviarMemorando(idSetorDestinatario, usuario, mensagem){
     /*
     0: TUDO OK              1: CAMPOS SEM PREENCHER
     */
 
-    if(setorDeDestino == null || usuario == null || mensagem == null || mensagem.length <= 0){
+    if(idSetorDestinatario == null || usuario == null || mensagem == null || mensagem.length <= 0){
       return 1;
     }else{
       let now = new Date();
@@ -34,7 +34,7 @@ export class MemorandoService {
       let setorEmissor = usuario.idDoSetor;
       //let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
       let memorando: Memorando = {id: "", mensagem: mensagem, idSetorEmissor: setorEmissor,
-        idSetorDestinatario: setorDeDestino.id, dataEnvio: data, visto: false};
+        idSetorDestinatario: idSetorDestinatario, dataEnvio: data, visto: false};
       this.cadastrar(memorando);
       return 0;
     }

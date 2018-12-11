@@ -2,9 +2,7 @@
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
 <br><br>
 <p-card title="Enviar Memorando">
-  
-    <p-dropdown [options]="setores" placeholder="Selecione o Setor" [(ngModel)]="destinatario" optionLabel="nome"></p-dropdown>
-     
+  <p-autoComplete [(ngModel)]="texto" [dropdown]="true" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor"></p-autoComplete>   
 <br>
 
 <span class="ui-float-label">

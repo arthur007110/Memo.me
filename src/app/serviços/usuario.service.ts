@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class UsuarioService {
   usuarioCollection: AngularFirestoreCollection<any>;
+  sha256 = require('sha256');
 
   constructor(private afs: AngularFirestore) {
     this.usuarioCollection = afs.collection<any>('usuarios');
@@ -17,6 +18,9 @@ export class UsuarioService {
   //FUNÇÕES PARA O BANCO DE DADOS ==>
 
   cadastrar(usuario: Usuario){
+    //Faz a encriptação da senha =======>
+    usuario.setSenha(this.sha256(usuario.getSenha()));
+    // <===========
     this.usuarioCollection.add(usuario.toFireBase()).then(resultado => {
       let userDoc = this.usuarioCollection.doc(resultado.id);
       userDoc.update({id: resultado.id});
@@ -89,7 +93,7 @@ export class UsuarioService {
         observer.complete();
       }
       let collectionFiltrada = this.afs.collection<any>('usuarios', 
-      ref => ref.where('siape', '==', siape).where('senha', '==', senha));
+      ref => ref.where('siape', '==', siape).where('senha', '==', this.sha256(senha)));
       let resultado = collectionFiltrada.valueChanges();
       resultado.subscribe(userArr=>{
         console.log(userArr.length);

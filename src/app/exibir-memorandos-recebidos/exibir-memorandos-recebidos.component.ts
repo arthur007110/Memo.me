@@ -37,15 +37,106 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         this.executarTimer(toast);
     }
 
-    /*gerarPDF() {
+    //Funções para a pesquisa por setores =====>
+    buscar(event){
+        let arr = [];
+        for(let i = 0; i < this.setores.length; i++){
+            if(this.setores[i].nome.toLowerCase().indexOf(event.query.toLowerCase()) != -1){
+                arr.push(this.setores[i].nome);
+            }
+        }
+        this.results = arr;
+
+        if(this.results.length == 1){
+            console.log("R", this.results)
+            this.atualizarMemorandosDoSetor(this.getIdDoSetorPorNome(this.results[0]));
+        }
+    }
+
+    atualizarResultados(event){
+        this.memorandos = this.memorandosDoUsuario;
+    }
+
+    atualizarMemorandosDoSetor(idDoSetor){
+        this.memorandos = [];
+        for(let i = 0; i < this.memorandosDoUsuario.length; i++){
+            if(this.memorandosDoUsuario[i].idSetorEmissor == idDoSetor){
+                this.memorandos.push(this.memorandosDoUsuario[i]);
+            }
+        }
+    }
+
+    getIdDoSetorPorNome(nomeDoSetor){
+        for(let i = 0; i < this.setores.length; i++){
+            if(this.setores[i].nome == nomeDoSetor){
+                return this.setores[i].id;
+            }
+        }
+    }
+    // <===============
+
+    gerarPDF(memorando:Memorando) {
 
         let documento = new jsPDF();
       
-        documento.text("Relatório em PDF no Angular", 10, 10);
+        documento.setFont("Courier");
       
-        documento.output("dataurlnewwindow");
+        documento.setFontStyle("bold");
       
-    }*/
+        documento.setFontSize(20);
+      
+        documento.text("Memorando", 65, 15);
+      
+      
+        documento.setFillColor(50,50,50);
+      
+        documento.rect(10, 20, 30, 8, "FD");
+      
+        documento.rect(10, 28, 30, 8, "FD");
+      
+        documento.rect(10, 36, 30, 8, "FD");
+      
+        documento.rect(40, 20, 160, 8, "s");
+      
+        documento.rect(40, 28, 160, 8, "s");
+      
+        documento.rect(40, 36, 160, 8, "s");
+      
+      
+        documento.setFontSize(12);
+      
+        documento.setTextColor(255, 255, 255);
+      
+        documento.text("Setor Emissor:", 12, 25);
+      
+        documento.text("Setor Destinatario:", 12, 33);
+      
+        documento.text("Conteúdo:", 12, 41);
+      
+      
+        documento.setFontStyle("normal");
+      
+        documento.setTextColor(0, 0, 0);
+      
+        let setorEmissor:string =this.getNomeDoSetorEmissor(memorando.idSetorEmissor);
+
+        documento.text(setorEmissor, 42, 25);
+        
+        let setorDestinatario:string = this.getNomeDoSetorDeDestino(memorando.idSetorDestinatario);
+        documento.text(setorDestinatario, 42, 33);
+      
+        let conteudo:string = memorando.mensagem;
+        documento.text(conteudo, 42, 41);
+      
+
+        var string = documento.output('datauristring');
+        var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+        var x = window.open();
+        x.document.open();
+        x.document.write(iframe);
+        x.document.close();
+      
+      }
 
     mostrarToast(toast){
         if(toast=='2'){
@@ -71,48 +162,6 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
           }
         },200);
       }
-
-    search(event){
-        let resultado = [];
-        for(let i = 0; i < this.setores.length; i++){
-            if(this.setores[i].nome.toLowerCase().indexOf(this.text.toLowerCase()) != -1){
-                resultado.push(this.setores[i].nome);
-                this.results = resultado;
-            }
-        }
-
-        if(resultado.length == 1){
-            let idDoSetor = this.getIdDoSetorPorNome(resultado[0]);
-            if(idDoSetor != undefined){
-                this.atualizarMemorandosDoSetor(idDoSetor);
-            }
-        }else if(event.querry == undefined){
-            this.memorandos = this.memorandosDoUsuario;
-        }
-    }
-
-    atualizarResultados(event){
-        if(this.text.length == 0){
-            this.memorandos = this.memorandosDoUsuario;
-        }
-    }
-
-    atualizarMemorandosDoSetor(idDoSetor){
-        this.memorandos = [];
-        for(let i = 0; i < this.memorandosDoUsuario.length; i++){
-            if(this.memorandosDoUsuario[i].idSetorEmissor == idDoSetor){
-                this.memorandos.push(this.memorandosDoUsuario[i]);
-            }
-        }
-    }
-
-    getIdDoSetorPorNome(nomeDoSetor){
-        for(let i = 0; i < this.setores.length; i++){
-            if(this.setores[i].nome == nomeDoSetor){
-                return this.setores[i].id;
-            }
-        }
-    }
 
     getNomeDoSetorDeDestino(id){
         for(let i = 0; i < this.setores.length; i++){

@@ -2,8 +2,8 @@
 <p-card title="Memorandos">
 <h3>Enviados</h3>
 <p>
-    Buscar: 
-    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)" (onClear)="atualizarResultados($event)" placeholder="Setores" [minLength]="1"></p-autoComplete>
+    Buscar:
+    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (onClear)="atualizarResultados($event)"(completeMethod)="buscar($event)"></p-autoComplete>
 </p>
 <br>
 <p-card title="">
