@@ -11,3 +11,11 @@
 -mostrar memorandos enviados
 -mostrar memorandos recebidos
 -buscar memorandos
+
+Novos Itens
+
+-Fazer um filtro de pesquisa mais avançado ( utilizando campos como a data e o remetente ou o destinatário ou o título do memorando )
+-Deleção de memorandos( ainda em revisão de se será nescessario )
+-Padronizar todos os pdf's de memorandos que são gerados
+-Tornar mais pratico a criação do memorando com caixas de seleção para que seja nescessario apenas escolher( em casos como setor de destino )
+-Criar testes automatizados
