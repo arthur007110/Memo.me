@@ -30,7 +30,7 @@ export class MemorandoService {
       return 1;
     }else{
       let now = new Date();
-      let data = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
+      let data = now.getDate() + '-' + now.getDay() + '-' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
       //let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
       let memorando: Memorando = {id: "", mensagem: mensagem, idSetorEmissor: setorEmissor,
