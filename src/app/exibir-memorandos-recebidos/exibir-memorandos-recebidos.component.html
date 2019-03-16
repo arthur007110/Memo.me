@@ -3,8 +3,9 @@
 <p-card title="Memorandos">
 <h3>Recebidos</h3>
 <p>
-    Buscar: 
-    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)" (onClear)="atualizarResultados($event)" placeholder="Setores" [minLength]="1"></p-autoComplete></p>
+    Buscar:
+    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (onClear)="atualizarResultados($event)"(completeMethod)="buscar($event)"></p-autoComplete>
+</p>
 <br>
 <p-card title="">
   <p-table [value]="memorandos">
@@ -19,7 +20,10 @@
         <tr>
             <td>{{getNomeDoSetorEmissor(memorando.idSetorEmissor)}}</td>
             <td>{{memorando.dataEnvio}}</td>
-            <td><p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button></td>
+            <td>
+                <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
+                <p-button label="gerar PDF" styleClass="ui-button-success" (click)="gerarPDF(memorando)" class="ui-button-raised ui-button-success"></p-button>
+            </td>
         </tr>
     </ng-template>
   </p-table>

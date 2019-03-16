@@ -17,6 +17,9 @@ export class UsuarioService {
   //FUNÇÕES PARA O BANCO DE DADOS ==>
 
   cadastrar(usuario: Usuario){
+    //Faz a encriptação da senha =======>
+    usuario.setSenha(usuario.getSenha());
+    // <===========
     this.usuarioCollection.add(usuario.toFireBase()).then(resultado => {
       let userDoc = this.usuarioCollection.doc(resultado.id);
       userDoc.update({id: resultado.id});

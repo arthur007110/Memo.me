@@ -45,6 +45,7 @@ export class CadastroSetorComponent implements OnInit {
       }
     }
     this.resultados = arr;
+    this.texto = event.query;
   }
 
   //Tenta cadastrar o usuário
@@ -66,11 +67,9 @@ export class CadastroSetorComponent implements OnInit {
 
   //Procura o usuário id do usuário escolhido no array de resultados
   getUsuarioDoSetor(){
-    console.log(this.texto)
-    console.log(this.texto.length);
     if(this.texto != undefined && this.texto.length == 7){
       for(let i = 0; i < this.usuarios.length; i++){
-        if(this.usuarios[i].siape == this.resultados[0]){
+        if(this.usuarios[i].siape == this.texto){
           return this.usuarios[i].id;
         }
       }

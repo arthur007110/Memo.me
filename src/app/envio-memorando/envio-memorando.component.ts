@@ -16,8 +16,9 @@ export class EnvioMemorandoComponent implements OnInit {
   id: string;
   setores:Setor[];
   emissor:string;
-  destinatario:Setor;
   mensagem:string;
+  texto: string = null;
+  resultados: string[] = [];
 
   constructor(private router: Router, 
               private memorandoS: MemorandoService, 
@@ -30,11 +31,30 @@ export class EnvioMemorandoComponent implements OnInit {
     this.receberSetores();
   }
 
+  //Atualiza o array resultado conforme a entrada do usuário
+  buscar(event){
+    let arr = [];
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].nome.indexOf(event.query) != -1){
+        arr.push(this.setores[i].nome);
+      }
+    }
+    this.resultados = arr;
+    this.texto = event.query;
+  }
+
+  getIdDoSetorPorNome(nomeDoSetor){
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].nome == nomeDoSetor){
+        return this.setores[i].id;
+      }
+    }
+  }
+
 
   enviarMemorando(){
-    // FALTA COLOCAR O TOAST. VAI ALERT POR ENQUANTO MESMO
     this.usuarioService.listarPorId(this.id).subscribe(resultado => {
-      let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.destinatario, resultado, this.mensagem);
+      let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.texto), resultado, this.mensagem);
       if(verificacao == 0){
         sessionStorage.setItem('toast','10')
         this.irParaTelaHome();
