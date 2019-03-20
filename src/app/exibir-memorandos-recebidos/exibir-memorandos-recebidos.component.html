@@ -2,11 +2,39 @@
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
 <p-card title="Memorandos">
 <h3>Recebidos</h3>
-<p>
-    Buscar:
-    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (onClear)="atualizarResultados($event)"(completeMethod)="buscar($event)"></p-autoComplete>
-</p>
+
+<h3> Filtro: </h3>
+  
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">Setor</span>
+            <p-autoComplete [suggestions]="setoresResults" [(ngModel)]="setor" (onClear)="atualizarResultados()"(completeMethod)="buscarSetores($event)"></p-autoComplete>
+        </div>
+    </div>
+            
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">Situação</span>
+          <p-dropdown [options]="options" [(ngModel)]="selectedOption" (onClear)="atualizarResultados($event)"(completeMethod)="buscarVistos($event)" optionLabel="option" [showClear]="true" placeholder="Todos"></p-dropdown>     
+        </div>
+    </div>
+
+<div class="ui-g-12 ui-md-4">
+    <div class="ui-inputgroup"> 
+        <span class="ui-inputgroup-addon">Data</span>
+      <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="date" [showIcon]="true" (onClear)="atualizarResultados($event)" (completeMethod)="buscarDatas($event)" [locale]="ptbr"></p-calendar>
+    </div>
+</div>
+
+<div class="ui-g-12 ui-md-4">
+    <div class="ui-inputgroup"> 
+        <p-button label="Buscar" styleClass="ui-button-success" (click)="buscar()" class="ui-button-raised ui-button-success"></p-button>
+    </div>
+  </div>
+</div>
 <br>
+
 <p-card title="">
   <p-table [value]="memorandos">
     <ng-template pTemplate="header">
@@ -23,6 +51,7 @@
             <td>
                 <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
                 <p-button label="gerar PDF" styleClass="ui-button-success" (click)="gerarPDF(memorando)" class="ui-button-raised ui-button-success"></p-button>
+                <p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" [(ngModel)]="memorando.visto" disabled class="ui-button-raised ui-button-success"></p-toggleButton>
             </td>
         </tr>
     </ng-template>

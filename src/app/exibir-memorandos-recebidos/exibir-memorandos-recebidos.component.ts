@@ -20,9 +20,17 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     memorandosDoUsuario: Memorando[];
     setores: Setor[];
     usuario;
+    date: Date;
+    options: any;
+    setor: any;
+
+    selectedOption: any;
+    ptbr : any;
 
     text: string;
-    results: string[];
+    setoresResults: string[];
+    dataResults: string[];
+    vistoResults: boolean[];
 
     constructor(private router: Router,
                 private memorandoS: MemorandoService,
@@ -35,21 +43,107 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         this.listarMemorandosEReconhecerUsuario();
         let toast = sessionStorage.getItem('toast');
         this.executarTimer(toast);
+        this.ptbr = {
+            firstDayOfWeek: 0,
+            dayNames: ["Domingo", "Segunda ", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
+            dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+            dayNamesMin: ["D","S","T","Q","Q","S","S"],
+            monthNames: [ "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro" ],
+            monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun","Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+            today: 'Hoje',
+            clear: 'limpar',
+            dateFormat: 'dd/mm/yy'
+        };
+        this.options = [
+            {option: 'Vistos'},
+            {option: 'Não Vistos'},
+            {option: 'Todos'},
+        ];
     }
 
     //Funções para a pesquisa por setores =====>
-    buscar(event){
+    buscar(){
+
+        let arr = [];
+        if(this.setor == null){
+            console.log("1");
+            if(this.date == null){
+                console.log("2");
+                if(this.selectedOption == null){
+                    console.log("3");
+                   this.memorandos = this.memorandosDoUsuario
+                }
+                   else{
+                       console.log("new");
+                       arr = this.buscarVistos(this.memorandosDoUsuario);
+                       this.memorandos = arr;
+                   }
+            }else{
+                console.log("4");
+                if(this.selectedOption == null){
+                    console.log("5");
+                    arr = this.buscarDatas(this.memorandosDoUsuario);
+                    this.memorandos = arr;
+                }else{
+                    console.log("5");
+                    arr = this.buscarDatas(arr);
+                    arr = this.buscarVistos(arr);
+                    this.memorandos = arr;
+                }
+            }
+        }else{
+            console.log("7");
+            if(this.date == null){
+                console.log("8");
+                if(this.selectedOption == null){
+                    console.log("9");
+                    arr = this.buscarSetores(); 
+                    this.memorandos = arr;               
+                }
+            }else{
+                console.log("10");
+                if(this.selectedOption == null){
+                    console.log("11");
+                    arr = this.buscarSetores();
+                    arr = this.buscarDatas(this.memorandosDoUsuario);
+                    this.memorandos = arr;
+                }else{
+                    console.log("12");
+                    arr = this.buscarSetores();
+                    arr = this.buscarDatas(arr);
+                    arr = this.buscarVistos(arr);
+                    this.memorandos = arr;
+                }
+            }
+        }
+    }
+
+    buscarSetores(){
         let arr = [];
         for(let i = 0; i < this.setores.length; i++){
-            if(this.setores[i].nome.toLowerCase().indexOf(event.query.toLowerCase()) != -1){
+            if(this.setores[i].nome.toLowerCase().indexOf(this.setor.toLowerCase()) != -1){
                 arr.push(this.setores[i].nome);
             }
         }
-        this.results = arr;
+        this.setoresResults = arr;
 
-        if(this.results.length == 1){
-            console.log("R", this.results)
-            this.atualizarMemorandosDoSetor(this.getIdDoSetorPorNome(this.results[0]));
+        if(this.setoresResults.length == 1){
+            return this.atualizarMemorandosSetor(this.getIdDoSetorPorNome(this.setoresResults[0]));
+        }
+    }
+    //working
+    buscarDatas(memorandos){
+        
+        let data = this.date.getDate() + '/' + (this.date.getMonth()+1) + '/' + this.date.getFullYear();
+        return this.atualizarMemorandosData(data,memorandos);
+        
+    }
+    buscarVistos(memorandos){
+        console.log("opção selecionada: "+this.selectedOption.option);
+        if(this.selectedOption.option == 'Vistos'){
+            return this.atualizarMemorandosVisto(true,memorandos);
+        }else if(this.selectedOption.option == 'Não Vistos'){
+            return this.atualizarMemorandosVisto(false,memorandos);
         }
     }
 
@@ -57,13 +151,35 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         this.memorandos = this.memorandosDoUsuario;
     }
 
-    atualizarMemorandosDoSetor(idDoSetor){
-        this.memorandos = [];
+    atualizarMemorandosSetor(idDoSetor){
+        let memorandosaux = [];
         for(let i = 0; i < this.memorandosDoUsuario.length; i++){
             if(this.memorandosDoUsuario[i].idSetorEmissor == idDoSetor){
-                this.memorandos.push(this.memorandosDoUsuario[i]);
+                memorandosaux.push(this.memorandosDoUsuario[i]);
             }
         }
+        return memorandosaux;
+    }
+
+    atualizarMemorandosData(data,memorandos){
+        let memorandosaux = [];
+        for(let i = 0; i < memorandos.length; i++){
+            if(memorandos[i].dataEnvio == data){
+                memorandosaux.push(memorandos[i]);
+            }
+        }
+        return memorandosaux;
+    }
+
+    atualizarMemorandosVisto(visto: boolean, memorandos){
+        let memorandosaux = [];
+        for(let i = 0; i < memorandos.length; i++){
+            if(memorandos[i].visto == visto){
+                memorandosaux.push(memorandos[i]);
+            }
+        }
+        return memorandosaux;
+        
     }
 
     getIdDoSetorPorNome(nomeDoSetor){
