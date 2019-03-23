@@ -64,38 +64,28 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     buscar(){
 
         let arr = [];
-        if(this.setor == null){
-            console.log("1");
+        if(this.setor == null || this.setor == ''){
             if(this.date == null){
-                console.log("2");
-                if(this.selectedOption == null){
-                    console.log("3");
+                if(this.selectedOption == null || this.selectedOption.option == 'Todos'){
                    this.memorandos = this.memorandosDoUsuario
                 }
                    else{
-                       console.log("new");
                        arr = this.buscarVistos(this.memorandosDoUsuario);
                        this.memorandos = arr;
                    }
             }else{
-                console.log("4");
-                if(this.selectedOption == null){
-                    console.log("5");
+                if(this.selectedOption == null || this.selectedOption.option == 'Todos'){
                     arr = this.buscarDatas(this.memorandosDoUsuario);
                     this.memorandos = arr;
                 }else{
-                    console.log("5");
-                    arr = this.buscarDatas(arr);
+                    arr = this.buscarDatas(this.memorandosDoUsuario);
                     arr = this.buscarVistos(arr);
                     this.memorandos = arr;
                 }
             }
         }else{
-            console.log("7");
             if(this.date == null){
-                console.log("8");
-                if(this.selectedOption == null){
-                    console.log("9");
+                if(this.selectedOption == null || this.selectedOption.option == 'Todos'){
                     arr = this.buscarSetores(); 
                     this.memorandos = arr;               
                 }else{
@@ -104,14 +94,11 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
                     this.memorandos = arr;
                 }
             }else{
-                console.log("10");
-                if(this.selectedOption == null){
-                    console.log("11");
+                if(this.selectedOption == null || this.selectedOption.option == 'Todos'){
                     arr = this.buscarSetores();
-                    arr = this.buscarDatas(this.memorandosDoUsuario);
+                    arr = this.buscarDatas(arr);
                     this.memorandos = arr;
                 }else{
-                    console.log("12");
                     arr = this.buscarSetores();
                     arr = this.buscarDatas(arr);
                     arr = this.buscarVistos(arr);
@@ -142,7 +129,6 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
         
     }
     buscarVistos(memorandos){
-        console.log("opção selecionada: "+this.selectedOption.option);
         if(this.selectedOption.option == 'Vistos'){
             return this.atualizarMemorandosVisto(true,memorandos);
         }else if(this.selectedOption.option == 'Não Vistos'){

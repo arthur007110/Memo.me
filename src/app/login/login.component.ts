@@ -49,8 +49,6 @@ export class LoginComponent implements OnInit {
   logar(){
     this.usuarioService.verificarLogin(this.siape, this.senha).subscribe(resultado => {
       if(resultado == 1){
-        console.log("Resultado: " + resultado);
-        console.log("Resultado == 1: " + (resultado == 0));
         this.mostrarErro(3);
       }else if(resultado == 2){
         if(this.siape == "0000000"){
