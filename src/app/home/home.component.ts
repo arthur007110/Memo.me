@@ -48,8 +48,8 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/envio-memorando']);
     }
     exibirMemorando(i){
-        sessionStorage.setItem("id-usuario", this.memorandos[i].id);
-        this.router.navigate(['/vizualizar', this.memorandos[i].id]);
+        sessionStorage.setItem("id-usuario", this.memorandos[i].getId());
+        this.router.navigate(['/vizualizar', this.memorandos[i].getId()]);
     }
     mostrarMemorandosEnviados(){
         this.router.navigate(['enviados', this.id]);

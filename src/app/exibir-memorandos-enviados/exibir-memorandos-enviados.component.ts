@@ -16,8 +16,8 @@ import { PdfService } from '../serviços/pdf.service';
 })
 export class ExibirMemorandosEnviadosComponent implements OnInit {
     id: string;
-    memorandos:Memorando[];
-    memorandosDoUsuario: Memorando[];
+    memorandos: any[];
+    memorandosDoUsuario: any[];
     setores: Setor[];
     usuario;
     date: Date;
@@ -68,11 +68,10 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
             if(this.date == null){
                 if(this.selectedOption == null || this.selectedOption.option == 'Todos'){
                    this.memorandos = this.memorandosDoUsuario
+                }else{
+                    arr = this.buscarVistos(this.memorandosDoUsuario);
+                    this.memorandos = arr;
                 }
-                   else{
-                       arr = this.buscarVistos(this.memorandosDoUsuario);
-                       this.memorandos = arr;
-                   }
             }else{
                 if(this.selectedOption == null || this.selectedOption.option == 'Todos'){
                     arr = this.buscarDatas(this.memorandosDoUsuario);
@@ -213,8 +212,20 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
             this.setores = resultado;
         });
         this.memorandoS.listarTodos().subscribe(resultado => {
-            this.memorandosDoUsuario = this.memorandoS.getMemorandosEnviadosSetor(this.usuario.idDoSetor, resultado);
+            this.memorandosDoUsuario = this.getMemorandosEnviadosSetor(resultado);
             this.memorandos = this.memorandosDoUsuario;
         });
+    }
+
+    getMemorandosEnviadosSetor(memorandosCadastrados){
+        let memorandosEnviados: Memorando[] = [];
+
+        for(let i = 0; i < memorandosCadastrados.length; i++){
+            if(memorandosCadastrados[i].idSetorEmissor == this.usuario.idDoSetor){
+                memorandosEnviados.push(memorandosCadastrados[i]);
+            }
+        }
+
+        return memorandosEnviados;
     }
 }

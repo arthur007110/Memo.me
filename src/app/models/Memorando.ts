@@ -1,18 +1,25 @@
-export interface Memorando{
-    id?: string;
-    visto:boolean;
-    mensagem:string;
-    dataEnvio:string;
-    idSetorEmissor?:string;
-    idSetorDestinatario?:string;
-    //nomeSetorEmissor:string;
+export class Memorando{
+
+    private id?: string;
+    private visto:boolean;
+    private mensagem:string;
+    private dataEnvio:string;
+    private idSetorEmissor?:string;
+    private idSetorDestinatario?:string;
+    //private nomeSetorEmissor:string;
     
-    /*
-    constructor(mensagem,idSetorEmissor,idSetorDestinatario,dataEnvio){
+    constructor(id, mensagem,idSetorEmissor,idSetorDestinatario,dataEnvio){
+        this.id = id;
         this.mensagem=mensagem;
         this.dataEnvio=dataEnvio;
         this.idSetorEmissor=idSetorEmissor;
         this.idSetorDestinatario=idSetorDestinatario;
+        this.visto = false;
+    }
+
+    toFireBase(){
+        return{id: "", mensagem: this.mensagem, idSetorEmissor: this.idSetorEmissor, 
+            idSetorDestinatario: this.idSetorDestinatario, dataEnvio: this.dataEnvio, visto: this.visto};
     }
     
     public getId() : string {
@@ -23,41 +30,35 @@ export interface Memorando{
         this.id = id;
     }
   
-    public getmensagem() : string {
+    public getMensagem() : string {
         return this.mensagem;
     }
-    public setmensagem(mensagem : string) {
+    public setMensagem(mensagem : string) {
         this.mensagem = mensagem;
     }
     
-    public getdataEnvio() : string {
+    public getDataEnvio() : string {
         return this.dataEnvio;
     }
-    public setdataEnvio(dataEnvio : string) {
+    public setDataEnvio(dataEnvio : string) {
         this.dataEnvio = dataEnvio;
     }
     
-    public getsetorEmissor() : string {
+    public getSetorEmissor() : string {
         return this.idSetorEmissor;
     }
-    public setsetorEmissor(setorEmissor : string) {
+    public setSetorEmissor(setorEmissor : string) {
         this.idSetorEmissor = setorEmissor;
     }
 
-    public getsetorDestinatario() : string {
+    public getSetorDestinatario() : string {
         return this.idSetorDestinatario;
     }
-    public setsetorDestinatario(setorDestinatario : string) {
+    public setSetorDestinatario(setorDestinatario : string) {
         this.idSetorDestinatario = setorDestinatario;
     }
-    public getNomeSetorEmissor(){
-        return this.nomeSetorEmissor;
-    }
-    public setNomeSetorEmissor(nomeSetorEmissor){
-        this.nomeSetorEmissor=nomeSetorEmissor;
-    }
+
     public marcarComoVisto(){
         this.visto=true;
     }
-    */
 }

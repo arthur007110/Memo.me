@@ -17,8 +17,8 @@ import { PdfService } from '../serviços/pdf.service';
 })
 export class ExibirMemorandosRecebidosComponent implements OnInit {
     id: string;
-    memorandos:Memorando[];
-    memorandosDoUsuario: Memorando[];
+    memorandos: any[];
+    memorandosDoUsuario: any[];
     setores: Setor[];
     usuario;
     date: Date;
@@ -42,7 +42,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
-        this.listarMemorandosEReconhecerUsuario();
+        this.reconhecerUsuario();
         let toast = sessionStorage.getItem('toast');
         this.executarTimer(toast);
         this.ptbr = {
@@ -71,11 +71,10 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
             if(this.date == null){
                 if(this.selectedOption == null || this.selectedOption == ''){
                    this.memorandos = this.memorandosDoUsuario
+                }else{
+                    arr = this.buscarVistos(this.memorandosDoUsuario);
+                    this.memorandos = arr;
                 }
-                   else{
-                       arr = this.buscarVistos(this.memorandosDoUsuario);
-                       this.memorandos = arr;
-                   }
             }else{
                 if(this.selectedOption == null || this.selectedOption == ''){
                     arr = this.buscarDatas(this.memorandosDoUsuario);
@@ -105,6 +104,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
                 }
             }
         }
+
     }
 
     buscarSetores(){
@@ -179,8 +179,10 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     }
     // <===============
 
-    gerarPDF(memorando: Memorando){
+    gerarPDF(memorando){
         this.pdfService.gerarPdf(memorando);
+        this.memorandoS.marcarComoVisto(memorando.id);
+        this.listarMemorandos();
     }
 
     mostrarToast(toast){
@@ -229,16 +231,32 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         this.router.navigate(['/vizualizar',memorando.id]);
     }
     
-    listarMemorandosEReconhecerUsuario(){
+    reconhecerUsuario(){
         this.usuarioS.listarPorId(this.id).subscribe(resultado => {
             this.usuario = resultado;
         });
         this.setorS.listarTodos().subscribe(resultado => {
             this.setores = resultado;
         });
+        this.listarMemorandos();
+    }
+
+    listarMemorandos(){
         this.memorandoS.listarTodos().subscribe(resultado => {
-            this.memorandosDoUsuario = this.memorandoS.getMemorandosRecebidosSetor(this.usuario.idDoSetor, resultado);
+            this.memorandosDoUsuario = this.getMemorandosRecebidosSetor(resultado);
             this.memorandos = this.memorandosDoUsuario;
         });
+    }
+
+    getMemorandosRecebidosSetor(memorandosCadastrados){
+        let memorandosRecebidos: Memorando[] = [];
+
+        for(let i = 0; i < memorandosCadastrados.length; i++){
+            if(memorandosCadastrados[i].idSetorDestinatario == this.usuario.idDoSetor){
+                memorandosRecebidos.push(memorandosCadastrados[i]);
+            }
+        }
+        
+        return memorandosRecebidos;
     }
 }

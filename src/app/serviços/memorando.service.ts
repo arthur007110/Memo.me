@@ -9,14 +9,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MemorandoService {
-  memorandosCollection: AngularFirestoreCollection<Memorando>;
+  memorandosCollection: AngularFirestoreCollection<any>;
   memorandos: Memorando[] = [];
 
   constructor(private afs: AngularFirestore, private setorService: SetorService, private usuarioService: UsuarioService) {
-    this.memorandosCollection = afs.collection<Memorando>('memorandos');
-    this.listarTodos().subscribe(resultado => {
-      this.memorandos = resultado;
-    });
+    this.memorandosCollection = afs.collection<any>('memorandos');
   }
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
@@ -33,8 +30,7 @@ export class MemorandoService {
       let data = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
       //let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
-      let memorando: Memorando = {id: "", mensagem: mensagem, idSetorEmissor: setorEmissor,
-        idSetorDestinatario: idSetorDestinatario, dataEnvio: data, visto: false};
+      let memorando = new Memorando("", mensagem, setorEmissor, idSetorDestinatario, data);
       this.cadastrar(memorando);
       return 0;
     }
@@ -42,8 +38,8 @@ export class MemorandoService {
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
 
-  cadastrar(memorando){
-    this.memorandosCollection.add(memorando).then(resultado => {
+  cadastrar(memorando: Memorando){
+    this.memorandosCollection.add(memorando.toFireBase()).then(resultado => {
       let memorandoDoc = this.memorandosCollection.doc(resultado.id);
       memorandoDoc.update({id: resultado.id});
     });
@@ -78,6 +74,7 @@ export class MemorandoService {
       return meuObservable;
   }
 
+  /*
   getMemorandosRecebidosSetor(idDoSetor, memorandos){
     let memorandosRecebidos: Memorando[] = [];
 
@@ -101,6 +98,8 @@ export class MemorandoService {
 
     return memorandosEnviados;
   }
+
+  */
 
   marcarComoVisto(id){
     let memroandoDoc = this.afs.doc('memorandos/' + id);

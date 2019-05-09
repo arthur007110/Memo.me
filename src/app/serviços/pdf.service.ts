@@ -19,7 +19,7 @@ export class PdfService{
     });
   }
 
-  gerarPdf(memorando: Memorando){
+  gerarPdf(memorando){
     /*
     OBS: Ainda não temos uma forma de enumerar os memorandos
     assim como não temos um campo "Assunto" então essas duas coisas constam
