@@ -2,11 +2,26 @@ input{
     background-color: rgb(149, 195, 255);
     color: gray
 }
-p-card{
+:host >>> .geral-p-card p-card{
     position: absolute;
     top: 40%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    color: blue
+}
+:host >>> .inside-p-card p-card{
+    position: relative;
+}
+:host >>> .custombar2 .ui-scrollpanel-wrapper {
+    border-right: 9px solid #b1b1b1;
+}
+    
+:host >>> .custombar2 .ui-scrollpanel-bar {
+    background-color: rgb(52, 168, 53);
+    opacity: 1;
+    transition: background-color .3s;
+}
+    
+:host >>> .custombar2:hover .ui-scrollpanel-bar {
+    background-color: rgb(52, 168, 53);
 }

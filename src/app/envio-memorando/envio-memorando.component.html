@@ -2,13 +2,16 @@
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
 <br><br>
 <p-card title="Enviar Memorando">
-  <p-autoComplete [(ngModel)]="texto" [dropdown]="true" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor"></p-autoComplete>   
+  <p-autoComplete [(ngModel)]="texto" [dropdown]="true" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor" ></p-autoComplete>   
 <br>
-
+<!--
 <span class="ui-float-label">
-  <textarea placeholder="Mensagem" [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="mensagem"></textarea>
+  <textarea placeholder="Mensagem" [rows]="5" [cols]="60" pInputTextarea autoResize="autoResize" [(ngModel)]="mensagem"></textarea>
 </span>
 <br>
+-->
+<p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}"></p-editor>
+
 
 <button pButton type="button" label="Enviar" (click)="enviarMemorando()" class="ui-button-raised ui-button-success"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 <button pButton type="button" label="Cancelar" (click)="irParaTelaHome()" class="ui-button-raised ui-button-success"></button>

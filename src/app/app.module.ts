@@ -24,6 +24,7 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ToastModule} from 'primeng/toast';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
+import {EditorModule} from 'primeng/editor';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -101,6 +102,7 @@ export const rotas: Routes = [
     ToastModule,
     AutoCompleteModule,
     CalendarModule,
+    EditorModule,
     AngularFireModule.initializeApp(configuracao)
   ],
   providers: [UsuarioService, SetorService, MemorandoService, AngularFirestore],

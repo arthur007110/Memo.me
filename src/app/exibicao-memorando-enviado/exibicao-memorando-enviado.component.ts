@@ -6,7 +6,7 @@ import { MemorandoService } from '../serviços/memorando.service';
 @Component({
   selector: 'app-exibicao-memorando-enviado',
   templateUrl: './exibicao-memorando-enviado.component.html',
-  styleUrls: ['./exibicao-memorando-enviado.component.css']
+  styleUrls: ['./exibicao-memorando-enviado.component.css',]
 })
 export class ExibicaoMemorandoEnviadoComponent implements OnInit {
   mensagem:string;
