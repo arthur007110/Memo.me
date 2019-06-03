@@ -10,3 +10,7 @@ p-card{
     transform: translate(-50%, -50%);
     color: blue
 }
+
+:host >>> .ui-card {
+    background-color: rgb(207, 252, 193);
+  }

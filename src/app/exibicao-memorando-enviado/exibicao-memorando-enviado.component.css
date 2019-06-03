@@ -2,16 +2,16 @@ input{
     background-color: rgb(149, 195, 255);
     color: gray
 }
-:host >>> .geral-p-card p-card{
+:host >>> .central{
     position: absolute;
     top: 40%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-:host >>> .inside-p-card p-card{
-    position: relative;
-}
+:host >>> .ui-card {
+    background-color: rgb(207, 252, 193);
+  }
 :host >>> .custombar2 .ui-scrollpanel-wrapper {
     border-right: 9px solid #b1b1b1;
 }

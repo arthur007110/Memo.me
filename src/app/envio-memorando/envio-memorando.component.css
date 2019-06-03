@@ -10,3 +10,6 @@ p-card{
     height: 50%;
     
 }
+:host >>> .ui-card {
+    background-color: rgb(207, 252, 193);
+  }
