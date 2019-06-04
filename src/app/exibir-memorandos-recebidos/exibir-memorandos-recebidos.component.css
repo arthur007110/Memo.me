@@ -1,3 +1,22 @@
 :host >>> .ui-card {
-    background-color: rgb(207, 252, 193);
-  }
+  background-color: rgb(207, 252, 193);
+}
+:host >>> input{
+  background-color: #AEFF95;
+}
+:host >>> .ui-dropdown-panel{
+  background-color: #AEFF95;
+}
+:host >>> .ui-dropdown-label{
+  background-color: #AEFF95;
+}
+:host >>> .ui-dropdown .ui-dropdown-trigger {
+  background-color: #249525;
+  color: white;
+}
+:host >>> .ui-datepicker-trigger{
+  background-color: #249525;
+}
+:host >>> .ui-togglebutton.ui-button.ui-state-active{
+  background-color: #249525;
+}
