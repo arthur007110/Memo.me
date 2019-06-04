@@ -1,13 +1,14 @@
-p-card{
+:host >>> .central{
     position: absolute;
-    top: 40%;
+    top: 60%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    color: rgb(0, 255, 21);
     width: 70%;
-    height: 50%;  
 }
+:host >>> .ui-card {
+    background-color: rgb(207, 252, 193);
+  }
 :host >>> .ui-card {
     background-color: rgb(207, 252, 193);
 }
@@ -25,3 +26,7 @@ p-card{
 :host >>> .ui-autocomplete-input{
     width: 150% !important;
 }
+:host >>> .ui-autocomplete-panel{
+    background-color: #AEFF95;
+    width: 150% !important;
+  }

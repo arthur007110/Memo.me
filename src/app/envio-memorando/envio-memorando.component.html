@@ -1,7 +1,7 @@
 <app-home></app-home>
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
 <br><br>
-<p-card title="Enviar Memorando">
+<p-card title="Enviar Memorando" class="central">
   <div class="p-grid">
     <div class="p-col">
       <span class="ui-float-label">
@@ -21,12 +21,13 @@
 </span>
 <br>
 -->
-<p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}"></p-editor>
-
-
+<p-card>
+  <p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}"></p-editor>
+</p-card>
+<p-card>
 <button pButton type="button" label="Enviar" (click)="enviarMemorando()" class="ui-button-raised ui-button-success"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 <button pButton type="button" label="Cancelar" (click)="irParaTelaHome()" class="ui-button-raised ui-button-success"></button>
-
+</p-card>
 <br>
 <br>
 &#160;<p-message severity="warn" *ngIf="setores == null" text="Não há outros setores cadastro."></p-message>

@@ -1,7 +1,3 @@
-input{
-    background-color: rgb(149, 195, 255);
-    color: gray
-}
 :host >>> .central{
     position: absolute;
     top: 40%;
@@ -11,7 +7,10 @@ input{
 }
 :host >>> .ui-card {
     background-color: rgb(207, 252, 193);
-  }
+}
+:host >>> .assunto .ui-card{
+    background-color: #AEFF95;
+}
 :host >>> .custombar2 .ui-scrollpanel-wrapper {
     border-right: 9px solid #b1b1b1;
 }

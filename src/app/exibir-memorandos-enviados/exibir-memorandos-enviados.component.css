@@ -12,8 +12,17 @@
 }
 :host >>> .ui-dropdown .ui-dropdown-trigger {
   background-color: #249525;
-  color: white
+  color: white;
 }
 :host >>> .ui-datepicker-trigger{
   background-color: #249525;
+}
+:host >>> .ui-togglebutton.ui-button.ui-state-active{
+  background-color: #249525;
+}
+:host >>> .ui-datepicker-today{
+  background-color: #AEFF95
+}
+.ui-datepicker.ui-widget-content {
+  background-color: #AEFF95
 }

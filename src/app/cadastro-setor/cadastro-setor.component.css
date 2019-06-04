@@ -1,4 +1,4 @@
-input{
+:host >>> input{
     background-color: rgb(174, 255, 149);
     color: gray
 }
@@ -8,9 +8,16 @@ p-card{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    color: blue
 }
 
+:host >>> .ui-autocomplete-dd .ui-autocomplete-dropdown.ui-corner-all{
+    
+    background-color: #249525;
+    
+}
+:host >>> .ui-autocomplete-panel{
+    background-color: #AEFF95;
+}
 :host >>> .ui-card {
     background-color: rgb(207, 252, 193);
-  }
+}

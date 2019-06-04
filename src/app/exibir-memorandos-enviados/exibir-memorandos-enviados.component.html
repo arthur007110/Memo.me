@@ -20,7 +20,7 @@
 
 <div class="ui-g-12 ui-md-4">
     <div class="ui-inputgroup"> 
-        <span class="ui-inputgroup-addon" style="background-color: #249525; color: white">Data</span>
+      <span class="ui-inputgroup-addon" style="background-color: #249525; color: white">Data</span>
       <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2019" showButtonBar="true" [(ngModel)]="date" [showIcon]="true" (onClear)="atualizarResultados($event)" (completeMethod)="buscarDatas($event)" [locale]="ptbr"></p-calendar>
     </div>
 </div>

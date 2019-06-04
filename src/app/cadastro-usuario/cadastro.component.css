@@ -1,5 +1,5 @@
 
-input{
+:host >>> input{
     background-color: rgb(174, 255, 149);
     color: gray
 }

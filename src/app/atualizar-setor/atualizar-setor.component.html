@@ -1,6 +1,10 @@
 <app-home-adm></app-home-adm>
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
-<p-card title="Atualizar Setor: {{nome}}">
+<p-card title="Atualizar Setor:" class="central">
+  <p-card class="nome">
+    {{nome}}
+  </p-card>
+  <br>
   <span class="ui-float-label">
     <input id="float-input" type="text" size="30" [(ngModel)]="novoNome" (focus)="mostrarMsg()" pInputText>
     <label for="float-input">Novo nome do Setor</label> 
