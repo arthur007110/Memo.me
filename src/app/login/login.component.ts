@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../serviços/usuario.service';
 import { MessageService } from 'primeng/api';
+import { Usuario } from '../models/Usuario';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(){
     let toast = sessionStorage.getItem('toast');
     this.executarTimer(toast);
-
   }
 
   mostrarToast(toast){

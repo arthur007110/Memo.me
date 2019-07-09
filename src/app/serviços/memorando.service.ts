@@ -11,26 +11,25 @@ import { Observable } from 'rxjs';
 export class MemorandoService {
   memorandosCollection: AngularFirestoreCollection<any>;
   memorandos: Memorando[] = [];
-
   constructor(private afs: AngularFirestore, private setorService: SetorService, private usuarioService: UsuarioService) {
     this.memorandosCollection = afs.collection<any>('memorandos');
   }
-
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificacaoEnviarMemorando(idSetorDestinatario, usuario, mensagem){
+  verificacaoEnviarMemorando(idSetorDestinatario, usuario, mensagem, assunto){
     /*
     0: TUDO OK              1: CAMPOS SEM PREENCHER
     */
 
-    if(idSetorDestinatario == null || usuario == null || mensagem == null || mensagem.length <= 0){
+    if(idSetorDestinatario == null || usuario == null || mensagem == null || mensagem.length <= 0 || assunto == null || assunto == ""){
       return 1;
     }else{
       let now = new Date();
       let data = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
       //let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
-      let memorando = new Memorando("", mensagem, setorEmissor, idSetorDestinatario, data);
+      mensagem = this.removerTags(mensagem);
+      let memorando = new Memorando("", mensagem, setorEmissor, idSetorDestinatario, data, assunto);
       this.cadastrar(memorando);
       return 0;
     }
@@ -100,10 +99,17 @@ export class MemorandoService {
   }
 
   */
-
+  removerTags(mensagem:string){
+    let mensagemSemTags = "";
+    for(let i=3;i<mensagem.length;i++){
+      if(i< mensagem.length-4){
+        mensagemSemTags+=mensagem.charAt(i);
+      }
+    }
+    return mensagemSemTags;
+  }
   marcarComoVisto(id){
     let memroandoDoc = this.afs.doc('memorandos/' + id);
     memroandoDoc.update({visto: true});
   }
-  
 }

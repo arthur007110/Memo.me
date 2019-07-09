@@ -5,7 +5,7 @@
   <div class="p-grid">
     <div class="p-col">
       <span class="ui-float-label">
-        <input id="float-input" type="text" size="30" pInputText> 
+        <input id="float-input" type="text" size="30" [(ngModel)]="assunto" pInputText> 
         <label for="float-input">Assunto</label>
       </span>
     </div>
@@ -22,7 +22,13 @@
 <br>
 -->
 <p-card>
-  <p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}"></p-editor>
+    <p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}">
+        <p-header>
+            <span class="ql-formats">
+              Mensagem
+            </span>
+        </p-header>
+    </p-editor>
 </p-card>
 <p-card>
 <button pButton type="button" label="Enviar" (click)="enviarMemorando()" class="ui-button-raised ui-button-success"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;

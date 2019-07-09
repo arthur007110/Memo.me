@@ -6,20 +6,23 @@ export class Memorando{
     private dataEnvio:string;
     private idSetorEmissor?:string;
     private idSetorDestinatario?:string;
+    private numero: number;
+    private assunto:string;
     //private nomeSetorEmissor:string;
     
-    constructor(id, mensagem,idSetorEmissor,idSetorDestinatario,dataEnvio){
+    constructor(id, mensagem,idSetorEmissor,idSetorDestinatario,dataEnvio, assunto){
         this.id = id;
         this.mensagem=mensagem;
         this.dataEnvio=dataEnvio;
         this.idSetorEmissor=idSetorEmissor;
         this.idSetorDestinatario=idSetorDestinatario;
         this.visto = false;
+        this.assunto = assunto;
     }
 
     toFireBase(){
         return{id: "", mensagem: this.mensagem, idSetorEmissor: this.idSetorEmissor, 
-            idSetorDestinatario: this.idSetorDestinatario, dataEnvio: this.dataEnvio, visto: this.visto};
+            idSetorDestinatario: this.idSetorDestinatario, dataEnvio: this.dataEnvio, visto: this.visto, assunto: this.assunto};
     }
     
     public getId() : string {
@@ -56,6 +59,22 @@ export class Memorando{
     }
     public setSetorDestinatario(setorDestinatario : string) {
         this.idSetorDestinatario = setorDestinatario;
+    }
+
+    public getAssunto() : string {
+        return this.assunto;
+    }
+
+    public setAssunto(assunto : string) {
+        this.assunto = assunto;
+    }
+
+    public getNumero() : number {
+        return this.numero;
+    }
+
+    public setNumero(numero : number) {
+        this.numero = numero;
     }
 
     public marcarComoVisto(){
