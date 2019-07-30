@@ -7,6 +7,6 @@
     </span><br>
     <p-autoComplete [(ngModel)]="texto" size="13" [dropdown]="true" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Siape do Usuário"></p-autoComplete>
     &#160;&#160;<button pButton type="button" label="Cadastrar" (click)="cadastrar()" class="ui-button-raised ui-button-success"></button><br>
-    <br *ngIf="usuarios.length == 0">&#160;<p-message severity="warn" *ngIf="usuarios.length == 0" text="Não há usuários disponíveis."></p-message>
+    <br *ngIf="resultados.length == 0">&#160;<p-message severity="warn" *ngIf="resultados.length == 0" text="Não há usuários disponíveis."></p-message>
     <br *ngIf="msgErro">&#160;<p-message severity="error" *ngIf="msgErro" text="Esse nome já está sendo usado"></p-message>
 </p-card>

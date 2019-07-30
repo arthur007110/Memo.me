@@ -37,14 +37,18 @@
     <ng-template pTemplate="header">
         <tr>
             <th>Setor de Destino</th>
+            <th>Assunto</th>
             <th>Data</th>
+            <th>Número do Memorando</th>
             <th></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-memorando>
         <tr>
             <td>{{getNomeDoSetorDeDestino(memorando.idSetorDestinatario)}}</td>
+            <td>{{memorando.assunto}}</td>
             <td>{{memorando.dataEnvio}}</td>
+            <td>{{memorando.numeroDoMemorando}}</td>
             <td>
             <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
             <p-button label="gerar PDF" styleClass="ui-button-success" (click)="gerarPDF(memorando)" class="ui-button-raised ui-button-success"></p-button>

@@ -47,7 +47,7 @@ export class PdfService{
 
       documento.setFontStyle("bold");
       documento.setFontSize(11);
-      documento.text("Memorando n° x de X", 20, 50);
+      documento.text("Memorando N°" + memorando.numeroDoMemorando, 20, 50);
 
       documento.setFontSize(10);
       documento.text("De: ", 20, 60);
@@ -61,12 +61,12 @@ export class PdfService{
       documento.text("Assunto: ", 20, 80);
       documento.setFontStyle("normal");
       documento.setFontSize(11);
-      documento.text("Alguma coisa aqui", 38, 80);
-      documento.text(this.organizaOConteudo(memorando.mensagem), 20, 110);
+      documento.text(memorando.assunto, 38, 80);
+      documento.text(this.organizaOConteudo(memorando.mensagem), 20, 95);
 
-      documento.text("____________________________", 75, 260);
-      documento.text(usuario.nome, 100, 270);
-      documento.text("SIAPE: " + usuario.siape , 92, 275);
+      documento.text("____________________________", 75, 280);
+      documento.text(usuario.nome, 100, 285);
+      documento.text("SIAPE: " + usuario.siape , 92, 290);
 
       var string = documento.output('datauristring');
       var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
@@ -110,6 +110,7 @@ export class PdfService{
     }
   }
 
+  /*
   organizaOConteudo(texto: string){
     if(texto.length <= 80){
       return texto;
@@ -126,5 +127,26 @@ export class PdfService{
 
     return textoReformulado;
 
+  }
+
+  */
+
+  organizaOConteudo(texto: string){
+    let textoReformulado = "";
+
+    for(let i = 0; i < texto.length; i++){
+      if(texto[i] == "<" && texto[i+1] == "p"){
+        i += 2;
+      }else if(texto[i] == "<" && texto[i+1] == "b"){
+        i += 3;
+      }else if(texto[i] == "<" && texto[i+1] == "/"){
+        textoReformulado += "\r\n";
+        i += 3;
+      }else{
+        textoReformulado += texto[i];
+      }
+    }
+
+    return textoReformulado;
   }
 }

@@ -31,6 +31,12 @@ export class CadastroSetorComponent implements OnInit {
     this.usuarioService.listarUsuariosSemSetor().subscribe(resultado => {
       this.usuarios = resultado;
       for(let i = 0; i < this.usuarios.length; i++){
+        if(this.usuarios[i].siape == "0000000"){
+          this.usuarios.splice(i, 1);
+          break;
+        }
+      }
+      for(let i = 0; i < this.usuarios.length; i++){
         this.resultados.push(this.usuarios[i].siape);
       }
     })

@@ -17,6 +17,7 @@ export class EnvioMemorandoComponent implements OnInit {
   setores:Setor[];
   emissor:string;
   mensagem:string;
+  assunto:string;
   texto: string = null;
   resultados: string[] = [];
 
@@ -54,7 +55,7 @@ export class EnvioMemorandoComponent implements OnInit {
 
   enviarMemorando(){
     this.usuarioService.listarPorId(this.id).subscribe(resultado => {
-      let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.texto), resultado, this.mensagem);
+      let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.texto), resultado, this.mensagem, this.assunto);
       if(verificacao == 0){
         sessionStorage.setItem('toast','10')
         this.irParaTelaHome();

@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 })
 export class MemorandoService {
   memorandosCollection: AngularFirestoreCollection<any>;
-  memorandos: Memorando[] = [];
 
   constructor(private afs: AngularFirestore, private setorService: SetorService, private usuarioService: UsuarioService) {
     this.memorandosCollection = afs.collection<any>('memorandos');
@@ -18,22 +17,41 @@ export class MemorandoService {
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
 
-  verificacaoEnviarMemorando(idSetorDestinatario, usuario, mensagem){
+  verificacaoEnviarMemorando(idSetorDestinatario, usuario, mensagem, assunto){
     /*
     0: TUDO OK              1: CAMPOS SEM PREENCHER
     */
 
-    if(idSetorDestinatario == null || usuario == null || mensagem == null || mensagem.length <= 0){
+    if(idSetorDestinatario == null || usuario == null || mensagem == null 
+      || mensagem.length <= 0 || assunto == null || assunto.length <= 0){
       return 1;
     }else{
       let now = new Date();
       let data = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
       //let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
-      let memorando = new Memorando("", mensagem, setorEmissor, idSetorDestinatario, data);
-      this.cadastrar(memorando);
+      let memorando = new Memorando("", mensagem, assunto, setorEmissor, idSetorDestinatario, data);
+      //this.cadastrar(memorando);
+      this.gerarNumeroDeMemorando(memorando);
       return 0;
     }
+  }
+
+  gerarNumeroDeMemorando(memorando: Memorando){
+    let dataDeEnvio = memorando.getDataEnvio();
+    let anoDeEnvio = dataDeEnvio.substring(dataDeEnvio.length-4);
+
+    this.listarTodos().subscribe(memorandosCadastrados => {
+      let numeroDoMemorando = 0;
+      for(let i = 0; i < memorandosCadastrados.length; i++){
+        if(memorandosCadastrados[i].dataEnvio.indexOf(anoDeEnvio) != -1){
+          numeroDoMemorando++;
+        }
+      }
+
+      memorando.setNumeroDoMemorando(++numeroDoMemorando + "/" + anoDeEnvio);
+      this.cadastrar(memorando);
+    });
   }
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
