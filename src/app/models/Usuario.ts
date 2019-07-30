@@ -1,5 +1,4 @@
 export class Usuario{
-
     private id?: string;
     private nome: string;
     private siape: string;
@@ -19,11 +18,7 @@ export class Usuario{
     }
 
     //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
-
     verificarCampos(){
-        console.log("Nome:" + this.nome);
-        console.log("Siape:" + this.siape);
-        console.log("Senha:" + this.senha);
         if(this.nome != undefined && this.siape != undefined && this.senha != undefined){
             if(this.nome.length <= 0 || this.siape.length <= 0 || this.siape.indexOf("_") >= 0  || this.senha.length <= 0){
                 return false;
@@ -35,31 +30,38 @@ export class Usuario{
         }
     }
 
-
     public getSetor() : string {
         return this.idDoSetor;
     }
+
     public setSetor(setor : string) {
         this.idDoSetor = setor;
     }
+
     public getNome(){
         return this.nome;
     }
+
     public setNome(nome){
         this.nome=nome;
     }
+
     public getSiape(){
         return this.siape;
     }
+
     public setSiape(siape){
         this.siape=siape;
     }
+
     public getID(){
         return this.id;
     }
+
     public setID(id){
         this.id=id;
     }
+
     public getSenha(){
         return this.senha;
     }

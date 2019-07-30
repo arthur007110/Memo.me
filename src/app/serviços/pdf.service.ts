@@ -1,10 +1,8 @@
 import { Injectable} from '@angular/core';
 import * as jsPDF from 'jspdf';
-import { Memorando } from '../models/Memorando';
 import { UsuarioService } from './usuario.service';
 import { SetorService } from './setor.service';
 import { Setor } from '../models/Setor';
-import { Usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +18,6 @@ export class PdfService{
   }
 
   gerarPdf(memorando){
-    /*
-    OBS: Ainda não temos uma forma de enumerar os memorandos
-    assim como não temos um campo "Assunto" então essas duas coisas constam
-    no PDF só para seguir o modelo. Depois que acrescentarmos esses dois basta
-    alterar as linhas 50 e 64;
-    */
-
-
     this.setorS.listarTodos().subscribe(result => {
       this.setores = result;
       var usuario = this.getUsuario(memorando);
@@ -109,27 +99,6 @@ export class PdfService{
       }
     }
   }
-
-  /*
-  organizaOConteudo(texto: string){
-    if(texto.length <= 80){
-      return texto;
-    }
-
-    let textoReformulado = "";
-
-    for(let i = 0; i < texto.length; i++){
-      textoReformulado += texto[i];
-      if((i+1) % 80 == 0){
-        textoReformulado += "\r\n";
-      }
-    }
-
-    return textoReformulado;
-
-  }
-
-  */
 
   organizaOConteudo(texto: string){
     let textoReformulado = "";

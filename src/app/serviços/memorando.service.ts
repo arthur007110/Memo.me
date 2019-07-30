@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MemorandoService {
   memorandosCollection: AngularFirestoreCollection<any>;
 
@@ -16,11 +17,8 @@ export class MemorandoService {
   }
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
-
   verificacaoEnviarMemorando(idSetorDestinatario, usuario, mensagem, assunto){
-    /*
-    0: TUDO OK              1: CAMPOS SEM PREENCHER
-    */
+    //0: TUDO OK              1: CAMPOS SEM PREENCHER
 
     if(idSetorDestinatario == null || usuario == null || mensagem == null 
       || mensagem.length <= 0 || assunto == null || assunto.length <= 0){
@@ -29,9 +27,7 @@ export class MemorandoService {
       let now = new Date();
       let data = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
-      //let memorando = new Memorando(mensagem, setorEmissor, setorDeDestino.id, data);
       let memorando = new Memorando("", mensagem, assunto, setorEmissor, idSetorDestinatario, data);
-      //this.cadastrar(memorando);
       this.gerarNumeroDeMemorando(memorando);
       return 0;
     }
@@ -55,7 +51,6 @@ export class MemorandoService {
   }
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
-
   cadastrar(memorando: Memorando){
     this.memorandosCollection.add(memorando.toFireBase()).then(resultado => {
       let memorandoDoc = this.memorandosCollection.doc(resultado.id);
@@ -89,39 +84,11 @@ export class MemorandoService {
         observer.next(resultados);
         observer.complete();
       });});
-      return meuObservable;
+    return meuObservable;
   }
-
-  /*
-  getMemorandosRecebidosSetor(idDoSetor, memorandos){
-    let memorandosRecebidos: Memorando[] = [];
-
-    for(let i = 0; i < memorandos.length; i++){
-      if(memorandos[i].idSetorDestinatario == idDoSetor){
-        memorandosRecebidos.push(memorandos[i]);
-      }
-    }
-
-    return memorandosRecebidos;
-  }
-
-  getMemorandosEnviadosSetor(idDoSetor, memorandos){
-    let memorandosEnviados: Memorando[] = [];
-
-    for(let i = 0; i < memorandos.length; i++){
-      if(memorandos[i].idSetorEmissor == idDoSetor){
-        memorandosEnviados.push(memorandos[i]);
-      }
-    }
-
-    return memorandosEnviados;
-  }
-
-  */
 
   marcarComoVisto(id){
     let memroandoDoc = this.afs.doc('memorandos/' + id);
     memroandoDoc.update({visto: true});
   }
-  
 }

@@ -22,10 +22,10 @@ export class EnvioMemorandoComponent implements OnInit {
   resultados: string[] = [];
 
   constructor(private router: Router, 
-              private memorandoS: MemorandoService, 
-              private setorS: SetorService, 
-              private messageService: MessageService, 
-              private usuarioService: UsuarioService) { }
+    private memorandoS: MemorandoService, 
+    private setorS: SetorService, 
+    private messageService: MessageService, 
+    private usuarioService: UsuarioService) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
@@ -66,7 +66,6 @@ export class EnvioMemorandoComponent implements OnInit {
   }
 
   mostrarErro(erro){
-
     if(erro==5){
       this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
     }else if(erro=='~'){
@@ -78,21 +77,6 @@ export class EnvioMemorandoComponent implements OnInit {
   irParaTelaHome(){
     this.router.navigate(['/recebidos', this.id]);
   }
-
-  /*receberSetores(){
-    this.setores = [];
-    let setoresCadastrados;
-    this.setorS.listarTodos().subscribe(setorArr => {
-      setoresCadastrados = setorArr;
-      //Excluindo o seu própio setor da lista
-
-      for(let i = 0; i < setoresCadastrados.length; i++){
-        if(setoresCadastrados[i].usuario.siape != this.siape){
-          this.setores.push(setoresCadastrados[i]);
-        }
-      }
-    });
-  }*/
 
   receberSetores(){
     this.setorS.listarTodos().subscribe(resultado => {

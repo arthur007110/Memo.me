@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Memorando } from '../models/Memorando';
 import { Router } from '@angular/router';
 import { MemorandoService } from '../serviços/memorando.service';
 

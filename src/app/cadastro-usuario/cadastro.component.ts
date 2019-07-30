@@ -12,17 +12,17 @@ import { Usuario } from '../models/Usuario';
 
 })
 export class CadastroComponent implements OnInit {
-
   nome: string;
   siape: string;
   id: string;
   senha: string;
   senha2: string;
-
   msgErroSiape: boolean = false;
   msgErroSenha: boolean = false;
 
-  constructor(private router: Router, private usuarioService: UsuarioService, private messageService: MessageService) { }
+  constructor(private router: Router, 
+    private usuarioService: UsuarioService, 
+    private messageService: MessageService) { }
 
   ngOnInit() {
   }
@@ -34,7 +34,6 @@ export class CadastroComponent implements OnInit {
 
 
   cadastrar(){
-
     //Verifica sem as duas senhas são iguais
     if(this.senha != this.senha2){
       this.mostrarErro(7);
@@ -60,7 +59,6 @@ export class CadastroComponent implements OnInit {
   }
 
   mostrarErro(erro){
-
     if(erro==7){
       this.messageService.add({severity:'error', summary: 'Erro!', detail:'Senhas não coincidem.'});
     }else if(erro==8){
@@ -81,20 +79,4 @@ export class CadastroComponent implements OnInit {
       }
     });
   }
-
-  /*executarTimer(){
-
-    let timeLeft: number = 1;
-    let interval;
-
-    interval = setInterval(() => {
-      if(timeLeft > 0) {
-        timeLeft--;
-      } else {
-        clearInterval(interval);
-        this.voltar();
-      }
-    },1000);
-  }*/
-
 }

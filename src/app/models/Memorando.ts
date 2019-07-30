@@ -1,5 +1,4 @@
 export class Memorando{
-
     private id?: string;
     private visto:boolean;
     private mensagem:string;
@@ -8,7 +7,6 @@ export class Memorando{
     private numeroDoMemorando: string;
     private idSetorEmissor?:string;
     private idSetorDestinatario?:string;
-    //private nomeSetorEmissor:string;
     
     constructor(id, mensagem, assunto, idSetorEmissor,idSetorDestinatario,dataEnvio){
         this.id = id;
@@ -38,6 +36,7 @@ export class Memorando{
     public getMensagem() : string {
         return this.mensagem;
     }
+    
     public setMensagem(mensagem : string) {
         this.mensagem = mensagem;
     }

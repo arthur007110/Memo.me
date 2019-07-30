@@ -16,21 +16,12 @@ export class HomeAdmComponent implements OnInit {
   items: MenuItem[];
 
   constructor(private router: Router, 
-              private route: ActivatedRoute, 
-              private usuarioService: UsuarioService,
-              private messageService: MessageService) { }
+    private route: ActivatedRoute, 
+    private usuarioService: UsuarioService,
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
-
-
-
-    /*
-    let sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-    });
-    */
-
     this.getUsuario();
     
     this.items = [
@@ -47,20 +38,20 @@ export class HomeAdmComponent implements OnInit {
 
   mostrarAviso() {
     this.messageService.add({key: 'c', sticky: true, severity:'success', summary:'Deseja relamente sair?', detail:'pressione o sim para sair'});
-}
+  }
 
   onConfirm() {
     this.messageService.clear('c');
     this.deslogar();
-}
+  }
 
   onReject() {
     this.messageService.clear('c');
-}
+  }
 
   clear() {
     this.messageService.clear();
-}
+  }
 
   getUsuario(){
     this.usuarioService.listarPorId(this.id).subscribe(resultado => {

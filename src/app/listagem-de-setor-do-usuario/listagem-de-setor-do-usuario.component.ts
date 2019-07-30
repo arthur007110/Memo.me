@@ -15,7 +15,9 @@ export class ListagemDeSetorDoUsuarioComponent implements OnInit {
   setores: Setor[] = [];
   usuarios = [];
   
-  constructor(private setorService: SetorService, private router: Router, private usuariosService: UsuarioService) { }
+  constructor(private setorService: SetorService, 
+    private usuariosService: UsuarioService, 
+    private router: Router) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
@@ -54,5 +56,4 @@ export class ListagemDeSetorDoUsuarioComponent implements OnInit {
       this.usuarios = userArr;
     });
   }
-
 }

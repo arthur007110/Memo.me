@@ -16,7 +16,10 @@ export class AtualizarSetorComponent implements OnInit {
   novoNome: string = "";
   msgErro: boolean = false;
   
-  constructor(private router: Router, private setorService: SetorService, private route: ActivatedRoute, private messageService: MessageService,) { }
+  constructor(private router: Router, 
+    private setorService: SetorService, 
+    private route: ActivatedRoute, 
+    private messageService: MessageService,) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -60,5 +63,4 @@ export class AtualizarSetorComponent implements OnInit {
   mostrarMsg(){
     this.msgErro = false;
   }
-
 }

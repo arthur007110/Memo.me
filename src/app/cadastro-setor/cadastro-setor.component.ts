@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from '../models/Usuario';
 import { UsuarioService } from '../serviços/usuario.service';
 import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
@@ -20,7 +19,10 @@ export class CadastroSetorComponent implements OnInit {
   resultados: string[] = [];
   usuarios: any[] = [];
 
-  constructor(private router: Router, private usuarioService: UsuarioService,  private setorService: SetorService, private messageService: MessageService,){}
+  constructor(private router: Router, 
+    private usuarioService: UsuarioService, 
+    private setorService: SetorService, 
+    private messageService: MessageService,){}
 
   ngOnInit(){
     this.getUsuarios();
@@ -39,7 +41,7 @@ export class CadastroSetorComponent implements OnInit {
       for(let i = 0; i < this.usuarios.length; i++){
         this.resultados.push(this.usuarios[i].siape);
       }
-    })
+    });
   }
 
   //Atualiza o array resultado conforme a entrada do usuário
@@ -84,7 +86,6 @@ export class CadastroSetorComponent implements OnInit {
 
   //Volta para o tela de listagem de setores
   voltar(){
-
     let timeLeft: number = 1;
     let interval;
 

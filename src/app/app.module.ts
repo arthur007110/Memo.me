@@ -32,7 +32,6 @@ import { CadastroComponent } from './cadastro-usuario/cadastro.component';
 import { CadastroSetorComponent } from './cadastro-setor/cadastro-setor.component';
 import { EnvioMemorandoComponent } from './envio-memorando/envio-memorando.component';
 import { UsuarioService } from './serviços/usuario.service';
-//import { AtualizarMemorandosComponent } from './atualizar-memorandos/atualizar-memorandos.component';
 import { AtualizarSetorComponent } from './atualizar-setor/atualizar-setor.component';
 import { HomeAdmComponent } from './home-adm/home-adm.component';
 import { ExibicaoMemorandoComponent } from './exibicao-memorando/exibicao-memorando.component';
@@ -69,7 +68,6 @@ export const rotas: Routes = [
     HomeComponent,
     CadastroSetorComponent,
     EnvioMemorandoComponent,
-    //AtualizarMemorandosComponent,
     AtualizarSetorComponent,
     HomeAdmComponent,
     ExibicaoMemorandoComponent,

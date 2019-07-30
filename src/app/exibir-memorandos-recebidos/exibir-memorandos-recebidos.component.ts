@@ -6,7 +6,6 @@ import { UsuarioService } from '../serviços/usuario.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
 import { MessageService } from 'primeng/api';
-import * as jsPDF from 'jspdf';
 import { PdfService } from '../serviços/pdf.service';
 
 @Component({
@@ -24,21 +23,19 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     date: Date;
     options: any;
     setor: any;
-
     selectedOption: any;
     ptbr : any;
-
     text: string;
     setoresResults: string[];
     dataResults: string[];
     vistoResults: boolean[];
 
     constructor(private router: Router,
-                private memorandoS: MemorandoService,
-                private usuarioS: UsuarioService, 
-                private setorS: SetorService, 
-                private messageService: MessageService,
-                private pdfService: PdfService) { }
+        private memorandoS: MemorandoService,
+        private usuarioS: UsuarioService, 
+        private setorS: SetorService, 
+        private messageService: MessageService,
+        private pdfService: PdfService) { }
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
@@ -65,7 +62,6 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
 
     //Funções para a pesquisa por setores =====>
     buscar(){
-
         let arr = [];
         if(this.setor == null || this.setor == ''){
             if(this.date == null){
@@ -122,11 +118,10 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     }
     //working
     buscarDatas(memorandos){
-        
         let data = this.date.getDate() + '/' + (this.date.getMonth()+1) + '/' + this.date.getFullYear();
         return this.atualizarMemorandosData(data,memorandos);
-        
     }
+
     buscarVistos(memorandos){
         if(this.selectedOption.option == 'Vistos'){
             return this.atualizarMemorandosVisto(true,memorandos);
@@ -166,8 +161,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
                 memorandosaux.push(memorandos[i]);
             }
         }
-        return memorandosaux;
-        
+        return memorandosaux;    
     }
 
     getIdDoSetorPorNome(nomeDoSetor){
@@ -193,23 +187,22 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
             this.messageService.add({severity:'success', summary: 'Enviado!', detail:'Seu Memorando foi enviado com sucesso!'});
             sessionStorage.removeItem('toast');
         }
+    }
     
-      }
-
-      executarTimer(toast){
+    executarTimer(toast){
         let timeLeft: number = 1;
         let interval;
     
         interval = setInterval(() => {
-          if(timeLeft > 0) {
-            timeLeft--;
-          } else {
-            clearInterval(interval);
-            this.mostrarToast(toast);
-          }
+            if(timeLeft > 0) {
+                timeLeft--;
+            }else {
+                clearInterval(interval);
+                this.mostrarToast(toast);
+            }
         },200);
-      }
-
+    }
+    
     getNomeDoSetorDeDestino(id){
         for(let i = 0; i < this.setores.length; i++){
             if(this.setores[i].id == id){

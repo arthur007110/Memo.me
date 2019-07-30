@@ -10,18 +10,16 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
-
   siape: string;
   senha: string;
 
   constructor(private router: Router, 
-              private usuarioService: UsuarioService, 
-              private messageService: MessageService) { }
+    private usuarioService: UsuarioService, 
+    private messageService: MessageService) { }
 
   ngOnInit(){
     let toast = sessionStorage.getItem('toast');
     this.executarTimer(toast);
-
   }
 
   mostrarToast(toast){
@@ -29,7 +27,6 @@ export class LoginComponent implements OnInit {
         this.messageService.add({severity:'success', summary: 'Deslogado!', detail:'Deslogado com sucesso!'});
         sessionStorage.removeItem('toast');
     }
-
   }
 
   executarTimer(toast){
@@ -65,13 +62,11 @@ export class LoginComponent implements OnInit {
   }
 
   mostrarErro(erro){
-
     if(erro==3){
       this.messageService.add({severity:'error', summary: 'Erro!', detail:'Esse usuário ainda não possui um setor. Por favor contate o adm.'});
     }else if(erro==4){
       this.messageService.add({severity:'error', summary: 'Erro!', detail:'Login ou senha incorretos.'});
     }
-
   }
 
   irParaTelaHome(){
@@ -95,34 +90,4 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
-  /*executarTimer(){
-
-    let timeLeft: number = 1;
-    let interval;
-
-    interval = setInterval(() => {
-      if(timeLeft > 0) {
-        timeLeft--;
-      } else {
-        clearInterval(interval);
-        this.irParaTelaHome();
-      }
-    },1000);
-  }*/
-  /*executarTimerAdm(){
-
-    let timeLeft: number = 1;
-    let interval;
-
-    interval = setInterval(() => {
-      if(timeLeft > 0) {
-        timeLeft--;
-      } else {
-        clearInterval(interval);
-        this.irParaTelaHomeAdm();
-      }
-    },1000);
-  }*/
-
 }

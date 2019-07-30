@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Memorando } from '../models/Memorando';
 import { Router } from '@angular/router';
 import { MemorandoService } from '../serviços/memorando.service';
 
@@ -14,7 +13,6 @@ export class ExibicaoMemorandoEnviadoComponent implements OnInit {
   idUsuario:string;
   memorando;
 
-
   constructor(private router: Router, private memorandoS: MemorandoService) { }
 
   ngOnInit() {
@@ -27,12 +25,14 @@ export class ExibicaoMemorandoEnviadoComponent implements OnInit {
     sessionStorage.removeItem("id-memorando");
     this.router.navigate(['/enviados',this.idUsuario]);
   }
+  
   receberMemorandos(){
     this.memorandoS.listarPorId(this.id).subscribe(resultado => {
       this.memorando = resultado;
       this.exibirMensagem();
     });
   }
+
   exibirMensagem(){
     this.mensagem=this.memorando.mensagem;
   }

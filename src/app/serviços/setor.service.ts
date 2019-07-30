@@ -101,7 +101,4 @@ export class SetorService {
 
     return meuObservable;
   }
-
-
-
 }

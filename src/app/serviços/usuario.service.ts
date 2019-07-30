@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../models/Usuario';
 import { AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,10 @@ export class UsuarioService {
 
   constructor(private afs: AngularFirestore) {
     this.usuarioCollection = afs.collection<any>('usuarios');
-
   }
 
   //FUNÇÕES PARA O BANCO DE DADOS ==>
-
   cadastrar(usuario: Usuario){
-    //Faz a encriptação da senha =======>
-    usuario.setSenha(usuario.getSenha());
-    // <===========
     this.usuarioCollection.add(usuario.toFireBase()).then(resultado => {
       let userDoc = this.usuarioCollection.doc(resultado.id);
       userDoc.update({id: resultado.id});
@@ -63,17 +59,21 @@ export class UsuarioService {
   atualizaSetorDeUsuario(id, idDoSetor){
     let usuarioDoc = this.afs.doc('usuarios/'+id);
     usuarioDoc.update({idDoSetor: idDoSetor});
+  }
 
+  criptografarSenha(senha){
+    const md5 = new Md5();
+    return md5.appendStr(senha).end();
   }
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
-
   verificarCadastro(usuario): Observable<any>{
     let meuObservable = new Observable<any>(observer => {
       let collectionFiltrada = this.afs.collection<any>('usuarios', ref=>ref.where('siape', '==', usuario.getSiape()));
       let resultado = collectionFiltrada.valueChanges();
       resultado.subscribe(userArr => {
         if(userArr.length == 0){
+          usuario.setSenha(this.criptografarSenha(usuario.getSenha()));
           this.cadastrar(usuario); // Não existe um usuário cadastro com aquela siape;
           observer.next(true);
         }else{
@@ -91,6 +91,9 @@ export class UsuarioService {
         observer.next(false);
         observer.complete();
       }
+
+      senha = this.criptografarSenha(senha);
+
       let collectionFiltrada = this.afs.collection<any>('usuarios', 
       ref => ref.where('siape', '==', siape).where('senha', '==', senha));
       let resultado = collectionFiltrada.valueChanges();

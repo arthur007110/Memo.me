@@ -5,8 +5,6 @@ import { MemorandoService } from '../serviços/memorando.service';
 import { UsuarioService } from '../serviços/usuario.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
-import * as jsPDF from 'jspdf';
-import { MessageService } from 'primeng/api';
 import { PdfService } from '../serviços/pdf.service';
 
 @Component({
@@ -23,20 +21,18 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     date: Date;
     options: any;
     setor: any;
-
     selectedOption: any;
     ptbr : any;
-
     text: string;
     setoresResults: string[];
     dataResults: string[];
     vistoResults: boolean[];
-
+    
     constructor(private router: Router,
-                private memorandoS: MemorandoService, 
-                private usuarioS: UsuarioService, 
-                private setorS: SetorService,
-                private pdfService: PdfService) { }
+        private memorandoS: MemorandoService, 
+        private usuarioS: UsuarioService, 
+        private setorS: SetorService,
+        private pdfService: PdfService) { }
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
@@ -60,9 +56,7 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     }
 
     //Funções para a pesquisa por setores =====>
-
     buscar(){
-
         let arr = [];
         if(this.setor == null || this.setor == ''){
             if(this.date == null){
@@ -120,6 +114,7 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
             return this.atualizarMemorandosSetor(this.getIdDoSetorPorNome(this.setoresResults[0]));
         }
     }
+
     //working
     buscarDatas(memorandos){
         
@@ -127,6 +122,7 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
         return this.atualizarMemorandosData(data,memorandos);
         
     }
+    
     buscarVistos(memorandos){
         if(this.selectedOption.option == 'Vistos'){
             return this.atualizarMemorandosVisto(true,memorandos);

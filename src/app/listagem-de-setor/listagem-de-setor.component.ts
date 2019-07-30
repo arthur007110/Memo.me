@@ -16,7 +16,10 @@ export class ListagemDeSetorComponent implements OnInit {
   setores: Setor[] = [];
   usuarios = [];
 
-  constructor(private setorService: SetorService, private router: Router, private usuariosService: UsuarioService, private messageService: MessageService) { }
+  constructor(private setorService: SetorService, 
+    private router: Router, 
+    private usuariosService: UsuarioService, 
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
@@ -26,7 +29,6 @@ export class ListagemDeSetorComponent implements OnInit {
   }
 
   mostrarToast(toast){
-
     if(toast=='6'){
       this.messageService.add({severity:'success', summary: 'Cadastrado!', detail:'cadastro realizado com sucesso'});
       sessionStorage.removeItem('toast');
@@ -44,7 +46,6 @@ export class ListagemDeSetorComponent implements OnInit {
   }
 
   executarTimer(toast){
-
     let timeLeft: number = 1;
     let interval;
 
@@ -94,5 +95,4 @@ export class ListagemDeSetorComponent implements OnInit {
   atualizar(id){
     this.router.navigate(['/atualizar-setor', id]);
   }
-
 }

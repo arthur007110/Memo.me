@@ -16,8 +16,35 @@ export class HomeComponent implements OnInit {
     memorandos: Memorando[];
     
     constructor(private router: Router, 
-                private memorandoS: MemorandoService,
-                private messageService: MessageService) { }
+        private memorandoS: MemorandoService,
+        private messageService: MessageService) { }
+
+    ngOnInit(){
+        this.id = sessionStorage.getItem('id-usuario');
+        
+        this.items = [
+            {
+                label: 'Memorando',
+                items: [
+                    {label: 'Enviar',
+                    command: (event: Event) => {this.enviarMemorando();}},
+                    {label: 'Mostrar Enviados',
+                    command: (event: Event) => { this.mostrarMemorandosEnviados();}},
+                    {label: 'Mostrar Recebidos',
+                    command: (event: Event) => { this.mostrarMemorandosRecebidos();}}
+                ]
+            },
+            {
+                label: 'Setor',
+                icon: '',
+                items: [
+                    {label: 'Listar Setores',
+                    icon: 'pi pi-fw pi-pencil',
+                    command: (event: Event) => { this.listarSetores(); }}
+                ]
+            }
+        ];
+    }
     
     deslogar(){
         sessionStorage.removeItem("id-usuario");
@@ -47,44 +74,21 @@ export class HomeComponent implements OnInit {
     enviarMemorando(){
         this.router.navigate(['/envio-memorando']);
     }
+
     exibirMemorando(i){
         sessionStorage.setItem("id-usuario", this.memorandos[i].getId());
         this.router.navigate(['/vizualizar', this.memorandos[i].getId()]);
     }
+
     mostrarMemorandosEnviados(){
         this.router.navigate(['enviados', this.id]);
     }
+
     mostrarMemorandosRecebidos(){
         this.router.navigate(['recebidos', this.id]);
     }
+
     listarSetores(){
         this.router.navigate(['listar-setores-de-usuario/', this.id]);
-    }
-    ngOnInit(){
-        this.id = sessionStorage.getItem('id-usuario');
-        
-        this.items = [
-            {
-                label: 'Memorando',
-                items: [
-                    {label: 'Enviar',
-                    command: (event: Event) => {this.enviarMemorando();}},
-                    {label: 'Mostrar Enviados',
-                    command: (event: Event) => { this.mostrarMemorandosEnviados();}},
-                    {label: 'Mostrar Recebidos',
-                    command: (event: Event) => { this.mostrarMemorandosRecebidos();}}
-                ]
-            },
-            {
-                label: 'Setor',
-                icon: '',
-                items: [
-                    {label: 'Listar Setores',
-                    icon: 'pi pi-fw pi-pencil',
-                    command: (event: Event) => { this.listarSetores(); }}
-                ]
-            }
-        ];
-        
     }
 }

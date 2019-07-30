@@ -1,5 +1,4 @@
 export class Setor{
-
     id?: string;
     nome: string;
     idDoUsuario?: string;
@@ -25,18 +24,22 @@ export class Setor{
     getId(){
         return this.id;
     }
+
     setId(id){
         this.id=id;
     }
     getNome(){
         return this.nome;
     }
+
     setNome(nome){
         this.nome=nome;
     }
+
     getIdDoUsuario(){
         return this.idDoUsuario;
     }
+    
     setIdDoUsuario(idDoUsuario){
         this.idDoUsuario = idDoUsuario;
     }
