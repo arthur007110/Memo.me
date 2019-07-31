@@ -17,16 +17,31 @@
     width: 100%;
     top: 0%;
 }
+:host >>> .assunto{
+    height: 300%;
+}
 :host >>> .ui-autocomplete-dd .ui-autocomplete-dropdown.ui-corner-all{
     
-    transform:translate(+930%,-100%);
+    transform:translate(+1270%,-100%);
     background-color: #249525;
     
 }
 :host >>> .ui-autocomplete-input{
-    width: 150% !important;
+    width: 186% !important;
 }
 :host >>> .ui-autocomplete-panel{
     background-color: #AEFF95;
-    width: 150% !important;
+    width: 186% !important;
   }
+.container {
+    width: 100%;
+    margin: auto;
+    padding: 1px;
+}
+.one {
+    width: 15%;
+    float: left;
+}
+.two {
+    margin-left: 15%;
+}
