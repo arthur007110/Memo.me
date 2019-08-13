@@ -40,7 +40,7 @@ export class AtualizarSetorComponent implements OnInit {
     if(this.nome == this.novoNome){
       this.voltar();
     }
-    let setor = new Setor(this.setorSelecionado.id, this.novoNome, this.setorSelecionado.idDoUsuario);
+    let setor = new Setor(this.setorSelecionado.id, this.novoNome);
     if(setor.verificarCampos()){
       this.setorService.atualizar(setor).subscribe(resultado => {
         if(resultado){

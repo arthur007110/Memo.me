@@ -24,7 +24,6 @@ export class SetorService {
           this.setorCollection.add(setor.toFirebase()).then(resultado => {
             let setorDoc = this.setorCollection.doc(resultado.id);
             setorDoc.update({id: resultado.id});
-            this.usuarioService.atualizaSetorDeUsuario(setor.getIdDoUsuario(), resultado.id);
           });
           observer.next(true); //Cadastro realizado com sucesso.
         }

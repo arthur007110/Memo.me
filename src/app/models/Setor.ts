@@ -1,20 +1,18 @@
 export class Setor{
     id?: string;
     nome: string;
-    idDoUsuario?: string;
 
-    constructor(id, nome, idDoUsuario){
+    constructor(id, nome){
         this.id = id;
         this.nome = nome;
-        this.idDoUsuario = idDoUsuario;
     }
 
     toFirebase(){
-        return {id: "", nome: this.nome, idDoUsuario: this.idDoUsuario};
+        return {id: "", nome: this.nome};
     }
 
     verificarCampos(){
-        if(this.nome != null && this.nome.length > 0 && this.nome[0] != " " && this.idDoUsuario != null){
+        if(this.nome != null && this.nome.length > 0 && this.nome[0] != " "){
             return true; //Campos preenchidos corretamente
         }else{
             return false;
@@ -34,13 +32,5 @@ export class Setor{
 
     setNome(nome){
         this.nome=nome;
-    }
-
-    getIdDoUsuario(){
-        return this.idDoUsuario;
-    }
-    
-    setIdDoUsuario(idDoUsuario){
-        this.idDoUsuario = idDoUsuario;
     }
 }

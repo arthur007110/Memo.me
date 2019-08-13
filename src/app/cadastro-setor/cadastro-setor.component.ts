@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioService } from '../serviços/usuario.service';
 import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 import { MessageService } from 'primeng/api';
@@ -15,50 +14,17 @@ import { MessageService } from 'primeng/api';
 export class CadastroSetorComponent implements OnInit {
   nome: string;
   msgErro: boolean = false;
-  texto: string = null;
-  resultados: string[] = [];
-  usuarios: any[] = [];
 
   constructor(private router: Router, 
-    private usuarioService: UsuarioService, 
     private setorService: SetorService, 
     private messageService: MessageService,){}
 
   ngOnInit(){
-    this.getUsuarios();
+
   }
 
-  //Inicia o array usuarios e resultados
-  getUsuarios(){
-    this.usuarioService.listarUsuariosSemSetor().subscribe(resultado => {
-      this.usuarios = resultado;
-      for(let i = 0; i < this.usuarios.length; i++){
-        if(this.usuarios[i].siape == "0000000"){
-          this.usuarios.splice(i, 1);
-          break;
-        }
-      }
-      for(let i = 0; i < this.usuarios.length; i++){
-        this.resultados.push(this.usuarios[i].siape);
-      }
-    });
-  }
-
-  //Atualiza o array resultado conforme a entrada do usuário
-  buscar(event){
-    let arr = [];
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].siape.indexOf(event.query) != -1){
-        arr.push(this.usuarios[i].siape);
-      }
-    }
-    this.resultados = arr;
-    this.texto = event.query;
-  }
-
-  //Tenta cadastrar o usuário
   cadastrar(){
-    let setor = new Setor("", this.nome, this.getUsuarioDoSetor());
+    let setor = new Setor("", this.nome);
     if(setor.verificarCampos()){
       this.setorService.cadastrar(setor).subscribe(resultado => {
         if(resultado){
@@ -70,17 +36,6 @@ export class CadastroSetorComponent implements OnInit {
       })
     }else{
       this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos corretamente.'});
-    }
-  }
-
-  //Procura o usuário id do usuário escolhido no array de resultados
-  getUsuarioDoSetor(){
-    if(this.texto != undefined && this.texto.length == 7){
-      for(let i = 0; i < this.usuarios.length; i++){
-        if(this.usuarios[i].siape == this.texto){
-          return this.usuarios[i].id;
-        }
-      }
     }
   }
 
