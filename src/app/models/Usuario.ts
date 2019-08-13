@@ -1,26 +1,28 @@
 export class Usuario{
     private id?: string;
     private nome: string;
+    private email: string;
     private siape: string;
     private senha: string;
     private idDoSetor: string;
     
-    constructor(id, nome, siape, senha,setor){
+    constructor(id, nome, email, siape, senha,setor){
       this.id = id;
       this.nome = nome;
+      this.email = email;
       this.siape = siape;
       this.senha = senha;
       this.idDoSetor = setor;
     }
 
     toFireBase(){
-        return{id: "", nome: this.nome, siape: this.siape, senha: this.senha, idDoSetor: this.idDoSetor}
+        return{id: "", nome: this.nome, email: this.email, siape: this.siape, senha: this.senha, idDoSetor: this.idDoSetor}
     }
 
     //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
     verificarCampos(){
-        if(this.nome != undefined && this.siape != undefined && this.senha != undefined){
-            if(this.nome.length <= 0 || this.siape.length <= 0 || this.siape.indexOf("_") >= 0  || this.senha.length <= 0){
+        if(this.nome != undefined && this.email != undefined && this.siape != undefined && this.senha != undefined && this.idDoSetor != undefined){
+            if(this.nome.length <= 0 || this.email.length <= 0 || this.siape.length <= 0 || this.siape.indexOf("_") >= 0  || this.senha.length <= 0 || this.idDoSetor.length <= 0){
                 return false;
             }else{
                 return true;
@@ -44,6 +46,14 @@ export class Usuario{
 
     public setNome(nome){
         this.nome=nome;
+    }
+
+    public getEmail(){
+        return this.email;
+    }
+
+    public setEmail(email){
+        this.email = email;
     }
 
     public getSiape(){

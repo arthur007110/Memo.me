@@ -35,11 +35,6 @@ export class UsuarioService {
     })
   }
 
-  listarUsuariosSemSetor(){
-    let collectionFiltrada = this.afs.collection<any>('usuarios', ref=>ref.where('idDoSetor', '==', null));
-    return collectionFiltrada.valueChanges();
-  }
-
   listarTodos(): Observable<any[]>{
     let resultados: any[] = [];
     let meuObservable = new Observable<any[]>(observer => {

@@ -27,7 +27,7 @@ export class MemorandoService {
       let now = new Date();
       let data = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;
-      let memorando = new Memorando("", mensagem, assunto, setorEmissor, idSetorDestinatario, data);
+      let memorando = new Memorando("", mensagem, assunto, setorEmissor, idSetorDestinatario, usuario.id, data);
       this.gerarNumeroDeMemorando(memorando);
       return 0;
     }

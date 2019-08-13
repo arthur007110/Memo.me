@@ -7,8 +7,9 @@ export class Memorando{
     private numeroDoMemorando: string;
     private idSetorEmissor?:string;
     private idSetorDestinatario?:string;
+    private idDoUsuarioEmissor: string;
     
-    constructor(id, mensagem, assunto, idSetorEmissor,idSetorDestinatario,dataEnvio){
+    constructor(id, mensagem, assunto, idSetorEmissor,idSetorDestinatario, idDoUsuarioEmissor, dataEnvio){
         this.id = id;
         this.mensagem=mensagem;
         this.assunto = assunto;
@@ -16,13 +17,14 @@ export class Memorando{
         this.numeroDoMemorando = null;
         this.idSetorEmissor=idSetorEmissor;
         this.idSetorDestinatario=idSetorDestinatario;
+        this.idDoUsuarioEmissor = idDoUsuarioEmissor;
         this.visto = false;
     }
 
     toFireBase(){
         return{id: "", mensagem: this.mensagem, idSetorEmissor: this.idSetorEmissor,
-            idSetorDestinatario: this.idSetorDestinatario, dataEnvio: this.dataEnvio,
-            visto: this.visto, numeroDoMemorando: this.numeroDoMemorando, assunto: this.assunto};
+            idSetorDestinatario: this.idSetorDestinatario, idDoUsuarioEmissor: this.idDoUsuarioEmissor, 
+            dataEnvio: this.dataEnvio, visto: this.visto, numeroDoMemorando: this.numeroDoMemorando, assunto: this.assunto};
     }
     
     public getId() : string {
@@ -74,6 +76,13 @@ export class Memorando{
     }
     public setSetorDestinatario(setorDestinatario : string) {
         this.idSetorDestinatario = setorDestinatario;
+    }
+
+    public getIdDoUsuarioEmissor(): string{
+        return this.idDoUsuarioEmissor;
+    }
+    public setIdDoUsuarioEmissor(idDoUsuarioEmissor: string){
+        this.idDoUsuarioEmissor = idDoUsuarioEmissor;
     }
 
     public marcarComoVisto(){

@@ -67,18 +67,9 @@ export class PdfService{
     });
   }
 
-  getIdUsuario(idSetorEmissor){
-    for(let i = 0; i < this.setores.length; i++){
-      if(this.setores[i].id == idSetorEmissor){
-        return this.setores[i].idDoUsuario;
-      }
-    }
-  }
-
   getUsuario(memorando){
-    let idDoUsuario = this.getIdUsuario(memorando.idSetorEmissor);
     for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].id == idDoUsuario){
+      if(this.usuarios[i].id == memorando.idDoUsuarioEmissor){
         return this.usuarios[i];
       }
     }
