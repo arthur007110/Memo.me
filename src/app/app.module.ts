@@ -26,6 +26,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
 import {EditorModule} from 'primeng/editor';
 import {KeyFilterModule} from 'primeng/keyfilter';
+import {DialogModule} from 'primeng/dialog';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -103,6 +104,7 @@ export const rotas: Routes = [
     CalendarModule,
     EditorModule,
     KeyFilterModule,
+    DialogModule,
     AngularFireModule.initializeApp(configuracao)
   ],
   providers: [UsuarioService, SetorService, MemorandoService, AngularFirestore],

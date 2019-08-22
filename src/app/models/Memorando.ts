@@ -1,6 +1,6 @@
 export class Memorando{
     private id?: string;
-    private visto:boolean;
+    private usuariosQueVizualizaram: string[];
     private mensagem:string;
     private assunto:string;
     private dataEnvio:string;
@@ -18,13 +18,22 @@ export class Memorando{
         this.idSetorEmissor=idSetorEmissor;
         this.idSetorDestinatario=idSetorDestinatario;
         this.idDoUsuarioEmissor = idDoUsuarioEmissor;
-        this.visto = false;
+        this.usuariosQueVizualizaram = [];
     }
 
     toFireBase(){
         return{id: "", mensagem: this.mensagem, idSetorEmissor: this.idSetorEmissor,
             idSetorDestinatario: this.idSetorDestinatario, idDoUsuarioEmissor: this.idDoUsuarioEmissor, 
-            dataEnvio: this.dataEnvio, visto: this.visto, numeroDoMemorando: this.numeroDoMemorando, assunto: this.assunto};
+            dataEnvio: this.dataEnvio, usuariosQueVizualizaram: this.usuariosQueVizualizaram, 
+            numeroDoMemorando: this.numeroDoMemorando, assunto: this.assunto};
+    }
+
+    public getUsuariosQueVizualizaram(): string[]{
+        return this.usuariosQueVizualizaram;
+    }
+
+    public setUsuariosQueVizualizaram(siapesDosUsuarios: string[]){
+        this.usuariosQueVizualizaram = siapesDosUsuarios;
     }
     
     public getId() : string {
@@ -83,9 +92,5 @@ export class Memorando{
     }
     public setIdDoUsuarioEmissor(idDoUsuarioEmissor: string){
         this.idDoUsuarioEmissor = idDoUsuarioEmissor;
-    }
-
-    public marcarComoVisto(){
-        this.visto=true;
     }
 }

@@ -87,8 +87,8 @@ export class MemorandoService {
     return meuObservable;
   }
 
-  marcarComoVisto(id){
-    let memroandoDoc = this.afs.doc('memorandos/' + id);
-    memroandoDoc.update({visto: true});
+  marcarComoVisto(memorando){
+    let memorandoDoc = this.afs.doc('memorandos/' + memorando.id);
+    memorandoDoc.update({usuariosQueVizualizaram: memorando.usuariosQueVizualizaram});
   }
 }
