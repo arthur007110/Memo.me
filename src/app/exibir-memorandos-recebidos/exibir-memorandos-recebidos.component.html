@@ -36,7 +36,7 @@
 <br>
 
 <p-card title="">
-  <p-table [value]="memorandos">
+  <p-table [value]="memorandos" [paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
         <tr>
             <th>Setor Emissor</th>
