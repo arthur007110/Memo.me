@@ -1,14 +1,15 @@
 export class Memorando{
     private id?: string;
-    private visto:boolean;
+    private usuariosQueVizualizaram: string[];
     private mensagem:string;
     private assunto:string;
     private dataEnvio:string;
     private numeroDoMemorando: string;
     private idSetorEmissor?:string;
     private idSetorDestinatario?:string;
+    private idDoUsuarioEmissor: string;
     
-    constructor(id, mensagem, assunto, idSetorEmissor,idSetorDestinatario,dataEnvio){
+    constructor(id, mensagem, assunto, idSetorEmissor,idSetorDestinatario, idDoUsuarioEmissor, dataEnvio){
         this.id = id;
         this.mensagem=mensagem;
         this.assunto = assunto;
@@ -16,13 +17,23 @@ export class Memorando{
         this.numeroDoMemorando = null;
         this.idSetorEmissor=idSetorEmissor;
         this.idSetorDestinatario=idSetorDestinatario;
-        this.visto = false;
+        this.idDoUsuarioEmissor = idDoUsuarioEmissor;
+        this.usuariosQueVizualizaram = [];
     }
 
     toFireBase(){
         return{id: "", mensagem: this.mensagem, idSetorEmissor: this.idSetorEmissor,
-            idSetorDestinatario: this.idSetorDestinatario, dataEnvio: this.dataEnvio,
-            visto: this.visto, numeroDoMemorando: this.numeroDoMemorando, assunto: this.assunto};
+            idSetorDestinatario: this.idSetorDestinatario, idDoUsuarioEmissor: this.idDoUsuarioEmissor, 
+            dataEnvio: this.dataEnvio, usuariosQueVizualizaram: this.usuariosQueVizualizaram, 
+            numeroDoMemorando: this.numeroDoMemorando, assunto: this.assunto};
+    }
+
+    public getUsuariosQueVizualizaram(): string[]{
+        return this.usuariosQueVizualizaram;
+    }
+
+    public setUsuariosQueVizualizaram(siapesDosUsuarios: string[]){
+        this.usuariosQueVizualizaram = siapesDosUsuarios;
     }
     
     public getId() : string {
@@ -76,7 +87,10 @@ export class Memorando{
         this.idSetorDestinatario = setorDestinatario;
     }
 
-    public marcarComoVisto(){
-        this.visto=true;
+    public getIdDoUsuarioEmissor(): string{
+        return this.idDoUsuarioEmissor;
+    }
+    public setIdDoUsuarioEmissor(idDoUsuarioEmissor: string){
+        this.idDoUsuarioEmissor = idDoUsuarioEmissor;
     }
 }

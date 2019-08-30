@@ -14,6 +14,7 @@ import { UsuarioService } from '../serviços/usuario.service';
 })
 export class EnvioMemorandoComponent implements OnInit {
   id: string;
+  usuario;
   setores:Setor[];
   emissor:string;
   mensagem:string;
@@ -30,6 +31,7 @@ export class EnvioMemorandoComponent implements OnInit {
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
     this.receberSetores();
+    this.receberUsuario();
   }
 
   //Atualiza o array resultado conforme a entrada do usuário
@@ -54,15 +56,13 @@ export class EnvioMemorandoComponent implements OnInit {
 
 
   enviarMemorando(){
-    this.usuarioService.listarPorId(this.id).subscribe(resultado => {
-      let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.texto), resultado, this.mensagem, this.assunto);
-      if(verificacao == 0){
-        sessionStorage.setItem('toast','10')
-        this.irParaTelaHome();
-      }else if(verificacao == 1){
-        this.mostrarErro(5);
-      }
-    });
+    let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.texto), this.usuario, this.mensagem, this.assunto);
+    if(verificacao == 0){
+      sessionStorage.setItem('toast','10')
+      this.irParaTelaHome();
+    }else if(verificacao == 1){
+      this.mostrarErro(5);
+    }
   }
 
   mostrarErro(erro){
@@ -78,20 +78,27 @@ export class EnvioMemorandoComponent implements OnInit {
     this.router.navigate(['/recebidos', this.id]);
   }
 
+  receberUsuario(){
+    this.usuarioService.listarPorId(this.id).subscribe(resultado => {
+      this.usuario = resultado;
+      this.atualizarSetores(this.usuario.idDoSetor);
+    });
+  }
   receberSetores(){
     this.setorS.listarTodos().subscribe(resultado => {
       this.setores = resultado;
-      let i = this.setores.length;
-      let j = 0;
-      while(j != i){
-        if(this.setores[j].idDoUsuario == this.id){
-          this.setores.splice(j, 1);
-          --i;
-        }else{
-          j++;
-         
-        }
-      }
     });
+  }
+
+  /*
+    Exclui do array setores o setor ao qual o usuário faz parte
+  */
+  atualizarSetores(idDoSetor){
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].id == idDoSetor){
+        this.setores.splice(i, 1);
+        break;
+      }
+    }
   }
 }

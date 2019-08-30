@@ -15,6 +15,8 @@ export class ListagemDeSetorComponent implements OnInit {
   id: string;
   setores: Setor[] = [];
   usuarios = [];
+  display: boolean = false;
+  usuariosDoSetor: any[] = [];
 
   constructor(private setorService: SetorService, 
     private router: Router, 
@@ -57,6 +59,16 @@ export class ListagemDeSetorComponent implements OnInit {
         this.mostrarToast(toast);
       }
     },200);
+  }
+
+  showDialog(idDoSetor) {
+    this.usuariosDoSetor = [];
+    for(let i = 0; i < this.usuarios.length; i++){
+      if(this.usuarios[i].idDoSetor == idDoSetor){
+        this.usuariosDoSetor.push(this.usuarios[i]);
+      }
+    }
+    this.display = true;
   }
 
   getNomeDoUsuario(setor){

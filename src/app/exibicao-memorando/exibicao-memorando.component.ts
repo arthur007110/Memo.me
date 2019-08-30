@@ -19,7 +19,6 @@ export class ExibicaoMemorandoComponent implements OnInit {
     this.id = sessionStorage.getItem("id-memorando");
     this.idUsuario=sessionStorage.getItem("id-usuario");
     this.receberMemorandos();
-    this.memorandoS.marcarComoVisto(this.id);
   }
 
   voltar(){
@@ -30,6 +29,10 @@ export class ExibicaoMemorandoComponent implements OnInit {
   receberMemorandos(){
     this.memorandoS.listarPorId(this.id).subscribe(resultado => {
       this.memorando = resultado;
+      if(this.memorando.usuariosQueVizualizaram.indexOf(this.idUsuario) == -1){
+        this.memorando.usuariosQueVizualizaram.push(this.idUsuario);
+        this.memorandoS.marcarComoVisto(this.memorando);
+      }
       this.exibirMensagem();
     });
   }

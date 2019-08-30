@@ -6,33 +6,42 @@
   <span class="ui-float-label">
     <input id="float-input" type="text" size="20" pInputText [(ngModel)]="nome"> 
     <label for="float-input">Nome</label>
-</span>
-<br>
+  </span>
+  <br>
 
-<span class="ui-float-label">
+  <span class="ui-float-label">
+    <input id="float-input" type="text" size="20" pInputText [(ngModel)]="email"> 
+    <label for="float-input">Email</label>
+  </span>
+  <br>
+
+  <span class="ui-float-label">
     <p-inputMask [(ngModel)]="siape" mask="9999999" styleClass="input-mask" (focus)="mostrarMsg()"></p-inputMask>
     <label for="float-input">Siape</label>
     &#160;<p-message *ngIf="msgErroSiape" severity="error" text="Essa siape já está sendo utilizada"></p-message>
-</span>
+  </span>
+  <br>
 
+  <span class="ui-float-label">
+    <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha" pPassword> 
+    <label for="float-input">Senha</label>
+  </span>
+  <br>
 
-<br>
+  <span class="ui-float-label">
+    <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha2"> 
+    <label for="float-input">Repetir Senha</label>
+    &#160;<p-message *ngIf="msgErroSenha" severity="error" text="As senhas não são iguais." (focus)="mostrarMsg()"></p-message>
+  </span>
+  <br>
 
-<span class="ui-float-label">
-  <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha" pPassword> 
-  <label for="float-input">Senha</label>
-</span>
-<br>
+  <span class="ui-float-label">
+    <p-autoComplete [(ngModel)]="texto" [suggestions]="resultados" [dropdown]="true" (completeMethod)="buscar($event)" [forceSelection]="true" placeholder="Nome do setor"></p-autoComplete>
+  </span>
+  <br>
 
-<span class="ui-float-label">
-  <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha2"> 
-  <label for="float-input">Repetir Senha</label>
-  &#160;<p-message *ngIf="msgErroSenha" severity="error" text="As senhas não são iguais." (focus)="mostrarMsg()"></p-message>
-</span>
-<br>
+  <button pButton type="button" label="Cadastrar" (click)="cadastrar()" class="ui-button-raised ui-button-success"></button>
 
-<button pButton type="button" label="Cadastrar" (click)="cadastrar()" class="ui-button-raised ui-button-success"></button>
-
-<br>
-<br>
+  <br>
+  <br>
 </p-card>

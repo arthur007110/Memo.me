@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../serviços/usuario.service';
 import { MessageService } from 'primeng/api';
 import { Usuario } from '../models/Usuario';
+import { SetorService } from '../serviços/setor.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -13,18 +14,51 @@ import { Usuario } from '../models/Usuario';
 })
 export class CadastroComponent implements OnInit {
   nome: string;
+  email: string;
   siape: string;
+  idDoSetor: string;
   id: string;
   senha: string;
   senha2: string;
   msgErroSiape: boolean = false;
   msgErroSenha: boolean = false;
 
+  texto: string;
+  setores: any[];
+  resultados: any[];
+
   constructor(private router: Router, 
     private usuarioService: UsuarioService, 
+    private setorService: SetorService, 
     private messageService: MessageService) { }
 
   ngOnInit() {
+    this.getSetores();
+  }
+
+  getSetores(){
+    this.setorService.listarTodos().subscribe(resultado => {
+      this.setores = resultado;
+    });
+  }
+
+  buscar(event){
+    let arr = [];
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].nome.indexOf(event.query) != -1){
+        arr.push(this.setores[i].nome);
+      }
+    }
+    this.resultados = arr;
+    this.texto = event.query;
+  }
+
+  getIdDoSetor(){
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].nome == this.texto){
+        return this.setores[i].id;
+      }
+    }
   }
 
   mostrarMsg(){
@@ -40,7 +74,7 @@ export class CadastroComponent implements OnInit {
       return;
     }
 
-    let usuario = new Usuario("", this.nome, this.siape, this.senha, null);
+    let usuario = new Usuario("", this.nome, this.email, this.siape, this.senha, this.getIdDoSetor());
 
     //Verifica se todas as informações são válidas
     if(usuario.verificarCampos()){
