@@ -22,16 +22,11 @@
 }
 :host >>> .ui-autocomplete-dd .ui-autocomplete-dropdown.ui-corner-all{
     
-    transform:translate(+1270%,-100%);
     background-color: #249525;
     
 }
-:host >>> .ui-autocomplete-input{
-    width: 186% !important;
-}
 :host >>> .ui-autocomplete-panel{
     background-color: #AEFF95;
-    width: 186% !important;
   }
 .container {
     width: 100%;

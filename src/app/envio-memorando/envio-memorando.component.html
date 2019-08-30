@@ -9,8 +9,8 @@
         <label for="float-input">Assunto</label>
       </span>
     </div>
-    <div class="p-col">
-      <p-autoComplete [(ngModel)]="texto" [dropdown]="true" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor"></p-autoComplete>   
+    <div class="p-col-2">
+      <p-autoComplete [(ngModel)]="texto" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor"></p-autoComplete>   
     </div>
   </div>
   

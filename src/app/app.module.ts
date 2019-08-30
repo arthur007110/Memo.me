@@ -26,6 +26,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
 import {EditorModule} from 'primeng/editor';
 
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { CadastroComponent } from './cadastro-usuario/cadastro.component';
