@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Memorando } from '../models/Memorando';
 import { MemorandoService } from '../serviços/memorando.service';
 import { UsuarioService } from '../serviços/usuario.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
 import { MessageService } from 'primeng/api';
 import { PdfService } from '../serviços/pdf.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-exibir-memorandos-recebidos',
@@ -15,7 +15,7 @@ import { PdfService } from '../serviços/pdf.service';
   providers: [MessageService]
 })
 export class ExibirMemorandosRecebidosComponent implements OnInit {
-    id: string;
+    idDoUsuario: string;
     memorandos: any[];
     memorandosDoUsuario: any[];
     setores: Setor[];
@@ -29,6 +29,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     setoresResults: string[];
     dataResults: string[];
     vistoResults: boolean[];
+    usuariosQueVizualizaram: any[] = [];
 
     constructor(private router: Router,
         private memorandoS: MemorandoService,
@@ -38,7 +39,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         private pdfService: PdfService) { }
 
     ngOnInit(){
-        this.id = sessionStorage.getItem('id-usuario');
+        this.idDoUsuario = sessionStorage.getItem('id-usuario');
         this.reconhecerUsuario();
         let toast = sessionStorage.getItem('toast');
         this.executarTimer(toast);
@@ -58,6 +59,11 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
             {option: 'Não Vistos'},
             {option: 'Todos'},
         ];
+    }
+
+    show($event, overlayPanel: OverlayPanel, memorando){
+        this.usuariosQueVizualizaram = memorando.usuariosQueVizualizaram;
+        overlayPanel.toggle(event);
     }
 
     //Funções para a pesquisa por setores =====>
@@ -174,9 +180,9 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     // <===============
 
     gerarPDF(memorando){
-        this.pdfService.gerarPdf(memorando);
-        this.memorandoS.marcarComoVisto(memorando.id);
+        this.memorandoS.marcarComoVisto(memorando, this.idDoUsuario);
         this.listarMemorandos();
+        this.pdfService.gerarPdf(memorando);
     }
 
     mostrarToast(toast){
@@ -225,7 +231,7 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     }
     
     reconhecerUsuario(){
-        this.usuarioS.listarPorId(this.id).subscribe(resultado => {
+        this.usuarioS.listarPorId(this.idDoUsuario).subscribe(resultado => {
             this.usuario = resultado;
         });
         this.setorS.listarTodos().subscribe(resultado => {
@@ -242,13 +248,23 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
     }
 
     getMemorandosRecebidosSetor(memorandosCadastrados){
-        let memorandosRecebidos: Memorando[] = [];
+        let memorandosRecebidos: any[] = [];
 
         for(let i = 0; i < memorandosCadastrados.length; i++){
             if(memorandosCadastrados[i].idSetorDestinatario == this.usuario.idDoSetor){
                 memorandosRecebidos.push(memorandosCadastrados[i]);
             }
         }
+
+        memorandosRecebidos.sort((m1, m2) => {
+            let numeroDeM1 = m1.numeroDoMemorando.substring(0, m1.numeroDoMemorando.indexOf('/'));
+            let numeroDeM2 = m2.numeroDoMemorando.substring(0, m2.numeroDoMemorando.indexOf('/'));
+            if(Number.parseInt(numeroDeM1) > Number.parseInt(numeroDeM2)){
+                return 0;
+            }else{
+                return 1;
+            }
+        });
         
         return memorandosRecebidos;
     }

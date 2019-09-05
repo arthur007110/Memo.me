@@ -3,12 +3,15 @@ import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../serviços/usuario.service';
+import { DialogService, MessageService } from 'primeng/api';
+import { ListaDeMembrosDoSetorComponent } from '../lista-de-membros-do-setor/lista-de-membros-do-setor.component';
 
 
 @Component({
   selector: 'app-listagem-de-setor-do-usuario',
   templateUrl: './listagem-de-setor-do-usuario.component.html',
-  styleUrls: ['./listagem-de-setor-do-usuario.component.css']
+  styleUrls: ['./listagem-de-setor-do-usuario.component.css'],
+  providers: [MessageService, DialogService]
 })
 export class ListagemDeSetorDoUsuarioComponent implements OnInit {
   id: string;
@@ -17,29 +20,13 @@ export class ListagemDeSetorDoUsuarioComponent implements OnInit {
   
   constructor(private setorService: SetorService, 
     private usuariosService: UsuarioService, 
-    private router: Router) { }
+    private router: Router,
+    public dialogService: DialogService,
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
     this.getSetores();
-  }
-  
-  getNomeDoUsuario(setor){
-    let id = setor.id;
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].idDoSetor == id){
-        return this.usuarios[i].nome;
-      }
-    }
-  }
-
-  getSiapeDoUsuario(setor){
-    let id = setor.id;
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].idDoSetor == id){
-        return this.usuarios[i].siape;
-      }
-    }
   }
 
   getSetores(){
@@ -54,6 +41,16 @@ export class ListagemDeSetorDoUsuarioComponent implements OnInit {
     this.usuariosService.listarTodos().subscribe(listaDeUsuarios=>{
       let userArr = listaDeUsuarios;
       this.usuarios = userArr;
+    });
+  }
+
+  show(idDoSetor, nomeDoSetor){
+    const ref = this.dialogService.open(ListaDeMembrosDoSetorComponent, {
+      data: {
+        id: idDoSetor
+      },
+      header: 'Usuários do setor: '+nomeDoSetor,
+      width: '70%'
     });
   }
 }

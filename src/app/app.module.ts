@@ -26,7 +26,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
 import {EditorModule} from 'primeng/editor';
 import {KeyFilterModule} from 'primeng/keyfilter';
-import {DialogModule} from 'primeng/dialog';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 
 import { AppComponent } from './app.component';
@@ -46,6 +47,7 @@ import { ListagemDeSetorDoUsuarioComponent } from './listagem-de-setor-do-usuari
 import { SetorService } from './serviços/setor.service';
 import { configuracao } from 'src/environments/firebase.config';
 import { MemorandoService } from './serviços/memorando.service';
+import { ListaDeMembrosDoSetorComponent } from './lista-de-membros-do-setor/lista-de-membros-do-setor.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -79,6 +81,7 @@ export const rotas: Routes = [
     ExibirMemorandosEnviadosComponent,
     ExibicaoMemorandoEnviadoComponent,
     ListagemDeSetorDoUsuarioComponent,
+    ListaDeMembrosDoSetorComponent,
     
   ],
   imports: [
@@ -105,8 +108,12 @@ export const rotas: Routes = [
     CalendarModule,
     EditorModule,
     KeyFilterModule,
-    DialogModule,
+    DynamicDialogModule,
+    OverlayPanelModule,
     AngularFireModule.initializeApp(configuracao)
+  ],
+  entryComponents: [
+    ListaDeMembrosDoSetorComponent
   ],
   providers: [UsuarioService, SetorService, MemorandoService, AngularFirestore],
   bootstrap: [AppComponent]

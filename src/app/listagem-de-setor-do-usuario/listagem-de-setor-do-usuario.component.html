@@ -1,19 +1,20 @@
 <app-home></app-home>
+<p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
 <p-card title="Setores">
   <p-card>
     <p-table [value]="setores" [paginator]="true" [rows]="20">
       <ng-template pTemplate="header">
         <tr>
-          <th>Nome Do Setor</th>
-          <th>Usuário</th>
-          <th>Siape do Usuário</th>
+          <th style="width:15em">Nome Do Setor</th>
+          <th style="width:15em"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-setor>
         <tr>
           <td>{{setor.nome}}</td>
-          <td>{{getNomeDoUsuario(setor)}}</td>
-          <td>{{getSiapeDoUsuario(setor)}}</td>
+          <td>
+            <button type="button" (click)="show(setor.id, setor.nome)" pButton icon="pi pi-info-circle" label="Listar Usuários"></button>
+          </td>
         </tr>
       </ng-template>
     </p-table>
