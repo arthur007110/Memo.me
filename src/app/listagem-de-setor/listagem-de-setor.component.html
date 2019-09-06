@@ -1,20 +1,20 @@
 <app-home-adm></app-home-adm>
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
-<p-card title="Lista de Setores">
+<p-card header="Lista de Setores">
     <p-card>
         <p-table [value]="setores" [paginator]="true" [rows]="20">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width:15em">Nome Do Setor</th>
-                    <th style="width:15em"></th>
+                    <th style="width:85%">Nome Do Setor</th>
+                    <th style="width:15%">Ações</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-setor>
                 <tr>
                     <td>{{setor.nome}}</td>
                     <td>
-                        <button pButton type="button" label="Atualizar" (click)="atualizar(setor.id)" class="ui-button-raised ui-button-success"></button>
-                        <button type="button" (click)="show(setor.id, setor.nome)" pButton icon="pi pi-info-circle" label="Listar Usuários"></button>
+                        <button pButton type="button" label="Atualizar" (click)="atualizar(setor.id)" pButton icon="pi pi-refresh" class="ui-button-raised ui-button-success"></button>
+                        <button class="ui-button-secondary" type="button" (click)="show(setor.id, setor.nome)" pButton icon="pi pi-window-maximize" label="Listar Usuários"></button>
                     </td>
                 </tr>
             </ng-template>

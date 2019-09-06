@@ -6,7 +6,7 @@
 </p-overlayPanel>
 
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
-<p-card title="Memorandos">
+<p-card header="Memorandos">
 <h3>Recebidos</h3>
 
 <h3> Filtro: </h3>
@@ -41,7 +41,7 @@
 </div>
 <br>
 
-<p-card title="">
+<p-card header="">
   <p-table [value]="memorandos" [paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
         <tr>
