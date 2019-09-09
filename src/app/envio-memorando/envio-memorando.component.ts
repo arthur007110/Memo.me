@@ -5,6 +5,7 @@ import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 import { MessageService } from 'primeng/api';
 import { UsuarioService } from '../serviços/usuario.service';
+import { EmailServiceService } from '../serviços/email-service.service';
 
 @Component({
   selector: 'app-envio-memorando',
@@ -26,7 +27,8 @@ export class EnvioMemorandoComponent implements OnInit {
     private memorandoS: MemorandoService, 
     private setorS: SetorService, 
     private messageService: MessageService, 
-    private usuarioService: UsuarioService) { }
+    private usuarioService: UsuarioService,
+    private emailService: EmailServiceService) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem('id-usuario');
@@ -100,5 +102,10 @@ export class EnvioMemorandoComponent implements OnInit {
         break;
       }
     }
+  }
+  enviaremail(){
+
+    this.emailService.sendEmail(["youareloko888@gmail.com"],"Working","email sender is working perfectly")
+
   }
 }
