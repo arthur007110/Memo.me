@@ -11,11 +11,12 @@ export class ExibicaoMemorandoEnviadoComponent implements OnInit {
   mensagem:string;
   id:string;
   idUsuario:string;
-  memorando;
+  memorando: any = null;
 
   constructor(private router: Router, private memorandoS: MemorandoService) { }
 
   ngOnInit() {
+    this.memorando = {numeroDeMemorando: 0};
     this.id=sessionStorage.getItem("id-memorando");
     this.idUsuario=sessionStorage.getItem("id-usuario");
     this.receberMemorandos();

@@ -6,6 +6,7 @@ import { UsuarioService } from '../serviços/usuario.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
 import { PdfService } from '../serviços/pdf.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-exibir-memorandos-enviados',
@@ -26,7 +27,7 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     text: string;
     setoresResults: string[];
     dataResults: string[];
-    vistoResults: boolean[];
+    usuariosQueVizualizaram: any[] = [];
     
     constructor(private router: Router,
         private memorandoS: MemorandoService, 
@@ -53,6 +54,11 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
             {option: 'Não Vistos'},
             {option: 'Todos'},
         ];
+    }
+
+    show($event, overlayPanel: OverlayPanel, memorando){
+        this.usuariosQueVizualizaram = memorando.usuariosQueVizualizaram;
+        overlayPanel.toggle(event);
     }
 
     //Funções para a pesquisa por setores =====>
@@ -214,7 +220,7 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
     }
 
     getMemorandosEnviadosSetor(memorandosCadastrados){
-        let memorandosEnviados: Memorando[] = [];
+        let memorandosEnviados: any[] = [];
 
         for(let i = 0; i < memorandosCadastrados.length; i++){
             if(memorandosCadastrados[i].idSetorEmissor == this.usuario.idDoSetor){
@@ -222,6 +228,16 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
             }
         }
 
+        memorandosEnviados.sort((m1, m2) => {
+            let numeroDeM1 = m1.numeroDoMemorando.substring(0, m1.numeroDoMemorando.indexOf('/'));
+            let numeroDeM2 = m2.numeroDoMemorando.substring(0, m2.numeroDoMemorando.indexOf('/'));
+            if(Number.parseInt(numeroDeM1) > Number.parseInt(numeroDeM2)){
+                return 0;
+            }else{
+                return 1;
+            }
+        });
+        
         return memorandosEnviados;
     }
 }

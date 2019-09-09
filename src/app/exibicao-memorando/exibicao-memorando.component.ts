@@ -11,11 +11,12 @@ export class ExibicaoMemorandoComponent implements OnInit {
   id:string;
   idUsuario: string;
   mensagem:string;
-  memorando;
+  memorando: any = null;
 
   constructor(private router: Router, private memorandoS: MemorandoService) { }
 
   ngOnInit() {
+    this.memorando = {numeroDeMemorando: 0};
     this.id = sessionStorage.getItem("id-memorando");
     this.idUsuario=sessionStorage.getItem("id-usuario");
     this.receberMemorandos();
@@ -29,10 +30,7 @@ export class ExibicaoMemorandoComponent implements OnInit {
   receberMemorandos(){
     this.memorandoS.listarPorId(this.id).subscribe(resultado => {
       this.memorando = resultado;
-      if(this.memorando.usuariosQueVizualizaram.indexOf(this.idUsuario) == -1){
-        this.memorando.usuariosQueVizualizaram.push(this.idUsuario);
-        this.memorandoS.marcarComoVisto(this.memorando);
-      }
+      this.memorandoS.marcarComoVisto(this.memorando, this.idUsuario);
       this.exibirMensagem();
     });
   }

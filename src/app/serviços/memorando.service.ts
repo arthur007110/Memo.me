@@ -87,8 +87,14 @@ export class MemorandoService {
     return meuObservable;
   }
 
-  marcarComoVisto(memorando){
-    let memorandoDoc = this.afs.doc('memorandos/' + memorando.id);
-    memorandoDoc.update({usuariosQueVizualizaram: memorando.usuariosQueVizualizaram});
+  marcarComoVisto(memorando, idDoUsuario){
+    this.usuarioService.listarPorId(idDoUsuario).subscribe(resultado => {
+      let user: any = resultado;
+      if(memorando.usuariosQueVizualizaram.indexOf(user.siape) == -1){
+        memorando.usuariosQueVizualizaram.push(user.siape);
+        let memorandoDoc = this.afs.doc('memorandos/' + memorando.id);
+        memorandoDoc.update({usuariosQueVizualizaram: memorando.usuariosQueVizualizaram});
+      }
+    });
   }
 }

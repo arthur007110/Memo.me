@@ -1,5 +1,11 @@
 <app-home></app-home>
-<p-card title="Memorandos">
+
+<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+  <h3>Siape dos usuários que vizualizaram o memorando:</h3>
+  <p *ngFor="let usuario of usuariosQueVizualizaram">{{usuario}}</p>
+</p-overlayPanel>
+
+<p-card header="Memorandos">
 <h3>Enviados</h3>
 
   <h3> Filtro: </h3>
@@ -50,9 +56,10 @@
             <td>{{memorando.dataEnvio}}</td>
             <td>{{memorando.numeroDoMemorando}}</td>
             <td>
-            <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
-            <p-button label="gerar PDF" styleClass="ui-button-success" (click)="gerarPDF(memorando)" class="ui-button-raised ui-button-success"></p-button>
-            <p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" disabled class="ui-button-raised ui-button-success"></p-toggleButton>
+              <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
+              <p-button label="gerar PDF" styleClass="ui-button-success" (click)="gerarPDF(memorando)" class="ui-button-raised ui-button-success"></p-button>
+              <button type="text" pButton label="Vizualizações" (click)="show($event, op, memorando)"></button>
+              <!--<p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" disabled class="ui-button-raised ui-button-success"></p-toggleButton>-->
             </td>
         </tr>
     </ng-template>

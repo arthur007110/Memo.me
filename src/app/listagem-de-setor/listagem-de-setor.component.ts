@@ -3,24 +3,24 @@ import { Setor } from '../models/Setor';
 import { SetorService } from '../serviços/setor.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../serviços/usuario.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, DialogService } from 'primeng/api';
+import { ListaDeMembrosDoSetorComponent } from '../lista-de-membros-do-setor/lista-de-membros-do-setor.component';
 
 @Component({
   selector: 'app-listagem-de-setor',
   templateUrl: './listagem-de-setor.component.html',
   styleUrls: ['./listagem-de-setor.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, DialogService]
 })
 export class ListagemDeSetorComponent implements OnInit {
   id: string;
   setores: Setor[] = [];
   usuarios = [];
-  display: boolean = false;
-  usuariosDoSetor: any[] = [];
 
   constructor(private setorService: SetorService, 
     private router: Router, 
     private usuariosService: UsuarioService, 
+    public dialogService: DialogService, 
     private messageService: MessageService) { }
 
   ngOnInit() {
@@ -61,34 +61,6 @@ export class ListagemDeSetorComponent implements OnInit {
     },200);
   }
 
-  showDialog(idDoSetor) {
-    this.usuariosDoSetor = [];
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].idDoSetor == idDoSetor){
-        this.usuariosDoSetor.push(this.usuarios[i]);
-      }
-    }
-    this.display = true;
-  }
-
-  getNomeDoUsuario(setor){
-    let id = setor.id;
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].idDoSetor == id){
-        return this.usuarios[i].nome;
-      }
-    }
-  }
-
-  getSiapeDoUsuario(setor){
-    let id = setor.id;
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].idDoSetor == id){
-        return this.usuarios[i].siape;
-      }
-    }
-  }
-
   getSetores(){
     this.setorService.listarTodos().subscribe(listaSetores=>{
       let setArr = listaSetores;
@@ -106,5 +78,15 @@ export class ListagemDeSetorComponent implements OnInit {
 
   atualizar(id){
     this.router.navigate(['/atualizar-setor', id]);
+  }
+
+  show(idDoSetor, nomeDoSetor){
+    const ref = this.dialogService.open(ListaDeMembrosDoSetorComponent, {
+      data: {
+        id: idDoSetor
+      },
+      header: 'Usuários do setor: '+nomeDoSetor,
+      width: '70%'
+    });
   }
 }

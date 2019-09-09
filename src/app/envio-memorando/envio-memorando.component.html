@@ -1,7 +1,8 @@
 <app-home></app-home>
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
-<br><br>
-<p-card title="Enviar Memorando" class="central">
+<br>
+<br>
+<p-card header="Enviar Memorando" class="central">
   <div class="p-grid">
     <div class="p-col">
       <span class="ui-float-label">
@@ -9,8 +10,8 @@
         <label for="float-input">Assunto</label>
       </span>
     </div>
-    <div class="p-col">
-      <p-autoComplete [(ngModel)]="texto" [dropdown]="true" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor"></p-autoComplete>   
+    <div class="p-col-2">
+      <p-autoComplete [(ngModel)]="texto" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor"></p-autoComplete>   
     </div>
   </div>
   
