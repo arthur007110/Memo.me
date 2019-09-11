@@ -1,0 +1,331 @@
+Planejamento:
+
+método: automático 
+recursos: computador básico com acesso à internet e um navegador
+cronograma de atividades: 
+pessoal: programador responsável por testes do projeto
+o que será testado: 
+o que não será testado: 
+responsáveis: Ellyan Gonzalez
+
+    
+    Projeto de testes:
+ Planejamento:
+
+método: automático 
+recursos: computador básico com acesso à internet e um navegador
+cronograma de atividades: 
+pessoal: programador responsável por testes do projeto
+o que será testado: 
+o que não será testado: 
+responsáveis: Ellyan Gonzalez
+
+    
+    Projeto de testes:
+Usuários Comuns
+
+Cenário: Login Correto
+    GIVEN: eu esteja na página de Login
+    WHEN: eu clico na Label Siape
+    AND:  eu digito “0000001”
+    AND: eu clico na Label Senha
+    AND:  eu digito “1”
+    THEN: o site deve me redirecionar para a página Main
+Cenário: Login Incorreto(Siape não existente)
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ” 3699636”
+    AND: eu clico na Label Senha
+    AND: eu digito “1”
+    THEN: o site deve exibir um toast informando “Siape ou senha incorretas”.
+Cenário: Login Incorreto(Senha Incorreta)
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ” 0000001”
+    AND: eu clico na Label Senha
+    AND: eu digito “0”
+    THEN: o site deve exibir um toast informando “Siape ou senha incorretas”.
+Cenário: Login Incorreto(Siape menor que o esperado)
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ” 11111”
+    AND: eu clico na Label Senha
+    AND: eu digito “1”
+    THEN: o site deve exibir um toast informando “Siape ou senha incorretas”.
+
+Cenário: Senha Incorreta
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ”1111111”
+    AND: eu clico na Label Senha
+    AND: eu digito “12”
+    THEN: o site deve exibir um toast informando “a Siape ou a senha está incorreta.
+
+Cenário: Direciona para tela de Envio Memorando
+    GIVEN: eu acessar a menu bar -> Memorando
+    WHEN: eu clicar na opção enviar
+    THEN: o site deve me redirecionar para a página de Envio Memorando
+
+Cenário: Direciona para tela de Memorandos Enviados
+    GIVEN: eu acessar a menu bar -> Memorandos 
+    WHEN: eu clicar na opção Memorandos Enviados
+    THEN: o site deve me redirecionar para a página de Memorandos Enviados
+
+Cenário: Direciona para tela de Memorando Recebidos 
+    GIVEN: eu acessar a menu bar -> Memorando
+    WHEN: eu clicar na opção Memorandos Recebidos
+    THEN: o site deve me redirecionar para a página de Memorandos Recebidos
+
+Cenário: Direciona para tela de Setores Listados 
+    GIVEN: eu acessar a menu bar -> Setor
+    WHEN: eu clicar na opção Listar Setores 
+    THEN: o site deve me redirecionar para a página de Setores Listados 
+
+Cenário: Direciona para a tela principal
+    GIVEN: eu acessar a menu bar -> deslogar
+    WHEN: eu clicar no botão “Sim” presente no Toasty
+    THEN: o site deve me redirecionar para a tela principal
+
+Cenário: Enviar Memorando
+    GIVEN: eu digitar no campo assunto “Assunto Teste”
+    WHEN: eu digitar no campo mensagem “Mensagem Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Memorando Enviado”
+Cenário: Cancelar Envio Memorando
+    GIVEN: eu digitar no campo assunto “Assunto Teste”
+    WHEN: eu digitar no campo mensagem “Mensagem Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Cancelar”
+    THEN: o site deve me redirecionar para a tela de Memorandos Recebidos
+Cenário: Erro de Envio de Memorando - Campo Assunto Vazio
+    GIVEN:  eu digitar no campo mensagem “Mensagem Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Preencha todos os campos”
+
+Cenário: Erro de Envio de Memorando - Campo Mensagem Vazio
+    GIVEN:  eu digitar no campo Assunto “Assunto Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Preencha todos os campos”
+
+Cenário: Erro de Envio de Memorando - Campo Setor Vazio
+    GIVEN:  eu digitar no campo Assunto “Assunto Teste”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Preencha todos os campos”
+    
+Cenário: Pesquisar memorando  - Por Setor
+    GIVEN: eu selecionar o setor “Setor de Teste 1”  no campo “Setor”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir somente os memorandos do “Setor Teste 1”
+    
+Cenário: Pesquisar memorando  - Apenas os Vistos
+    GIVEN: eu selecionar a situação “Vistos”  no campo “Situação”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir somente os memorandos visualizados
+    
+Cenário: Pesquisar memorando  - Apenas os não Vistos
+    GIVEN: eu selecionar a situação “Não Vistos”  no campo “Situação”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir somente os memorandos não visualizados
+    
+Cenário: Pesquisar memorando  - Todas
+    GIVEN: eu selecionar a situação “todos”  no campo “Situação”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir todos memorandos
+    
+Cenário:  Pesquisar memorando  - Por setor e Visualizados
+    GIVEN: eu selecionar a situação “Vistos”  no campo “Situação”
+    AND: eu selecionar o setor “Setor de Teste 1”  no campo “Setor”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir todos memorandos do “Setor Teste 1” que foram visualizados
+Cenário:  Pesquisar memorando  - Por setor e Não Visualizados
+    GIVEN: eu selecionar a situação “Não Vistos”  no campo “Situação”
+    AND: eu selecionar o setor “Setor de Teste 1”  no campo “Setor”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir todos memorandos do “Setor Teste 1” que não foram visualizados
+    
+Cenário: Abrir Memorando
+    GIVEN: eu clicar no botão “Abrir” do “ Teste Abrir Memorando”
+    THEN: o site deve me redirecionar para a tela de visualização do memorando.
+    
+Cenário: Gerar PDF do Memorando
+    GIVEN: eu clicar no botão “Gerar pdf” do “ Teste Abrir Memorando”
+    THEN: o site deve me redirecionar para a tela de visualização do memorando.
+
+Usuário Master
+Cenário: Login Correto    
+    GIVEN: eu esteja na página de Login
+    WHEN: eu clico na Label Siape
+    AND:  eu digito “0000000”
+    AND: eu clico na Label Senha
+    AND:  eu digito “0”
+    THEN: o site deve me redirecionar para a página Main
+    
+ Cenário: Direciona para a tela principal
+    GIVEN: eu acessar a menu bar -> deslogar
+    WHEN: eu clicar no botão “Sim” presente no Toasty
+    THEN: o site deve me redirecionar para a tela principal
+    
+Cenário:  Direciona para tela de Setores Listados 
+    GIVEN: eu acessar a menu bar -> Opções
+    WHEN: eu clicar na opção Listar Setores 
+    THEN: o site deve me redirecionar para a página de Setores Listados
+
+
+Cenário: Login Correto
+    GIVEN: eu esteja na página de Login
+    WHEN: eu clico na Label Siape
+    AND:  eu digito “0000001”
+    AND: eu clico na Label Senha
+    AND:  eu digito “1”
+    THEN: o site deve me redirecionar para a página Main
+    
+Cenário: Login Incorreto(Siape não existente)
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ” 3699636”
+    AND: eu clico na Label Senha
+    AND: eu digito “1”
+    THEN: o site deve exibir um toast informando “Siape ou senha incorretas”.
+    
+Cenário: Login Incorreto(Senha Incorreta)
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ” 0000001”
+    AND: eu clico na Label Senha
+    AND: eu digito “0”
+    THEN: o site deve exibir um toast informando “Siape ou senha incorretas”.
+
+Cenário: Login Incorreto(Siape menor que o esperado)
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ” 11111”
+    AND: eu clico na Label Senha
+    AND: eu digito “1”
+    THEN: o site deve exibir um toast informando “Siape ou senha incorretas”.
+
+Cenário: Senha Incorreta
+    GIVEN: eu esteja na página de login
+    WHEN: eu clico na label Siape
+    AND: eu digito ”1111111”
+    AND: eu clico na Label Senha
+    AND: eu digito “12”
+    THEN: o site deve exibir um toast informando “a Siape ou a senha está incorreta.
+
+Cenário: Direciona para tela de Envio Memorando
+    GIVEN: eu acessar a menu bar -> Memorando
+    WHEN: eu clicar na opção enviar
+    THEN: o site deve me redirecionar para a página de Envio Memorando
+
+Cenário: Direciona para tela de Memorandos Enviados
+    GIVEN: eu acessar a menu bar -> Memorandos 
+    WHEN: eu clicar na opção Memorandos Enviados
+    THEN: o site deve me redirecionar para a página de Memorandos Enviados
+
+Cenário: Direciona para tela de Memorando Recebidos 
+    GIVEN: eu acessar a menu bar -> Memorando
+    WHEN: eu clicar na opção Memorandos Recebidos
+    THEN: o site deve me redirecionar para a página de Memorandos Recebidos
+
+Cenário: Direciona para tela de Setores Listados 
+    GIVEN: eu acessar a menu bar -> Setor
+    WHEN: eu clicar na opção Listar Setores 
+    THEN: o site deve me redirecionar para a página de Setores Listados 
+
+Cenário: Direciona para a tela principal
+    GIVEN: eu acessar a menu bar -> deslogar
+    WHEN: eu clicar no botão “Sim” presente no Toasty
+    THEN: o site deve me redirecionar para a tela principal
+
+Cenário: Enviar Memorando
+    GIVEN: eu digitar no campo assunto “Assunto Teste”
+    WHEN: eu digitar no campo mensagem “Mensagem Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Memorando Enviado”
+
+Cenário: Cancelar Envio Memorando
+    GIVEN: eu digitar no campo assunto “Assunto Teste”
+    WHEN: eu digitar no campo mensagem “Mensagem Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Cancelar”
+    THEN: o site deve me redirecionar para a tela de Memorandos Recebidos
+
+Cenário: Erro de Envio de Memorando - Campo Assunto Vazio
+    GIVEN:  eu digitar no campo mensagem “Mensagem Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Preencha todos os campos”
+
+Cenário: Erro de Envio de Memorando - Campo Mensagem Vazio
+    GIVEN:  eu digitar no campo Assunto “Assunto Teste”
+    AND:  selecionar o setor “TEE”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Preencha todos os campos”
+    
+Cenário: Erro de Envio de Memorando - Campo Setor Vazio
+    GIVEN:  eu digitar no campo Assunto “Assunto Teste”
+    AND: clicar em “Enviar”
+    THEN: o site deve exibir um Toasty informando “Preencha todos os campos”
+    
+Cenário: Pesquisar memorando  - Por Setor
+    GIVEN: eu selecionar o setor “Setor de Teste 1”  no campo “Setor”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir somente os memorandos do “Setor Teste 1”
+    
+Cenário: Pesquisar memorando  - Apenas os Vistos
+    GIVEN: eu selecionar a situação “Vistos”  no campo “Situação”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir somente os memorandos visualizados
+    
+Cenário: Pesquisar memorando  - Apenas os não Vistos
+    GIVEN: eu selecionar a situação “Não Vistos”  no campo “Situação”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir somente os memorandos não visualizados
+    
+Cenário: Pesquisar memorando  - Todas
+    GIVEN: eu selecionar a situação “todos”  no campo “Situação”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir todos memorandos
+    
+Cenário:  Pesquisar memorando  - Por setor e Visualizados
+    GIVEN: eu selecionar a situação “Vistos”  no campo “Situação”
+    AND: eu selecionar o setor “Setor de Teste 1”  no campo “Setor”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir todos memorandos do “Setor Teste 1” que foram visualizados
+    
+Cenário:  Pesquisar memorando  - Por setor e Não Visualizados
+    GIVEN: eu selecionar a situação “Não Vistos”  no campo “Situação”
+    AND: eu selecionar o setor “Setor de Teste 1”  no campo “Setor”
+    AND: clicar no botão “Buscar”
+    THEN: o site deve exibir todos memorandos do “Setor Teste 1” que não foram visualizados
+    
+Cenário: Abrir Memorando
+    GIVEN: eu clicar no botão “Abrir” do “ Teste Abrir Memorando”
+    THEN: o site deve me redirecionar para a tela de visualização do memorando.
+    
+Cenário: Gerar PDF do Memorando
+    GIVEN: eu clicar no botão “Gerar pdf” do “ Teste Abrir Memorando”
+    THEN: o site deve me redirecionar para a tela de visualização do memorando.
+
+  ~Usuário Master~
+  
+Cenário: Login Correto    
+    GIVEN: eu esteja na página de Login
+    WHEN: eu clico na Label Siape
+    AND:  eu digito “0000000”
+    AND: eu clico na Label Senha
+    AND:  eu digito “0”
+    THEN: o site deve me redirecionar para a página Main
+    
+ Cenário: Direciona para a tela principal
+    GIVEN: eu acessar a menu bar -> deslogar
+    WHEN: eu clicar no botão “Sim” presente no Toasty
+    THEN: o site deve me redirecionar para a tela principal
+    
+Cenário:  Direciona para tela de Setores Listados 
+    GIVEN: eu acessar a menu bar -> Opções
+    WHEN: eu clicar na opção Listar Setores 
+    THEN: o site deve me redirecionar para a página de Setores Listados
