@@ -1,5 +1,5 @@
 input{
-    background-color: rgb(174, 255, 149);
+    background-color: rgb(211, 255, 197);
     color: gray
 }
 :host >>> .central{
@@ -9,13 +9,11 @@ input{
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-:host >>> .ui-card {
-    background-color: rgb(207, 252, 193);
-}
 :host >>> .nome .ui-card{
     background-color: #AEFF95;
     color: gray
 }
-:host >>> .ui-card-header{
+:host >>> .ui-card .ui-card-header{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder
 }

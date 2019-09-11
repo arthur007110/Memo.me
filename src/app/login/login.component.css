@@ -1,6 +1,6 @@
 :host >>> input{
     width: 100%;
-    background-color: #AEFF95;
+    background-color: rgb(211, 255, 197);
 }
  p-card{
     position: absolute;
@@ -10,11 +10,9 @@
     transform: translate(-50%, -50%);
     width: 30%
 }
-:host >>> .ui-card {
-    background-color: rgb(207, 252, 193);
-}
 button{
-    width: 100%
+    width: 100%;
+    font-weight: bold;
 }
 img{
     width: 47%;

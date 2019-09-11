@@ -10,18 +10,15 @@
         <label for="float-input">Assunto</label>
       </span>
     </div>
-    <div class="p-col-2">
-      <p-autoComplete [(ngModel)]="texto" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)" placeholder="Digite o nome do Setor"></p-autoComplete>   
+    <div class="p-col-3">
+      <span class="ui-float-label">
+        <p-autoComplete [(ngModel)]="texto" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)"></p-autoComplete>   
+        <label for="float-input">Digite o nome do Setor</label>
+      </span>
     </div>
   </div>
   
 <br>
-<!--
-<span class="ui-float-label">
-  <textarea placeholder="Mensagem" [rows]="5" [cols]="60" pInputTextarea autoResize="autoResize" [(ngModel)]="mensagem"></textarea>
-</span>
-<br>
--->
 <p-card>
   <p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}">
     <p-header>
@@ -41,9 +38,6 @@
 <p-card>
 <button pButton type="button" label="Enviar" (click)="enviarMemorando()" class="ui-button-raised ui-button-success"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 <button pButton type="button" label="Cancelar" (click)="irParaTelaHome()" class="ui-button-raised ui-button-success"></button>
-<button pButton type="button" label="Enviar Email" (click)="enviaremail()" class="ui-button-raised ui-button-success"></button>
 </p-card>
-<br>
-<br>
-&#160;<p-message severity="warn" *ngIf="setores == null" text="Não há outros setores cadastro."></p-message>
+&#160;<p-message severity="warn" *ngIf="setores == null" text="Não há outros setores cadastrados."></p-message>
 </p-card>

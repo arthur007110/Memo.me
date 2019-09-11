@@ -103,9 +103,4 @@ export class EnvioMemorandoComponent implements OnInit {
       }
     }
   }
-  enviaremail(){
-
-    this.emailService.sendEmail(["youareloko888@gmail.com"],"Working","email sender is working perfectly")
-
-  }
 }

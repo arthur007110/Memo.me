@@ -1,31 +1,23 @@
-input{
-    background-color: rgb(52, 168, 53);
-}
 :host >>> .central{
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-:host >>> .ui-card {
-    background-color: rgb(207, 252, 193);
-  }
 :host >>> .assunto .ui-card{
-    background-color: #AEFF95;
+    background-color: rgb(207, 252, 193);
 }
-.custombar2 .ui-scrollpanel-wrapper {
-    border-right: 9px solid #757575;
-    border-bottom: 9px solid #757575;
+:host >>> .custombar2 .ui-scrollpanel-wrapper {
+    border-right: 9px solid #b1b1b1;
 }
     
-.custombar2 .ui-scrollpanel-bar {
-    background-color: #68C77D;
-    border-radius: 0;
+:host >>> .custombar2 .ui-scrollpanel-bar {
+    background-color: rgb(52, 168, 53);
     opacity: 1;
     transition: background-color .3s;
 }
     
-.custombar2:hover .ui-scrollpanel-bar {
-    background-color: #46A55A;
+:host >>> .custombar2:hover .ui-scrollpanel-bar {
+    background-color: rgb(52, 168, 53);
 }

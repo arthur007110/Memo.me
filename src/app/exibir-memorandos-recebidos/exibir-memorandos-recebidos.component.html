@@ -6,29 +6,26 @@
 </p-overlayPanel>
 
 <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
-<p-card header="Memorandos">
-<h3>Recebidos</h3>
-
-<h3> Filtro: </h3>
-  
+<p-card header="Memorandos" subheader="Recebidos">
+<p-card class="filter" header="Filter">
   <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-4">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon" style="background-color: #249525; color: white">Setor</span>
+          <span class="ui-inputgroup-addon" style="background-color: white; color: darkgray">Setor&nbsp;</span>
             <p-autoComplete [suggestions]="setoresResults" [(ngModel)]="setor" (onClear)="atualizarResultados()"(completeMethod)="buscarSetores($event)"></p-autoComplete>
         </div>
     </div>
             
     <div class="ui-g-12 ui-md-4">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon" style="background-color: #249525; color: white">Situação</span>
+          <span class="ui-inputgroup-addon" style="background-color: white; color: darkgray">Situação</span>
           <p-dropdown [options]="options" [(ngModel)]="selectedOption" (onClear)="atualizarResultados($event)"(completeMethod)="buscarVistos($event)" optionLabel="option" [showClear]="true" placeholder="Todos"></p-dropdown>     
         </div>
     </div>
 
 <div class="ui-g-12 ui-md-4">
     <div class="ui-inputgroup"> 
-        <span class="ui-inputgroup-addon" style="background-color: #249525; color: white" >Data</span>
+        <span class="ui-inputgroup-addon" style="background-color: white; color: darkgray" >Data</span>
       <p-calendar dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2019" showButtonBar="true" [(ngModel)]="date" [showIcon]="true" (onClear)="atualizarResultados($event)" (completeMethod)="buscarDatas($event)" [locale]="ptbr"></p-calendar>
     </div>
 </div>
@@ -40,16 +37,16 @@
   </div>
 </div>
 <br>
-
+</p-card>
 <p-card header="">
-  <p-table [value]="memorandos" [paginator]="true" [rows]="10">
+  <p-table [value]="memorandos" [paginator]="true" [rows]="10" [responsive]="true">
     <ng-template pTemplate="header">
         <tr>
-            <th>Setor Emissor</th>
-            <th>Assunto</th>
-            <th>Data</th>
-            <th>Número do Memorando</th>
-            <th></th>
+            <th style="width: 18%">Setor Emissor</th>
+            <th style="width: 35%">Assunto</th>
+            <th style="width: 10%">Data</th>
+            <th style="width: 10%">Número do Memorando</th>
+            <th>Ações</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-memorando>
@@ -61,7 +58,7 @@
             <td>
                 <p-button label="Abrir" styleClass="ui-button-success" (click)="exibirMemorando(memorando)" class="ui-button-raised ui-button-success"></p-button>
                 <p-button label="gerar PDF" styleClass="ui-button-success" (click)="gerarPDF(memorando)" class="ui-button-raised ui-button-success"></p-button>
-                <button type="text" pButton label="Vizualizações" (click)="show($event, op, memorando)"></button>
+                <button type="text" class="ui-button-secondary ui-button-raised" pButton label="Vizualizações" (click)="show($event, op, memorando)"></button>
                 <!--<p-toggleButton onLabel="Visualizado" offLabel="Não Visualizado" disabled class="ui-button-raised ui-button-success"></p-toggleButton>-->
             </td>
         </tr>
