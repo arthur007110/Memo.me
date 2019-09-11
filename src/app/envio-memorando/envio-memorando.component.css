@@ -6,14 +6,8 @@
     transform: translate(-50%, -50%);
     width: 70%;
 }
-:host >>> .ui-card {
-    background-color: rgb(207, 252, 193);
-  }
-:host >>> .ui-card {
-    background-color: rgb(207, 252, 193);
-}
 :host >>> input{
-    background-color: #AEFF95;
+    background-color: rgb(211, 255, 197);
     width: 100%;
     top: 0%;
 }
@@ -27,7 +21,10 @@
 }
 :host >>> .ui-autocomplete-panel{
     background-color: #AEFF95;
-  }
+}
+:host >>> .ui-autocomplete{
+    width: 100%;
+}
 .container {
     width: 100%;
     margin: auto;

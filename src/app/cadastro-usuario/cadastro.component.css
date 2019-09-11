@@ -1,6 +1,6 @@
 
 :host >>> input{
-    background-color: rgb(174, 255, 149);
+    background-color: rgb(211, 255, 197);
     color: gray
 }
 p-card{
@@ -10,7 +10,6 @@ p-card{
     margin-right: -50%;
     transform: translate(-50%, -50%)
 }
-
-:host >>> .ui-card {
-    background-color: rgb(207, 252, 193);
-  }
+:host >>> .ui-autocomplete .ui-autocomplete-trigger {
+    background-color: rgb(174, 255, 149);
+}

@@ -5,15 +5,15 @@
     <p-table [value]="setores" [paginator]="true" [rows]="20">
       <ng-template pTemplate="header">
         <tr>
-          <th style="width:15em">Nome Do Setor</th>
-          <th style="width:15em"></th>
+          <th style="width:85%">Nome Do Setor</th>
+          <th style="width:15%">Ações</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-setor>
         <tr>
           <td>{{setor.nome}}</td>
           <td>
-            <button type="button" (click)="show(setor.id, setor.nome)" pButton icon="pi pi-info-circle" label="Listar Usuários"></button>
+            <button type="button" (click)="show(setor.id, setor.nome)" pButton icon="pi pi-window-maximize" class="ui-button-secondary" label="Listar Usuários"></button>
           </td>
         </tr>
       </ng-template>
