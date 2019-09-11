@@ -4,15 +4,16 @@ import { MemorandoService } from '../serviços/memorando.service';
 import { UsuarioService } from '../serviços/usuario.service';
 import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
-import { MessageService } from 'primeng/api';
+import { MessageService, DialogService } from 'primeng/api';
 import { PdfService } from '../serviços/pdf.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { VizualicaoDeMemorandoComponent } from '../vizualicao-de-memorando/vizualicao-de-memorando.component';
 
 @Component({
   selector: 'app-exibir-memorandos-recebidos',
   templateUrl: './exibir-memorandos-recebidos.component.html',
   styleUrls: ['./exibir-memorandos-recebidos.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, DialogService]
 })
 export class ExibirMemorandosRecebidosComponent implements OnInit {
     idDoUsuario: string;
@@ -35,8 +36,9 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         private memorandoS: MemorandoService,
         private usuarioS: UsuarioService, 
         private setorS: SetorService, 
-        private messageService: MessageService,
-        private pdfService: PdfService) { }
+        private pdfService: PdfService,
+        public dialogService: DialogService,
+        private messageService: MessageService) { }
 
     ngOnInit(){
         this.idDoUsuario = sessionStorage.getItem('id-usuario');
@@ -267,5 +269,15 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         });
         
         return memorandosRecebidos;
+    }
+
+    mostrarVizualicoes(idDoMemorando, numeroDoMemorando){
+        const ref = this.dialogService.open(VizualicaoDeMemorandoComponent, {
+            data: {
+                id: idDoMemorando
+            },
+            header: 'Vizualizações do memorando: ' +numeroDoMemorando,
+            width: '70%'
+        });
     }
 }

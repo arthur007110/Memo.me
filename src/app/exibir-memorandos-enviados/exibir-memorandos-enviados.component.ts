@@ -7,11 +7,14 @@ import { SetorService } from '../serviços/setor.service';
 import { Setor } from '../models/Setor';
 import { PdfService } from '../serviços/pdf.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { DialogService, MessageService } from 'primeng/api';
+import { VizualicaoDeMemorandoComponent } from '../vizualicao-de-memorando/vizualicao-de-memorando.component';
 
 @Component({
   selector: 'app-exibir-memorandos-enviados',
   templateUrl: './exibir-memorandos-enviados.component.html',
-  styleUrls: ['./exibir-memorandos-enviados.component.css']
+  styleUrls: ['./exibir-memorandos-enviados.component.css'],
+  providers: [MessageService, DialogService]
 })
 export class ExibirMemorandosEnviadosComponent implements OnInit {
     id: string;
@@ -33,7 +36,9 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
         private memorandoS: MemorandoService, 
         private usuarioS: UsuarioService, 
         private setorS: SetorService,
-        private pdfService: PdfService) { }
+        private pdfService: PdfService,
+        public dialogService: DialogService,
+        private messageService: MessageService) { }
 
     ngOnInit(){
         this.id = sessionStorage.getItem('id-usuario');
@@ -239,5 +244,15 @@ export class ExibirMemorandosEnviadosComponent implements OnInit {
         });
         
         return memorandosEnviados;
+    }
+
+    mostrarVizualicoes(idDoMemorando, numeroDoMemorando){
+        const ref = this.dialogService.open(VizualicaoDeMemorandoComponent, {
+            data: {
+                id: idDoMemorando
+            },
+            header: 'Vizualizações do memorando: ' +numeroDoMemorando,
+            width: '70%'
+        });
     }
 }

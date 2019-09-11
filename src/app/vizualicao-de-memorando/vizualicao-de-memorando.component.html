@@ -1,0 +1,16 @@
+<p-table [value]="usuarios" [paginator]="true" [rows]="10" [responsive]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+            <th pSortableColumn="siape">Siape <p-sortIcon field="siape"></p-sortIcon></th>
+            <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+        <tr>
+            <td><span class="ui-column-title">Nome</span>{{usuario.nome}}</td>
+            <td><span class="ui-column-title">Siape</span>{{usuario.siape}}</td>
+            <td><span class="ui-column-title">Estado</span>{{getEstadoDeVizualizacao(usuario.siape)}}</td>
+        </tr>
+    </ng-template>
+</p-table>
