@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../serviços/usuario.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, DialogService } from 'primeng/api';
+import { AjudaComponent } from '../ajuda/ajuda.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, DialogService]
 })
 export class LoginComponent implements OnInit {
   siape: string;
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, 
     private usuarioService: UsuarioService, 
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public dialogService: DialogService) { }
 
   ngOnInit(){
     let toast = sessionStorage.getItem('toast');
@@ -89,5 +91,12 @@ export class LoginComponent implements OnInit {
         }
       }
     });
+  }
+
+  mostrarAjuda(){
+    const ref = this.dialogService.open(AjudaComponent, {
+      header: 'Ajuda',
+      width: '70%'
+  });
   }
 }
