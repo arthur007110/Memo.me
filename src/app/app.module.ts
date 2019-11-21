@@ -49,6 +49,7 @@ import { configuracao } from 'src/environments/firebase.config';
 import { MemorandoService } from './serviços/memorando.service';
 import { ListaDeMembrosDoSetorComponent } from './lista-de-membros-do-setor/lista-de-membros-do-setor.component';
 import { VizualicaoDeMemorandoComponent } from './vizualicao-de-memorando/vizualicao-de-memorando.component';
+import { AjudaComponent } from './ajuda/ajuda.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -84,6 +85,7 @@ export const rotas: Routes = [
     ListagemDeSetorDoUsuarioComponent,
     ListaDeMembrosDoSetorComponent,
     VizualicaoDeMemorandoComponent,
+    AjudaComponent,
     
   ],
   imports: [
@@ -117,6 +119,7 @@ export const rotas: Routes = [
   entryComponents: [
     ListaDeMembrosDoSetorComponent,
     VizualicaoDeMemorandoComponent,
+    AjudaComponent
   ],
   providers: [UsuarioService, SetorService, MemorandoService, AngularFirestore],
   bootstrap: [AppComponent]
