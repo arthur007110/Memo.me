@@ -1,0 +1,28 @@
+<p-card header="Alterar a Senha">
+
+    <span class="ui-float-label">
+        <input id="float-input" type="password" size="20" pInputText [(ngModel)]="novaSenha1"> 
+        <label for="float-input">Nova senha</label>
+    </span>
+    <br>
+
+    <span class="ui-float-label">
+        <input id="float-input" type="password" size="20" pInputText [(ngModel)]="novaSenha2"> 
+        <label for="float-input">Repetir senha</label>
+    </span>
+    <br>
+
+    <span class="ui-float-label">
+        <p-dropdown [options]="perguntasDeSeguranca" [(ngModel)]="perguntaSelecionada" ></p-dropdown>
+        <label for="float-input">Nova pergunta de segurança</label>
+    </span>
+    <br>
+
+    <span class="ui-float-label">
+        <input id="float-input" type="password" size="20" pInputText [(ngModel)]="respostaDeSeguranca"> 
+        <label for="float-input">Nova resposta de segurança</label>
+    </span>
+    <br>
+
+    <p-button label="Salvar" styleClass="ui-button-success" (click)="salvar()" class="ui-button-raised ui-button-success"></p-button>
+</p-card>

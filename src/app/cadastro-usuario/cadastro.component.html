@@ -18,7 +18,6 @@
   <span class="ui-float-label">
     <p-inputMask [(ngModel)]="siape" mask="9999999" styleClass="input-mask" (focus)="mostrarMsg()"></p-inputMask>
     <label for="float-input">Siape</label>
-    &#160;<p-message *ngIf="msgErroSiape" severity="error" text="Essa siape já está sendo utilizada"></p-message>
   </span>
   <br>
 
@@ -31,7 +30,18 @@
   <span class="ui-float-label">
     <input id="float-input" type="password" size="20" pInputText [(ngModel)]="senha2"> 
     <label for="float-input">Repetir Senha</label>
-    &#160;<p-message *ngIf="msgErroSenha" severity="error" text="As senhas não são iguais." (focus)="mostrarMsg()"></p-message>
+  </span>
+  <br>
+
+  <span class="ui-float-label">
+      <p-dropdown [options]="perguntasDeSeguranca" [(ngModel)]="perguntaSelecionada" ></p-dropdown>
+      <label for="float-input">Pergunta de segurança</label>
+  </span>
+  <br>
+
+  <span class="ui-float-label">
+      <input id="float-input" type="password" size="20" pInputText [(ngModel)]="respostaDeSeguranca"> 
+      <label for="float-input">Resposta de segurança</label>
   </span>
   <br>
 
@@ -42,6 +52,5 @@
 
   <button pButton type="button" label="Cadastrar" (click)="cadastrar()" class="ui-button-raised ui-button-success"></button>
 
-  <br>
   <br>
 </p-card>

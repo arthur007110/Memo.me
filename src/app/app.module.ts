@@ -50,6 +50,8 @@ import { MemorandoService } from './serviços/memorando.service';
 import { ListaDeMembrosDoSetorComponent } from './lista-de-membros-do-setor/lista-de-membros-do-setor.component';
 import { VizualicaoDeMemorandoComponent } from './vizualicao-de-memorando/vizualicao-de-memorando.component';
 import { AjudaComponent } from './ajuda/ajuda.component';
+import { TrocarSenhaComponent } from './trocar-senha/trocar-senha.component';
+import { RecuperarContaComponent } from './recuperar-conta/recuperar-conta.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -64,7 +66,9 @@ export const rotas: Routes = [
   { path: 'recebidos/:id', component: ExibirMemorandosRecebidosComponent},
   { path: 'enviados/:id', component: ExibirMemorandosEnviadosComponent},
   { path: 'listar-setores-de-usuario/:id', component: ListagemDeSetorDoUsuarioComponent},
-  { path: 'listar-setores/:id', component: ListagemDeSetorComponent}
+  { path: 'listar-setores/:id', component: ListagemDeSetorComponent},
+  { path: 'trocar-senha/:id', component: TrocarSenhaComponent},
+  { path: 'recuperar-conta', component: RecuperarContaComponent}
 ];
 
 @NgModule({
@@ -86,6 +90,8 @@ export const rotas: Routes = [
     ListaDeMembrosDoSetorComponent,
     VizualicaoDeMemorandoComponent,
     AjudaComponent,
+    TrocarSenhaComponent,
+    RecuperarContaComponent,
     
   ],
   imports: [

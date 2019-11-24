@@ -1,0 +1,24 @@
+<p-card header="Recuperar a Conta">
+    <h4>Para recuperar sua conta forneça siape, pergunta e resposta de segurança.</h4>
+    <br>
+
+    <span class="ui-float-label">
+        <p-inputMask [(ngModel)]="siape" mask="9999999" ></p-inputMask> 
+        <label for="float-input">Siape</label>
+    </span>
+    <br>
+
+    <span class="ui-float-label">
+        <p-dropdown [options]="perguntasDeSeguranca" [(ngModel)]="perguntaSelecionada" ></p-dropdown>
+        <label for="float-input">Pergunta de segurança</label>
+    </span>
+    <br>
+
+    <span class="ui-float-label">
+        <input id="float-input" type="password" size="20" pInputText [(ngModel)]="respostaDeSeguranca"> 
+        <label for="float-input">Resposta de segurança</label>
+    </span>
+    <br>
+
+    <p-button label="Continuar" styleClass="ui-button-success" (click)="continuar()" class="ui-button-raised ui-button-success"></p-button>
+</p-card>

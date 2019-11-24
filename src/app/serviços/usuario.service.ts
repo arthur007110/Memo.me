@@ -68,9 +68,9 @@ export class UsuarioService {
     usuarioDoc.update({idDoSetor: idDoSetor});
   }
 
-  criptografarSenha(senha){
+  criptografar(texto){
     const md5 = new Md5();
-    return md5.appendStr(senha).end();
+    return md5.appendStr(texto).end();
   }
 
   //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
@@ -80,7 +80,8 @@ export class UsuarioService {
       let resultado = collectionFiltrada.valueChanges();
       resultado.subscribe(userArr => {
         if(userArr.length == 0){
-          usuario.setSenha(this.criptografarSenha(usuario.getSenha()));
+          usuario.setSenha(this.criptografar(usuario.getSenha()));
+          usuario.setRDS(this.criptografar(usuario.getRDS()));
           this.cadastrar(usuario); // Não existe um usuário cadastro com aquela siape;
           observer.next(true);
         }else{
@@ -99,7 +100,7 @@ export class UsuarioService {
         observer.complete();
       }
 
-      senha = this.criptografarSenha(senha);
+      senha = this.criptografar(senha);
 
       let collectionFiltrada = this.afs.collection<any>('usuarios', 
       ref => ref.where('siape', '==', siape).where('senha', '==', senha));
@@ -109,7 +110,6 @@ export class UsuarioService {
         if(userArr.length == 0){
           observer.next(3);
         }else if(userArr[0].idDoSetor == null && siape != "0000000"){
-          console.log("UserArr:" + userArr[0]);
           observer.next(1);
         }else{
           observer.next(2);
@@ -119,5 +119,30 @@ export class UsuarioService {
     });
 
     return meuObservable;
+  }
+
+  loginComPerguntaDeSeguranca(siape, perguntaDeSeguranca, respostaDeSeguranca): Observable<any>{
+    let rds = this.criptografar(respostaDeSeguranca);
+    let meuObservable = new Observable<any>(observer => {
+      let collectionFiltrada = this.afs.collection<any>('usuarios', 
+      ref => ref.where('siape', '==', siape).where('perguntaDeSeguranca', '==', perguntaDeSeguranca).where('respostaDeSeguranca', '==', rds));
+      let resultado = collectionFiltrada.valueChanges();
+      resultado.subscribe(userArr=>{
+        if(userArr.length == 0){
+          observer.next(3);
+        }else{
+          observer.next(2);
+        }
+        observer.complete();
+      });
+    });
+    return meuObservable;
+  }
+
+  atualizarSenhaDoUsuario(id, novaSenha, novaPDS, novaRDS){
+    let ns = this.criptografar(novaSenha);
+    let rds = this.criptografar(novaRDS);
+    let usuarioDoc = this.afs.doc('usuarios/'+id);
+    usuarioDoc.update({senha: ns, perguntaDeSeguranca: novaPDS, respostaDeSeguranca: rds});
   }
 }

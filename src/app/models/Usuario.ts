@@ -5,24 +5,28 @@ export class Usuario{
     private siape: string;
     private senha: string;
     private idDoSetor: string;
+    private perguntaDeSeguranca: number;
+    private respostaDeSeguranca: string;
     
-    constructor(id, nome, email, siape, senha,setor){
+    constructor(id, nome, email, siape, senha,setor, perguntaDeSeguranca, respostaDeSeguranca){
       this.id = id;
       this.nome = nome;
       this.email = email;
       this.siape = siape;
       this.senha = senha;
       this.idDoSetor = setor;
+      this.perguntaDeSeguranca = perguntaDeSeguranca;
+      this.respostaDeSeguranca = respostaDeSeguranca;
     }
 
     toFireBase(){
-        return{id: "", nome: this.nome, email: this.email, siape: this.siape, senha: this.senha, idDoSetor: this.idDoSetor}
+        return{id: "", nome: this.nome, email: this.email, siape: this.siape, senha: this.senha, idDoSetor: this.idDoSetor, perguntaDeSeguranca: this.perguntaDeSeguranca, respostaDeSeguranca: this.respostaDeSeguranca};
     }
 
     //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
     verificarCampos(){
-        if(this.nome != undefined && this.email != undefined && this.siape != undefined && this.senha != undefined && this.idDoSetor != undefined){
-            if(this.nome.length <= 0 || this.email.length <= 0 || this.siape.length <= 0 || this.siape.indexOf("_") >= 0  || this.senha.length <= 0 || this.idDoSetor.length <= 0){
+        if(this.nome != undefined && this.email != undefined && this.siape != undefined && this.senha != undefined && this.idDoSetor != undefined && this.perguntaDeSeguranca != undefined && this.respostaDeSeguranca != undefined){
+            if(this.nome.length <= 0 || this.email.length <= 0 || this.siape.length <= 0 || this.siape.indexOf("_") >= 0  || this.senha.length <= 0 || this.idDoSetor.length <= 0 || this.perguntaDeSeguranca == null || this.respostaDeSeguranca.length <= 0){
                 return false;
             }else{
                 return true;
@@ -78,4 +82,16 @@ export class Usuario{
     public setSenha(senha){
         this.senha=senha;
     }
+    public getPDS(){
+        return this.perguntaDeSeguranca;
+    }
+    public setPDS(perguntaDeSeguranca){
+        this.perguntaDeSeguranca = perguntaDeSeguranca;
+    }
+    public getRDS(){
+        return this.respostaDeSeguranca;
+    }
+    public setRDS(respostaDeSeguranca){
+        this.respostaDeSeguranca = respostaDeSeguranca;
+    }   
 }

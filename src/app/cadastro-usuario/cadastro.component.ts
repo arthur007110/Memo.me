@@ -4,6 +4,7 @@ import { UsuarioService } from '../serviços/usuario.service';
 import { MessageService } from 'primeng/api';
 import { Usuario } from '../models/Usuario';
 import { SetorService } from '../serviços/setor.service';
+import {SelectItem} from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro',
@@ -20,8 +21,10 @@ export class CadastroComponent implements OnInit {
   id: string;
   senha: string;
   senha2: string;
-  msgErroSiape: boolean = false;
-  msgErroSenha: boolean = false;
+
+  perguntasDeSeguranca: SelectItem[];
+  perguntaSelecionada: number = 1;
+  respostaDeSeguranca: string;
 
   texto: string;
   setores: any[];
@@ -30,7 +33,13 @@ export class CadastroComponent implements OnInit {
   constructor(private router: Router, 
     private usuarioService: UsuarioService, 
     private setorService: SetorService, 
-    private messageService: MessageService) { }
+    private messageService: MessageService) {
+      this.perguntasDeSeguranca = [
+        {label: 'Qual o seu filme/série favorito?', value: '1'},
+        {label: 'Qual o nome do seu primeiro animal de estimação?', value: '2'},
+        {label: 'Qual o nome de solteira de sua mãe?', value: '3'}
+      ];
+  }
 
   ngOnInit() {
     this.getSetores();
@@ -61,12 +70,6 @@ export class CadastroComponent implements OnInit {
     }
   }
 
-  mostrarMsg(){
-    this.msgErroSiape = false;
-    this.msgErroSenha = false;
-  }
-
-
   cadastrar(){
     //Verifica sem as duas senhas são iguais
     if(this.senha != this.senha2){
@@ -74,7 +77,7 @@ export class CadastroComponent implements OnInit {
       return;
     }
 
-    let usuario = new Usuario("", this.nome, this.email, this.siape, this.senha, this.getIdDoSetor());
+    let usuario = new Usuario("", this.nome, this.email, this.siape, this.senha, this.getIdDoSetor(), this.perguntaSelecionada, this.respostaDeSeguranca);
 
     //Verifica se todas as informações são válidas
     if(usuario.verificarCampos()){

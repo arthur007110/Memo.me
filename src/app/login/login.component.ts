@@ -93,6 +93,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  irParaRecuperarConta(){
+    this.router.navigate(['recuperar-conta']);
+  }
+
   mostrarAjuda(){
     const ref = this.dialogService.open(AjudaComponent, {
       header: 'Ajuda',
