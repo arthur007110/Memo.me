@@ -4,7 +4,6 @@ import { UsuarioService } from '../serviços/usuario.service';
 import { MessageService } from 'primeng/api';
 import { Usuario } from '../models/Usuario';
 import { SetorService } from '../serviços/setor.service';
-import {SelectItem} from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,10 +21,6 @@ export class CadastroComponent implements OnInit {
   senha: string;
   senha2: string;
 
-  perguntasDeSeguranca: SelectItem[];
-  perguntaSelecionada: number = 1;
-  respostaDeSeguranca: string;
-
   texto: string;
   setores: any[];
   resultados: any[];
@@ -33,13 +28,7 @@ export class CadastroComponent implements OnInit {
   constructor(private router: Router, 
     private usuarioService: UsuarioService, 
     private setorService: SetorService, 
-    private messageService: MessageService) {
-      this.perguntasDeSeguranca = [
-        {label: 'Qual o seu filme/série favorito?', value: '1'},
-        {label: 'Qual o nome do seu primeiro animal de estimação?', value: '2'},
-        {label: 'Qual o nome de solteira de sua mãe?', value: '3'}
-      ];
-  }
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.getSetores();
@@ -77,7 +66,7 @@ export class CadastroComponent implements OnInit {
       return;
     }
 
-    let usuario = new Usuario("", this.nome, this.email, this.siape, this.senha, this.getIdDoSetor(), this.perguntaSelecionada, this.respostaDeSeguranca);
+    let usuario = new Usuario("", this.nome, this.email, this.siape, this.senha, this.getIdDoSetor());
 
     //Verifica se todas as informações são válidas
     if(usuario.verificarCampos()){

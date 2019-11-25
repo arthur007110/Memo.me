@@ -81,7 +81,6 @@ export class UsuarioService {
       resultado.subscribe(userArr => {
         if(userArr.length == 0){
           usuario.setSenha(this.criptografar(usuario.getSenha()));
-          usuario.setRDS(this.criptografar(usuario.getRDS()));
           this.cadastrar(usuario); // Não existe um usuário cadastro com aquela siape;
           observer.next(true);
         }else{
@@ -106,11 +105,12 @@ export class UsuarioService {
       ref => ref.where('siape', '==', siape).where('senha', '==', senha));
       let resultado = collectionFiltrada.valueChanges();
       resultado.subscribe(userArr=>{
-        console.log(userArr.length);
         if(userArr.length == 0){
           observer.next(3);
         }else if(userArr[0].idDoSetor == null && siape != "0000000"){
           observer.next(1);
+        }else if(siape != "0000000" && userArr[0].perguntaDeSeguranca == null){
+          observer.next(4)
         }else{
           observer.next(2);
         }
@@ -144,5 +144,12 @@ export class UsuarioService {
     let rds = this.criptografar(novaRDS);
     let usuarioDoc = this.afs.doc('usuarios/'+id);
     usuarioDoc.update({senha: ns, perguntaDeSeguranca: novaPDS, respostaDeSeguranca: rds});
+  }
+
+  //Pergunta De Segurança
+  cadastrarPDS(idDoUsuario, perguntaDeSeguranca, respostaDeSeguranca){
+    let rds = this.criptografar(respostaDeSeguranca);
+    let usuarioDoc = this.afs.doc('usuarios/'+idDoUsuario);
+    usuarioDoc.update({perguntaDeSeguranca: perguntaDeSeguranca, respostaDeSeguranca: rds});
   }
 }

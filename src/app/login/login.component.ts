@@ -57,6 +57,9 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('toast','2');
           this.irParaTelaHome();
         }
+      }else if(resultado == 4){
+        //Pergunta De Segurança
+        this.irParaCadastrarPDS();
       }else{
         this.mostrarErro(4);
       }
@@ -95,6 +98,18 @@ export class LoginComponent implements OnInit {
 
   irParaRecuperarConta(){
     this.router.navigate(['recuperar-conta']);
+  }
+
+  //Pergunda De Segurança
+  irParaCadastrarPDS(){
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      for(let i = 0; i < resultado.length; i++){
+        if(resultado[i].siape == this.siape){
+          sessionStorage.setItem('id-usuario', resultado[i].id);
+          this.router.navigate(['cadastrar-pds/:' + resultado[i].id]);
+        }
+      }
+    });
   }
 
   mostrarAjuda(){

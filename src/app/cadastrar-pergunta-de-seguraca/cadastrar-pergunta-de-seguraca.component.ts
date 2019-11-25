@@ -4,16 +4,12 @@ import { UsuarioService } from '../serviços/usuario.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-trocar-senha',
-  templateUrl: './trocar-senha.component.html',
-  styleUrls: ['./trocar-senha.component.css']
+  selector: 'app-cadastrar-pergunta-de-seguraca',
+  templateUrl: './cadastrar-pergunta-de-seguraca.component.html',
+  styleUrls: ['./cadastrar-pergunta-de-seguraca.component.css']
 })
-export class TrocarSenhaComponent implements OnInit {
+export class CadastrarPerguntaDeSeguracaComponent implements OnInit {
   idDoUsuario: string;
-  usuario: any;
-  novaSenha1: string;
-  novaSenha2: string;
-
   perguntasDeSeguranca: SelectItem[];
   perguntaSelecionada: number = 1;
   respostaDeSeguranca: string;
@@ -32,15 +28,12 @@ export class TrocarSenhaComponent implements OnInit {
 
   salvar(){
     if(this.perguntaSelecionada == null || this.respostaDeSeguranca == null ||
-      this.perguntaSelecionada == undefined || this.respostaDeSeguranca == undefined || this.respostaDeSeguranca.length <= 0 ||
-      this.novaSenha1 == null || this.novaSenha1 == undefined ||
-      this.novaSenha2 == null || this.novaSenha2 == undefined){
+      this.perguntaSelecionada == undefined || this.respostaDeSeguranca == undefined){
         //Colocar um TOAST aqui
         alert('Todos os campos precisam estar corretamente preenchidos.');
     }else{
-      this.usuarioService.atualizarSenhaDoUsuario(this.idDoUsuario, this.novaSenha1, this.perguntaSelecionada, this.respostaDeSeguranca);
+      this.usuarioService.cadastrarPDS(this.idDoUsuario, this.perguntaSelecionada, this.respostaDeSeguranca);
       this.router.navigate(["/recebidos", this.idDoUsuario]);
     }
   }
-
 }

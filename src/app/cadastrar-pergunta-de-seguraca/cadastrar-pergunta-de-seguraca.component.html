@@ -1,0 +1,18 @@
+<p-card header="Pergunta de segurança">
+    <h4>Escolha uma pergunta e uma resposta de segurança para o caso de perder sua senha.</h4>
+    <br>
+    
+    <span class="ui-float-label">
+        <p-dropdown [options]="perguntasDeSeguranca" [(ngModel)]="perguntaSelecionada" ></p-dropdown>
+        <label for="float-input">Pergunta de segurança</label>
+    </span>
+    <br>
+
+    <span class="ui-float-label">
+        <input id="float-input" type="password" size="20" pInputText [(ngModel)]="respostaDeSeguranca"> 
+        <label for="float-input">Resposta de segurança</label>
+    </span>
+    <br>
+
+    <p-button label="Salvar" styleClass="ui-button-success" (click)="salvar()" class="ui-button-raised ui-button-success"></p-button>
+</p-card>

@@ -52,6 +52,7 @@ import { VizualicaoDeMemorandoComponent } from './vizualicao-de-memorando/vizual
 import { AjudaComponent } from './ajuda/ajuda.component';
 import { TrocarSenhaComponent } from './trocar-senha/trocar-senha.component';
 import { RecuperarContaComponent } from './recuperar-conta/recuperar-conta.component';
+import { CadastrarPerguntaDeSeguracaComponent } from './cadastrar-pergunta-de-seguraca/cadastrar-pergunta-de-seguraca.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -68,7 +69,8 @@ export const rotas: Routes = [
   { path: 'listar-setores-de-usuario/:id', component: ListagemDeSetorDoUsuarioComponent},
   { path: 'listar-setores/:id', component: ListagemDeSetorComponent},
   { path: 'trocar-senha/:id', component: TrocarSenhaComponent},
-  { path: 'recuperar-conta', component: RecuperarContaComponent}
+  { path: 'recuperar-conta', component: RecuperarContaComponent},
+  { path: 'cadastrar-pds/:id', component: CadastrarPerguntaDeSeguracaComponent}
 ];
 
 @NgModule({
@@ -92,6 +94,7 @@ export const rotas: Routes = [
     AjudaComponent,
     TrocarSenhaComponent,
     RecuperarContaComponent,
+    CadastrarPerguntaDeSeguracaComponent,
     
   ],
   imports: [

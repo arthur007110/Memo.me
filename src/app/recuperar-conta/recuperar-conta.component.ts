@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
 import { UsuarioService } from '../serviços/usuario.service';
 import { Router } from '@angular/router';
 
@@ -9,22 +8,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./recuperar-conta.component.css']
 })
 export class RecuperarContaComponent implements OnInit {
-  perguntasDeSeguranca: SelectItem[];
-  perguntaSelecionada: number = 1;
-  respostaDeSeguranca: string;
   siape: string;
+  usuario: any;
+  perguntaDeSeguranca: string;
+  respostaDeSeguranca: string;
+  ocultar = false;
 
-  constructor(private usuarioService: UsuarioService, private router: Router) { 
-    this.perguntasDeSeguranca = [
-      {label: 'Qual o seu filme/série favorito?', value: '1'},
-      {label: 'Qual o nome do seu primeiro animal de estimação?', value: '2'},
-      {label: 'Qual o nome de solteira de sua mãe?', value: '3'}
-    ];
-  }
+  constructor(private usuarioService: UsuarioService, private router: Router) { }
 
   ngOnInit() {
   }
 
+  continuar(){
+    this.usuarioService.listarTodos().subscribe(resultado => {
+      for(let i = 0; i < resultado.length; i++){
+        if(resultado[i].siape == this.siape){
+          this.usuario = resultado[i];
+          this.atualizarTela();
+          return;
+        }
+      }
+
+      //Colocar um TOAST aqui
+      alert("Erro");
+    });
+
+  }
+
+  verificar(){
+    if(this.respostaDeSeguranca == null || this.respostaDeSeguranca == undefined || this.respostaDeSeguranca.length <= 0){
+        //Colocar um TOAST aqui
+        alert('Todos os campos precisam estar corretamente preenchidos.');
+    }else{
+      this.usuarioService.loginComPerguntaDeSeguranca(this.siape, this.usuario.perguntaDeSeguranca, this.respostaDeSeguranca).subscribe(resultado => {
+        if(resultado == 3){
+          //Colocar um TOAST aqui
+          alert('Erro!');
+        }else{
+          this.irParaTrocarASenha();
+        }
+      });
+    }
+  }
+  /*
   continuar(){
     if(this.perguntaSelecionada == null || this.respostaDeSeguranca == null ||
       this.perguntaSelecionada == undefined || this.respostaDeSeguranca == undefined ||
@@ -41,8 +67,8 @@ export class RecuperarContaComponent implements OnInit {
         }
       });
     }
-    
   }
+  */
 
   irParaTrocarASenha(){
     this.usuarioService.listarTodos().subscribe(resultado => {
@@ -53,5 +79,18 @@ export class RecuperarContaComponent implements OnInit {
         }
       }
     });
+  }
+
+  atualizarTela(){
+    this.ocultar = true;
+
+    let pds = this.usuario.perguntaDeSeguranca;
+    if(pds == 1){
+      this.perguntaDeSeguranca = 'Qual o seu filme/série favorito?';
+    }else if(pds == 2){
+      this.perguntaDeSeguranca = 'Qual o nome do seu primeiro animal de estimação?';
+    }else{
+      this.perguntaDeSeguranca = 'Qual o nome de solteira de sua mãe?';
+    }
   }
 }

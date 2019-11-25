@@ -1,24 +1,29 @@
 <p-card header="Recuperar a Conta">
-    <h4>Para recuperar sua conta forneça siape, pergunta e resposta de segurança.</h4>
-    <br>
 
-    <span class="ui-float-label">
-        <p-inputMask [(ngModel)]="siape" mask="9999999" ></p-inputMask> 
-        <label for="float-input">Siape</label>
-    </span>
-    <br>
+    <div *ngIf="ocultar == false">
+        <h4>Digite a siape da conta:</h4>
+        <br>
+        <span class="ui-float-label">
+            <p-inputMask [(ngModel)]="siape" mask="9999999" ></p-inputMask> 
+            <label for="float-input">Siape</label>
+        </span>
+        <br>
 
-    <span class="ui-float-label">
-        <p-dropdown [options]="perguntasDeSeguranca" [(ngModel)]="perguntaSelecionada" ></p-dropdown>
-        <label for="float-input">Pergunta de segurança</label>
-    </span>
-    <br>
+        <p-button label="Continuar" styleClass="ui-button-success" (click)="continuar()" class="ui-button-raised ui-button-success"></p-button>
+    </div>
 
-    <span class="ui-float-label">
-        <input id="float-input" type="password" size="20" pInputText [(ngModel)]="respostaDeSeguranca"> 
-        <label for="float-input">Resposta de segurança</label>
-    </span>
-    <br>
-
-    <p-button label="Continuar" styleClass="ui-button-success" (click)="continuar()" class="ui-button-raised ui-button-success"></p-button>
+    <div *ngIf="ocultar == true">
+        <h4>Digite a resposta para sua pergunta de segurança:</h4>
+        <br>
+        <input type="text" size="20" placeholder="{{perguntaDeSeguranca}}" disabled pInputText>
+        <br>
+        <br>
+        
+        <span class="ui-float-label">
+            <input id="float-input" type="password" size="20" pInputText [(ngModel)]="respostaDeSeguranca"> 
+            <label for="float-input">Resposta de segurança</label>
+        </span>
+        <br>
+        <p-button label="Aceitar" styleClass="ui-button-success" (click)="verificar()" class="ui-button-raised ui-button-success"></p-button>
+    </div>
 </p-card>

@@ -34,18 +34,6 @@
   <br>
 
   <span class="ui-float-label">
-      <p-dropdown [options]="perguntasDeSeguranca" [(ngModel)]="perguntaSelecionada" ></p-dropdown>
-      <label for="float-input">Pergunta de segurança</label>
-  </span>
-  <br>
-
-  <span class="ui-float-label">
-      <input id="float-input" type="password" size="20" pInputText [(ngModel)]="respostaDeSeguranca"> 
-      <label for="float-input">Resposta de segurança</label>
-  </span>
-  <br>
-
-  <span class="ui-float-label">
     <p-autoComplete [(ngModel)]="texto" [suggestions]="resultados" (completeMethod)="buscar($event)" [forceSelection]="true" placeholder="Nome do setor"></p-autoComplete>
   </span>
   <br>
