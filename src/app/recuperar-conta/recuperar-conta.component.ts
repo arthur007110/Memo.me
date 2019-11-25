@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../serviços/usuario.service';
 import { Router } from '@angular/router';
+import { DialogService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-recuperar-conta',
   templateUrl: './recuperar-conta.component.html',
-  styleUrls: ['./recuperar-conta.component.css']
+  styleUrls: ['./recuperar-conta.component.css'],
+  providers: [MessageService, DialogService]
 })
 export class RecuperarContaComponent implements OnInit {
   siape: string;
@@ -14,7 +16,8 @@ export class RecuperarContaComponent implements OnInit {
   respostaDeSeguranca: string;
   ocultar = false;
 
-  constructor(private usuarioService: UsuarioService, private router: Router) { }
+  constructor(private usuarioService: UsuarioService, private router: Router,
+    private messageService: MessageService, public dialogService: DialogService) { }
 
   ngOnInit() {
   }
@@ -30,20 +33,28 @@ export class RecuperarContaComponent implements OnInit {
       }
 
       //Colocar um TOAST aqui
-      alert("Erro");
+      this.mostrarErro(1);
     });
 
   }
 
+  mostrarErro(erro){
+    if(erro == 1){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail: "Siape inválida."});
+    }else if(erro == 2){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail: "Todos os campos precisam estar corretamente preenchidos."});
+    }else{
+      this.messageService.add({severity:'error', summary: 'Erro!', detail: "Senha incorreta."});
+    }
+  }
+
   verificar(){
     if(this.respostaDeSeguranca == null || this.respostaDeSeguranca == undefined || this.respostaDeSeguranca.length <= 0){
-        //Colocar um TOAST aqui
-        alert('Todos os campos precisam estar corretamente preenchidos.');
+        this.mostrarErro(2);
     }else{
       this.usuarioService.loginComPerguntaDeSeguranca(this.siape, this.usuario.perguntaDeSeguranca, this.respostaDeSeguranca).subscribe(resultado => {
         if(resultado == 3){
-          //Colocar um TOAST aqui
-          alert('Erro!');
+          this.mostrarErro(3);
         }else{
           this.irParaTrocarASenha();
         }
@@ -75,6 +86,7 @@ export class RecuperarContaComponent implements OnInit {
       for(let i = 0; i < resultado.length; i++){
         if(resultado[i].siape == this.siape){
           sessionStorage.setItem('id-usuario', resultado[i].id);
+          sessionStorage.setItem('toast','C');
           this.router.navigate(["/trocar-senha/", resultado[i].id]);
         }
       }
@@ -92,5 +104,10 @@ export class RecuperarContaComponent implements OnInit {
     }else{
       this.perguntaDeSeguranca = 'Qual o nome de solteira de sua mãe?';
     }
+  }
+
+  voltar(){
+    sessionStorage.clear();
+    this.router.navigate(['']);
   }
 }

@@ -194,6 +194,12 @@ export class ExibirMemorandosRecebidosComponent implements OnInit {
         }else if(toast=='10'){
             this.messageService.add({severity:'success', summary: 'Enviado!', detail:'Seu Memorando foi enviado com sucesso!'});
             sessionStorage.removeItem('toast');
+        }else if(toast == 'A'){
+            this.messageService.add({severity:'success', summary: 'Sucesso!', detail:'Senha alterada com sucesso.'});
+            sessionStorage.removeItem('toast');
+        }else if(toast == 'B'){
+            this.messageService.add({severity:'success', summary: 'Sucesso!', detail:'Informações salvas com sucesso.'});
+            sessionStorage.removeItem('toast');
         }
     }
     

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, DialogService, MessageService } from 'primeng/api';
 import { UsuarioService } from '../serviços/usuario.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastrar-pergunta-de-seguraca',
   templateUrl: './cadastrar-pergunta-de-seguraca.component.html',
-  styleUrls: ['./cadastrar-pergunta-de-seguraca.component.css']
+  styleUrls: ['./cadastrar-pergunta-de-seguraca.component.css'],
+  providers: [MessageService, DialogService]
 })
 export class CadastrarPerguntaDeSeguracaComponent implements OnInit {
   idDoUsuario: string;
@@ -14,7 +15,8 @@ export class CadastrarPerguntaDeSeguracaComponent implements OnInit {
   perguntaSelecionada: number = 1;
   respostaDeSeguranca: string;
 
-  constructor(private usuarioService: UsuarioService, private router: Router) { 
+  constructor(private usuarioService: UsuarioService, private router: Router,
+    private messageService: MessageService, public dialogService: DialogService) { 
     this.idDoUsuario = sessionStorage.getItem('id-usuario');
     this.perguntasDeSeguranca = [
       {label: 'Qual o seu filme/série favorito?', value: '1'},
@@ -24,16 +26,26 @@ export class CadastrarPerguntaDeSeguracaComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+
+  mostrarErro(){
+    this.messageService.add({severity:'error', summary: 'Erro!', detail: "Todos os campos precisam estar corretamente preenchidos"});
   }
 
   salvar(){
     if(this.perguntaSelecionada == null || this.respostaDeSeguranca == null ||
       this.perguntaSelecionada == undefined || this.respostaDeSeguranca == undefined){
-        //Colocar um TOAST aqui
-        alert('Todos os campos precisam estar corretamente preenchidos.');
+        this.mostrarErro();
     }else{
       this.usuarioService.cadastrarPDS(this.idDoUsuario, this.perguntaSelecionada, this.respostaDeSeguranca);
+      sessionStorage.setItem('toast','B');
       this.router.navigate(["/recebidos", this.idDoUsuario]);
     }
+  }
+
+  voltar(){
+    sessionStorage.clear();
+    this.router.navigate(['']);
   }
 }
