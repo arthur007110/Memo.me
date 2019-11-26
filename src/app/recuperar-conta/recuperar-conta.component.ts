@@ -27,7 +27,11 @@ export class RecuperarContaComponent implements OnInit {
       for(let i = 0; i < resultado.length; i++){
         if(resultado[i].siape == this.siape){
           this.usuario = resultado[i];
-          this.atualizarTela();
+          if(this.usuario.respostaDeSeguranca == null){
+            this.mostrarErro(4);
+          }else{
+            this.atualizarTela();
+          }
           return;
         }
       }
@@ -43,8 +47,10 @@ export class RecuperarContaComponent implements OnInit {
       this.messageService.add({severity:'error', summary: 'Erro!', detail: "Siape inválida."});
     }else if(erro == 2){
       this.messageService.add({severity:'error', summary: 'Erro!', detail: "Todos os campos precisam estar corretamente preenchidos."});
-    }else{
+    }else if(erro == 3){
       this.messageService.add({severity:'error', summary: 'Erro!', detail: "Senha incorreta."});
+    }else{
+      this.messageService.add({severity:'error', summary: 'Erro!', detail: "O usuário não tem nenhuma pergunta de segurança cadastrada."});
     }
   }
 
