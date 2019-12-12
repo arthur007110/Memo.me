@@ -20,6 +20,7 @@ export class EnvioMemorandoComponent implements OnInit {
   emissor:string;
   mensagem:string;
   assunto:string;
+  setorEscolhido: any;
   texto: string = null;
   resultados: string[] = [];
 
@@ -58,19 +59,36 @@ export class EnvioMemorandoComponent implements OnInit {
 
 
   enviarMemorando(){
-    let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.texto), this.usuario, this.mensagem, this.assunto);
+    let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.setorEscolhido.nome), this.usuario, this.mensagem, this.assunto);
     if(verificacao == 0){
       sessionStorage.setItem('toast','10')
       this.irParaTelaHome();
     }else if(verificacao == 1){
       this.mostrarErro(5);
+    }else if(verificacao == 2){
+      this.mostrarErro(6);
+    }else if(verificacao == 3){
+      this.mostrarErro(7);
+    }else if(verificacao == 4){
+      this.mostrarErro(8);
+    }else if(verificacao == 5){
+      this.mostrarErro(9);
+    }else if(verificacao == 6){
+      this.mostrarErro(10);
     }
   }
 
   mostrarErro(erro){
     if(erro==5){
-      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha todos os campos.'});
-    }else if(erro=='~'){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'preencha o campo do destinatário.'});
+    }if(erro==6){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'o login não é válido.'});
+    }if(erro==7 || erro==8){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'a mensagem de corpo não pode estar vazia.'});
+    }if(erro==9 || erro==10){
+      this.messageService.add({severity:'error', summary: 'Erro!', detail:'o campo de assunto não pode estar vazio.'});
+    }
+    else if(erro=='~'){
       
     }
 
@@ -83,7 +101,7 @@ export class EnvioMemorandoComponent implements OnInit {
   receberUsuario(){
     this.usuarioService.listarPorId(this.id).subscribe(resultado => {
       this.usuario = resultado;
-      this.atualizarSetores(this.usuario.idDoSetor);
+      
     });
   }
   receberSetores(){
@@ -95,12 +113,4 @@ export class EnvioMemorandoComponent implements OnInit {
   /*
     Exclui do array setores o setor ao qual o usuário faz parte
   */
-  atualizarSetores(idDoSetor){
-    for(let i = 0; i < this.setores.length; i++){
-      if(this.setores[i].id == idDoSetor){
-        this.setores.splice(i, 1);
-        break;
-      }
-    }
-  }
 }

@@ -8,10 +8,10 @@
             <p-inputMask [(ngModel)]="siape" mask="9999999" ></p-inputMask> 
             <label for="float-input">Siape</label>
         </span>
-        <br>
+        <br><br>
 
-        <p-button label="Continuar" styleClass="ui-button-success" (click)="continuar()" class="ui-button-raised ui-button-success"></p-button>
-        &#160;&#160;<p-button label="Voltar" styleClass="ui-button-success" (click)="voltar()" class="ui-button-raised ui-button-success"></p-button>
+        <p-button label="Voltar" styleClass="ui-button-success" (click)="voltar()" class="ui-button-raised ui-button-success"></p-button>
+        <p-button label="Continuar" styleClass="ui-button-success" (click)="continuar()" class="ui-button-raised ui-button-success" style="float: right"></p-button>
     </div>
 
     <div *ngIf="ocultar == true">
@@ -26,7 +26,7 @@
             <label for="float-input">Resposta de segurança</label>
         </span>
         <br>
-        <p-button label="Aceitar" styleClass="ui-button-success" (click)="verificar()" class="ui-button-raised ui-button-success"></p-button>
-        &#160;&#160;<p-button label="Voltar" styleClass="ui-button-success" (click)="voltar()" class="ui-button-raised ui-button-success"></p-button>
+        <p-button label="Voltar" styleClass="ui-button-success" (click)="voltar()" class="ui-button-raised ui-button-success"></p-button>
+        <p-button label="Aceitar" styleClass="ui-button-success" (click)="verificar()" class="ui-button-raised ui-button-success" style="float: right"></p-button>
     </div>
 </p-card>

@@ -36,9 +36,9 @@ export class VizualicaoDeMemorandoComponent implements OnInit {
 
   getEstadoDeVizualizacao(siape){
     if(this.memorando.usuariosQueVizualizaram.includes(siape)){
-      return "Vizualizado"
+      return "Vizualizou"
     }else{
-      return "Não vizualizado"
+      return "Não Vizualizou"
     }
   }
 

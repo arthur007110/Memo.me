@@ -1,3 +1,5 @@
+//import undefined = require("firebase/empty-import");
+
 export class Usuario{
     private id?: string;
     private nome: string;
@@ -25,7 +27,7 @@ export class Usuario{
 
     //FUNÇÕES PARA A PARTE DE VERIFICAÇÕES =======>
     verificarCampos(){
-        if(this.nome != undefined && this.email != undefined && this.siape != undefined && this.senha != undefined && this.idDoSetor != undefined){
+        /*if(this.nome != undefined && this.email != undefined && this.siape != undefined && this.senha != undefined && this.idDoSetor != undefined){
             if(this.nome.length <= 0 || this.email.length <= 0 || this.siape.length <= 0 || this.siape.indexOf("_") >= 0  || this.senha.length <= 0 || this.idDoSetor.length <= 0){
                 return false;
             }else{
@@ -33,6 +35,19 @@ export class Usuario{
             }
         }else{
             return false;
+        }*/
+        if(this.nome == undefined || this.nome == null || this.nome == "" || this.nome == " " || this.nome.length <=0){
+            return 1
+        }else if(this.email == undefined || this.email == null || this.email == "" || this.email == " " || this.email.length <=0){
+            return 2
+        }else if(this.siape == undefined || this.siape == null || this.siape == "" || this.siape == " " || this.siape.length <= 0 || this.siape.indexOf("_") >= 0){
+            return 3
+        }else if(this.senha == undefined || this.senha == null || this.senha == "" || this.senha == " " || this.senha.length <=0){
+            return 4
+        }else if(this.idDoSetor == undefined || this.idDoSetor == null || this.idDoSetor == "" || this.idDoSetor == " " || this.idDoSetor.length <=0){
+            return 5
+        }else{
+            return 0;
         }
     }
 

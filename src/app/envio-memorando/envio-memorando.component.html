@@ -10,11 +10,15 @@
         <label for="float-input">Assunto</label>
       </span>
     </div>
-    <div class="p-col-3">
-      <span class="ui-float-label">
-        <p-autoComplete [(ngModel)]="texto" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)"></p-autoComplete>   
+    <div class="p-col-3" >
+      <!-- <span class="ui-float-label">
+         <p-autoComplete [(ngModel)]="texto" [forceSelection]="true" [suggestions]="resultados" (completeMethod)="buscar($event)"></p-autoComplete>   
         <label for="float-input">Digite o nome do Setor</label>
+      </span> -->
+      <span class="ui-float-label" style="float: right;">
+        <p-dropdown [options]="setores" [(ngModel)]="setorEscolhido" optionLabel="nome" ></p-dropdown>
       </span>
+      <br>
     </div>
   </div>
   
