@@ -93,6 +93,7 @@ export class PdfService{
 
   organizaOConteudo(texto: string){
     let textoReformulado = "";
+    let quantDeCaracteres = 0;
 
     for(let i = 0; i < texto.length; i++){
       if(texto[i] == "<" && texto[i+1] == "p"){
@@ -101,9 +102,17 @@ export class PdfService{
         i += 3;
       }else if(texto[i] == "<" && texto[i+1] == "/"){
         textoReformulado += "\r\n";
+        quantDeCaracteres = 0;
         i += 3;
       }else{
+        ++quantDeCaracteres;
         textoReformulado += texto[i];
+
+        if(quantDeCaracteres == 100){
+          textoReformulado += "\r\n";
+          quantDeCaracteres = 0;
+        }
+
       }
     }
 
