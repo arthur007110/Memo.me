@@ -1,0 +1,23 @@
+<app-home-adm></app-home-adm>
+<p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+<p-dialog header="Ajuda" [(visible)]="display" [style]="{width: '70%'}">
+    <app-ajuda-pdf></app-ajuda-pdf>
+</p-dialog>
+<p-card header="Cadastrar Modelo de PDF" class="central">
+    <button pButton type="button" label="Ajuda" (click)="mostrarAjuda()" class="ui-button-raised ui-button-info ui-button-rounded" style="width: 40%; font-size: 80%; "></button>
+    <input type="text"  [(ngModel)]="nomeDoModelo" placeholder="Nome do Modelo" style="width: 30%; margin-left: 5%;" pInputText/>
+    <input type="number" [(ngModel)]="fonte" placeholder="Fonte" style="position: absolute; right: 10px;" pInputText/>
+    <br><br>
+    <textarea pInputTextarea [(ngModel)]="texto" class="textarea"></textarea><br><br>
+    <div *ngIf="contemImagem" >
+        <input type="text" placeholder="Url da Imagem" [(ngModel)]="urlDaImagem" pInputText>
+        <input type="number" placeholder="Largura"pInputText [(ngModel)]="imageWidth"/>
+        <input type="number" placeholder="Altura"pInputText [(ngModel)]="imageHeight"/>
+        <input type="number" placeholder="Posição (X)" pInputText [(ngModel)]="imagePositionX"/>
+        <input type="number" placeholder="Posição (Y)" pInputText [(ngModel)]="imagePositionY"/>
+        <br><br>
+    </div>
+    <p-button label="Adicionar/Remover Imagem" (onClick)="addImagem()" style="margin-right: 2%;" class="ui-button-raised ui-button-success ui-button-rounded"></p-button>
+    <p-button label="Vizualizar" (onClick)="vizualizar()" style="margin-right: 2%;" class="ui-button-raised ui-button-success ui-button-rounded"></p-button>
+    <p-button label="Salvar" (onClick)="salvar()" style="margin-right: 2%;" class="ui-button-raised ui-button-success ui-button-rounded"></p-button>
+</p-card>

@@ -43,6 +43,9 @@ export class ListagemDeSetorComponent implements OnInit {
     }else if(toast=='15'){
       this.messageService.add({severity:'success', summary: 'Atualizado!', detail:'o setor foi atualizado com sucesso!'});
       sessionStorage.removeItem('toast');
+    }else if(toast == '16'){
+      this.messageService.add({severity:'success', summary: 'Atualizado!', detail:'O padrão foi atualizado.'});
+      sessionStorage.removeItem('toast');
     }
 
   }

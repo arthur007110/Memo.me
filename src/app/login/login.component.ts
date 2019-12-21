@@ -116,6 +116,6 @@ export class LoginComponent implements OnInit {
     const ref = this.dialogService.open(AjudaComponent, {
       header: 'Ajuda',
       width: '70%'
-  });
+    });
   }
 }

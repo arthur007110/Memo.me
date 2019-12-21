@@ -1,121 +1,78 @@
 import { Injectable} from '@angular/core';
-import * as jsPDF from 'jspdf';
 import { UsuarioService } from './usuario.service';
-import { SetorService } from './setor.service';
-import { Setor } from '../models/Setor';
+import { SetorService } from './setor.service'
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { ModeloDePdfService } from './modelo-de-pdf.service';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({
   providedIn: 'root'
 })
 export class PdfService{
-  setores: Setor[];
-  usuarios: any[];
 
-  constructor(private usuarioS: UsuarioService, private setorS: SetorService) {
-    this.usuarioS.listarTodos().subscribe(result => {
-      this.usuarios = result;
+  constructor(private usuarioService: UsuarioService, private setorService: SetorService, private modeloDePdfService: ModeloDePdfService){ }
+
+  gerarPdf(memorando: any){
+    let usuario, setorEmissor, setorDestino;
+    this.usuarioService.listarPorId(memorando.idDoUsuarioEmissor).subscribe(usuarioR => {
+      usuario = usuarioR;
+    });
+    this.setorService.listarPorId(memorando.idSetorEmissor).subscribe(setorER => {
+      setorEmissor = setorER;
+    });
+    this.setorService.listarPorId(memorando.idSetorDestinatario).subscribe(setorDR=> {
+      setorDestino = setorDR;
+    });
+    this.modeloDePdfService.getModeloPadraoAtual().subscribe(modeloR => {
+      this.organizarOPdf(modeloR[0], memorando, usuario, setorEmissor, setorDestino);
     });
   }
 
-  gerarPdf(memorando){
-    this.setorS.listarTodos().subscribe(result => {
-      this.setores = result;
-      var usuario = this.getUsuario(memorando);
-      var nomeDoSetorEmissor = this.getNomeDoSetorEmissor(memorando.idSetorEmissor);
-      var nomeDoSetorDeDestino = this.getNomeDoSetorDeDestino(memorando.idSetorDestinatario);
+  organizarOPdf(modelo: any, memorando: any, usuario: any, setorEmissor: any, setorDestino: any){
+    let textoOriginal = modelo.texto;
+    let textoFinal = "";
 
-      let documento = new jsPDF();
-
-      documento.setFont("helvetica", "bold");
-      documento.setFontSize(12);
-      documento.text("SERVIÇO PÚBLICO FEDERAL", 75, 10);
-      documento.text("INSTITUTO FEDERAL DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA DE PERNAMBUCO", 20, 15);
-      
-      documento.setFontStyle("normal");
-      documento.setFontSize(11);
-      documento.text("Garanhuns, " + memorando.dataEnvio, 150, 40);
-
-      documento.setFontStyle("bold");
-      documento.setFontSize(11);
-      documento.text("Memorando N°" + memorando.numeroDoMemorando, 20, 50);
-
-      documento.setFontSize(10);
-      documento.text("De: ", 20, 60);
-      documento.text("Para: ", 20, 65);
-      documento.setFontStyle("normal");
-      documento.text(nomeDoSetorEmissor, 26, 60);
-      documento.text(nomeDoSetorDeDestino, 29, 65);
-
-      documento.setFontStyle("bold");
-      documento.setFontSize(11);
-      documento.text("Assunto: ", 20, 80);
-      documento.setFontStyle("normal");
-      documento.setFontSize(11);
-      documento.text(memorando.assunto, 38, 80);
-      documento.text(this.organizaOConteudo(memorando.mensagem), 20, 95);
-
-      documento.text("____________________________", 75, 280);
-      documento.text(usuario.nome, 100, 285);
-      documento.text("SIAPE: " + usuario.siape , 92, 290);
-
-      var string = documento.output('datauristring');
-      var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
-      var x = window.open();
-      x.document.open();
-      x.document.write(iframe);
-      x.document.close();
-    });
-  }
-
-  getUsuario(memorando){
-    for(let i = 0; i < this.usuarios.length; i++){
-      if(this.usuarios[i].id == memorando.idDoUsuarioEmissor){
-        return this.usuarios[i];
-      }
+    for(let i = 0; i < textoOriginal.length; i++){
+      textoFinal = textoFinal.replace(". ", "\0  ");
+      textoFinal += textoOriginal[i];
     }
-  }
 
-  getNomeDoSetorDeDestino(id){
-    for(let i = 0; i < this.setores.length; i++){
-      if(this.setores[i].id == id){
-        return this.setores[i].nome;
-      }
+    for(let j = 0; j < textoFinal.length; j++){
+      textoFinal = textoFinal.replace("&MENSAGEM", memorando.mensagem);
+      textoFinal = textoFinal.replace("&ASSUNTO", memorando.assunto);
+      textoFinal = textoFinal.replace("&DATA", memorando.dataEnvio);
+      textoFinal = textoFinal.replace("&NUMERO", memorando.numeroDoMemorando);
+      textoFinal = textoFinal.replace("&USERNOME", usuario.nome);
+      textoFinal = textoFinal.replace("&USERSIAPE", usuario.siape);
+      textoFinal = textoFinal.replace("&SETOREMISSOR", setorEmissor.nome);
+      textoFinal = textoFinal.replace("&SETORDESTINO", setorDestino.nome);
     }
-  }
 
-  getNomeDoSetorEmissor(id){
-    for(let i = 0; i < this.setores.length; i++){
-      if(this.setores[i].id == id){
-        return this.setores[i].nome;
-      }
+    for(let i = 0; i < textoOriginal.length; i++){
+      textoFinal = textoFinal.replace(". ", "\0  ");
     }
-  }
 
-  organizaOConteudo(texto: string){
-    let textoReformulado = "";
-    let quantDeCaracteres = 0;
-
-    for(let i = 0; i < texto.length; i++){
-      if(texto[i] == "<" && texto[i+1] == "p"){
-        i += 2;
-      }else if(texto[i] == "<" && texto[i+1] == "b"){
-        i += 3;
-      }else if(texto[i] == "<" && texto[i+1] == "/"){
-        textoReformulado += "\r\n";
-        quantDeCaracteres = 0;
-        i += 3;
-      }else{
-        ++quantDeCaracteres;
-        textoReformulado += texto[i];
-
-        if(quantDeCaracteres == 100){
-          textoReformulado += "\r\n";
-          quantDeCaracteres = 0;
+    const documentDefinition = {
+      content: [
+        {text: textoFinal, fontSize: modelo.fonte},
+        {
+          image: modelo.urlDaImagem,
+          width: modelo.imageWidth,
+          height: modelo.imageHeight,
+          absolutePosition: { x: modelo.imagePositionX, y: modelo.imagePositionY }
         }
+      ]
+    };
+    pdfMake.createPdf(documentDefinition).open();
+    this.teste(textoFinal);
+  }
 
-      }
+  teste(textoFinal){
+    console.log(textoFinal);
+    for(let i = textoFinal.length-1; i >= 0; --i){
+      console.log(textoFinal[i]);
     }
 
-    return textoReformulado;
   }
 }

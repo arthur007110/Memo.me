@@ -27,6 +27,7 @@
     "jspdf": "^1.4.1",
     "npm": "^6.10.2",
     "npm-check-updates": "^3.1.20",
+    "pdfmake": "^0.1.63",
     "primeflex": "^1.0.0-rc.1",
     "primeicons": "^1.0.0",
     "primeng": "^8.0.2",

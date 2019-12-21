@@ -1,0 +1,8 @@
+<app-home-adm></app-home-adm>
+<p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+<p-card header="Alterar modelo padrão">
+    <h3>Modelo padrão atual: {{modeloPadraoAtual.nome}}</h3>
+    <p-dropdown [options]="modelos" [(ngModel)]="modeloSelecionado" optionLabel="nome"></p-dropdown>
+    <br><br><p-button label="Vizualizar" (onClick)="vizualizarModelo()" style="margin-right: 2%;" class="ui-button-raised ui-button-success"></p-button>
+    <p-button label="Salvar como novo padrao" *ngIf="modeloSelecionado.nome != modeloPadraoAtual.nome"  (onClick)="alterarModelo()" style="margin-right: 2%;" class="ui-button-raised ui-button-success"></p-button>
+</p-card>

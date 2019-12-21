@@ -28,7 +28,8 @@ import {EditorModule} from 'primeng/editor';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
-
+import {DialogModule} from 'primeng/dialog';
+import {SpinnerModule} from 'primeng/spinner';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -53,6 +54,11 @@ import { AjudaComponent } from './ajuda/ajuda.component';
 import { TrocarSenhaComponent } from './trocar-senha/trocar-senha.component';
 import { RecuperarContaComponent } from './recuperar-conta/recuperar-conta.component';
 import { CadastrarPerguntaDeSeguracaComponent } from './cadastrar-pergunta-de-seguraca/cadastrar-pergunta-de-seguraca.component';
+import { CadastrarModeloDeMemorandoComponent } from './cadastrar-modelo-de-memorando/cadastrar-modelo-de-memorando.component';
+import { AjudaPdfComponent } from './ajuda-pdf/ajuda-pdf.component';
+import { ModeloDePdfService } from './serviços/modelo-de-pdf.service';
+import { PdfService } from './serviços/pdf.service';
+import { AtualizarModeloDeMemorandoComponent } from './atualizar-modelo-de-memorando/atualizar-modelo-de-memorando.component';
 
 export const rotas: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -70,7 +76,9 @@ export const rotas: Routes = [
   { path: 'listar-setores/:id', component: ListagemDeSetorComponent},
   { path: 'trocar-senha/:id', component: TrocarSenhaComponent},
   { path: 'recuperar-conta', component: RecuperarContaComponent},
-  { path: 'cadastrar-pds/:id', component: CadastrarPerguntaDeSeguracaComponent}
+  { path: 'cadastrar-pds/:id', component: CadastrarPerguntaDeSeguracaComponent},
+  { path: 'cadastrar-pdf/:id', component: CadastrarModeloDeMemorandoComponent},
+  { path: 'atualizar-padrao/:id', component: AtualizarModeloDeMemorandoComponent}
 ];
 
 @NgModule({
@@ -95,6 +103,9 @@ export const rotas: Routes = [
     TrocarSenhaComponent,
     RecuperarContaComponent,
     CadastrarPerguntaDeSeguracaComponent,
+    CadastrarModeloDeMemorandoComponent,
+    AjudaPdfComponent,
+    AtualizarModeloDeMemorandoComponent,
     
   ],
   imports: [
@@ -123,14 +134,17 @@ export const rotas: Routes = [
     KeyFilterModule,
     DynamicDialogModule,
     OverlayPanelModule,
+    DialogModule,
+    SpinnerModule,
     AngularFireModule.initializeApp(configuracao)
   ],
   entryComponents: [
     ListaDeMembrosDoSetorComponent,
     VizualicaoDeMemorandoComponent,
-    AjudaComponent
+    AjudaComponent,
+    AjudaPdfComponent
   ],
-  providers: [UsuarioService, SetorService, MemorandoService, AngularFirestore],
+  providers: [UsuarioService, SetorService, MemorandoService, ModeloDePdfService, PdfService, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

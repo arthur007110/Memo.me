@@ -20,20 +20,7 @@
   
 <br>
 <p-card>
-  <p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}">
-    <p-header>
-      <span class="ql-format-group">
-        <section class="container">
-          <div class="one">
-            Memorando
-          </div>
-          <div class="ui-rtl two" dir="rtl">
-            Memo.me
-          </div>  
-        </section>
-      </span>
-    </p-header>
-  </p-editor>
+  <textarea pInputTextarea [(ngModel)]="mensagem" class="textarea"></textarea><br><br>
 </p-card>
 <p-card>
 <button pButton type="button" label="Enviar" (click)="enviarMemorando()" class="ui-button-raised ui-button-success"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
