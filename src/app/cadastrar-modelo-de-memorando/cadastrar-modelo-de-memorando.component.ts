@@ -16,7 +16,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class CadastrarModeloDeMemorandoComponent implements OnInit {
   nomeDoModelo: string = "";
   imagem;
-  texto: string = ".";
+  texto: string = "&&";
   fonte: number = null;
   urlDaImagem: string = null;
   imageWidth: number = 0;
@@ -25,7 +25,6 @@ export class CadastrarModeloDeMemorandoComponent implements OnInit {
   imagePositionY: number = 0;
   contemImagem: boolean = false;
   display: boolean = false;
-  //conteudo: any[] = [];
 
   constructor(public dialogService: DialogService, public messageService: MessageService, private modeloDePdf: ModeloDePdfService) { }
 
@@ -61,11 +60,11 @@ export class CadastrarModeloDeMemorandoComponent implements OnInit {
     this.contemImagem = !this.contemImagem;
   }
 
-  vizualizar(){
+  visualizar(){
     let textoFinal = "";
 
     for(let i = 0; i < this.texto.length; ++i){
-      textoFinal = textoFinal.replace(". ", "\0");
+      textoFinal = textoFinal.replace("&&", "\0 ");
       textoFinal += this.texto[i];
     }
 

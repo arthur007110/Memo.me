@@ -23,11 +23,11 @@ export class AtualizarModeloDeMemorandoComponent implements OnInit {
     this.getModelos();
   }
 
-  vizualizarModelo(){
+  visualizarModelo(){
     let textoFinal = "";
 
     for(let i = 0; i < this.modeloSelecionado.texto.length; ++i){
-      textoFinal = textoFinal.replace(". ", "\0");
+      textoFinal = textoFinal.replace("&&", "\0 ");
       textoFinal += this.modeloSelecionado.texto[i];
     }
 

@@ -45,7 +45,6 @@ export class ModeloDePdfService {
   }
 
   getModeloPadraoAtual(): Observable<any[]>{
-    console.log("5");
     let meuObservable = new Observable<any>(observer => {
       let collectionFiltrada = this.afs.collection<any>('modelosDePdf',  ref => ref.where('padrao', '==', true));
       let resultado = collectionFiltrada.valueChanges();

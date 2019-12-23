@@ -64,7 +64,6 @@ export class TrocarSenhaComponent implements OnInit {
 }
 
   salvar(){
-    //Verifica sem as duas senhas são iguais
     if(this.novaSenha1 != this.novaSenha2){
       this.mostrarErro(2);
       return;

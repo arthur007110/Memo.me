@@ -104,21 +104,3 @@ export class EnvioMemorandoComponent implements OnInit {
     }
   }
 }
-
-/*
-
-  <p-editor [(ngModel)]="mensagem" [style]="{'height':'320px'}">
-    <p-header>
-      <span class="ql-format-group">
-        <section class="container">
-          <div class="one">
-            Memorando
-          </div>
-          <div class="ui-rtl two" dir="rtl">
-            Memo.me
-          </div>  
-        </section>
-      </span>
-    </p-header>
-  </p-editor>
-*/

@@ -10,7 +10,7 @@ export class AjudaPdfComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("Aqui!");
+    
   }
 
 }

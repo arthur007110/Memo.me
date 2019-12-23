@@ -81,10 +81,10 @@ export class UsuarioService {
       resultado.subscribe(userArr => {
         if(userArr.length == 0){
           usuario.setSenha(this.criptografar(usuario.getSenha()));
-          this.cadastrar(usuario); // Não existe um usuário cadastro com aquela siape;
+          this.cadastrar(usuario);
           observer.next(true);
         }else{
-          observer.next(false); // Existe um usuário cadastro com aquela siape
+          observer.next(false);
         }
         observer.complete();
       });
@@ -146,7 +146,6 @@ export class UsuarioService {
     usuarioDoc.update({senha: ns, perguntaDeSeguranca: novaPDS, respostaDeSeguranca: rds});
   }
 
-  //Pergunta De Segurança
   cadastrarPDS(idDoUsuario, perguntaDeSeguranca, respostaDeSeguranca){
     let rds = this.criptografar(respostaDeSeguranca);
     let usuarioDoc = this.afs.doc('usuarios/'+idDoUsuario);

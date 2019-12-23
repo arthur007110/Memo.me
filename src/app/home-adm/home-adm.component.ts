@@ -31,8 +31,8 @@ export class HomeAdmComponent implements OnInit {
           {label: 'Cadastar Setor', routerLink: ['/cadastro-setor']},
           {label: 'Listar Setores', routerLink: ['/listar-setores', this.id]},
           {label: 'Cadastrar Usúario', routerLink: ['/cadastro']},
-          {label: "Cadastrar modelo de memorando", routerLink: ['/cadastrar-pdf', this.id]},
-          {label: "Alterar modelo de memorando padrão", routerLink: ['/atualizar-padrao', this.id]},
+          {label: "Cadastrar Modelo de Memorando", routerLink: ['/cadastrar-pdf', this.id]},
+          {label: "Alterar Modelo de PDF Padrão", routerLink: ['/atualizar-padrao', this.id]},
         ]
       }
     ];

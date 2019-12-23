@@ -34,7 +34,7 @@ export class PdfService{
     let textoFinal = "";
 
     for(let i = 0; i < textoOriginal.length; i++){
-      textoFinal = textoFinal.replace(". ", "\0  ");
+      textoFinal = textoFinal.replace("&& ", "\0");
       textoFinal += textoOriginal[i];
     }
 
@@ -43,36 +43,32 @@ export class PdfService{
       textoFinal = textoFinal.replace("&ASSUNTO", memorando.assunto);
       textoFinal = textoFinal.replace("&DATA", memorando.dataEnvio);
       textoFinal = textoFinal.replace("&NUMERO", memorando.numeroDoMemorando);
-      textoFinal = textoFinal.replace("&USERNOME", usuario.nome);
-      textoFinal = textoFinal.replace("&USERSIAPE", usuario.siape);
+      textoFinal = textoFinal.replace("&NOME", usuario.nome);
+      textoFinal = textoFinal.replace("&SIAPE", usuario.siape);
       textoFinal = textoFinal.replace("&SETOREMISSOR", setorEmissor.nome);
       textoFinal = textoFinal.replace("&SETORDESTINO", setorDestino.nome);
     }
 
     for(let i = 0; i < textoOriginal.length; i++){
-      textoFinal = textoFinal.replace(". ", "\0  ");
+      textoFinal = textoFinal.replace("&&", "\0");
     }
 
-    const documentDefinition = {
-      content: [
-        {text: textoFinal, fontSize: modelo.fonte},
-        {
-          image: modelo.urlDaImagem,
-          width: modelo.imageWidth,
-          height: modelo.imageHeight,
-          absolutePosition: { x: modelo.imagePositionX, y: modelo.imagePositionY }
-        }
-      ]
-    };
-    pdfMake.createPdf(documentDefinition).open();
-    this.teste(textoFinal);
-  }
-
-  teste(textoFinal){
-    console.log(textoFinal);
-    for(let i = textoFinal.length-1; i >= 0; --i){
-      console.log(textoFinal[i]);
+    if(modelo.urlDaImagem == null || modelo.urlDaImagem == undefined){
+      const documentDefinition = { content: textoFinal, fontSize: modelo.fonte};
+      pdfMake.createPdf(documentDefinition).open();
+    }else{
+      const documentDefinition = {
+        content: [
+          {text: textoFinal, fontSize: modelo.fonte},
+          {
+            image: modelo.urlDaImagem,
+            width: modelo.imageWidth,
+            height: modelo.imageHeight,
+            absolutePosition: { x: modelo.imagePositionX, y: modelo.imagePositionY }
+          }
+        ]
+      };
+      pdfMake.createPdf(documentDefinition).open();
     }
-
   }
 }
