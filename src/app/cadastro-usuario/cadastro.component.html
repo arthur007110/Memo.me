@@ -34,7 +34,7 @@
   <br>
 
   <span class="ui-float-label">
-    <p-autoComplete [(ngModel)]="texto" [suggestions]="resultados" (completeMethod)="buscar($event)" [forceSelection]="true" placeholder="Nome do setor"></p-autoComplete>
+    <p-dropdown [options]="setores" [(ngModel)]="setorEscolhido" optionLabel="nome"></p-dropdown>
   </span>
   <br>
 

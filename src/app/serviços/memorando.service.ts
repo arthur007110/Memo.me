@@ -20,10 +20,20 @@ export class MemorandoService {
   verificacaoEnviarMemorando(idSetorDestinatario, usuario, mensagem, assunto){
     //0: TUDO OK              1: CAMPOS SEM PREENCHER
 
-    if(idSetorDestinatario == null || usuario == null || mensagem == null 
-      || mensagem.length <= 0 || assunto == null || assunto.length <= 0){
+    if(idSetorDestinatario == null){
       return 1;
-    }else{
+    }else if(usuario == null){
+      return 2;
+    }else if(mensagem == null ){
+      return 3;
+    }else if(mensagem.length <= 0){
+      return 4;
+    }else if(assunto == null){
+      return 5;
+    }else if(assunto.length <= 0){
+      return 6;
+    }
+    else{
       let now = new Date();
       let data = now.getDate() + '/' + (now.getMonth()+1) + '/' + now.getFullYear();
       let setorEmissor = usuario.idDoSetor;

@@ -5,6 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
+import { CommonModule, APP_BASE_HREF, LocationStrategy, HashLocationStrategy} from '@angular/common';
+
 import {PasswordModule} from 'primeng/password';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
@@ -134,6 +139,8 @@ export const rotas: Routes = [
     KeyFilterModule,
     DynamicDialogModule,
     OverlayPanelModule,
+    HttpClientModule,
+    HttpModule,
     DialogModule,
     SpinnerModule,
     AngularFireModule.initializeApp(configuracao)

@@ -27,10 +27,13 @@ export class HomeComponent implements OnInit {
                 label: 'Memorando',
                 items: [
                     {label: 'Enviar',
+                    icon: 'pi pi-fw pi-envelope',
                     command: (event: Event) => {this.enviarMemorando();}},
                     {label: 'Mostrar Enviados',
+                    icon: 'pi pi-fw pi-upload',
                     command: (event: Event) => { this.mostrarMemorandosEnviados();}},
                     {label: 'Mostrar Recebidos',
+                    icon: 'pi pi-fw pi-download',
                     command: (event: Event) => { this.mostrarMemorandosRecebidos();}}
                 ]
             },

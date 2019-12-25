@@ -43,3 +43,21 @@
 .two {
     margin-left: 15%;
 }
+:host >>> .ui-dropdown{
+    width: 100%;
+}
+:host >>> .ui-dropdown-panel{
+    background-color: #AEFF95;
+    color: rgb(138, 138, 138);
+}
+:host >>> .ui-dropdown-label{
+    background-color: rgb(211, 255, 197);
+    color: rgb(138, 138, 138);
+}
+:host >>> .ui-dropdown-item{
+    color: rgb(138, 138, 138);
+}
+:host >>> .ui-dropdown .ui-dropdown-trigger {
+    background-color: #AEFF95;
+    color: white;
+}
