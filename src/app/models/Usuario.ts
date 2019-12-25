@@ -36,6 +36,8 @@ export class Usuario{
         }else{
             return false;
         }*/
+        let nomeVerificacao, emailVerificacao, siapeVerificacao, senhaVerificacao, idDoSetorVerificacao
+
         if(this.nome == undefined || this.nome == null || this.nome == "" || this.nome == " " || this.nome.length <=0){
             return 1
         }else if(this.email == undefined || this.email == null || this.email == "" || this.email == " " || this.email.length <=0){

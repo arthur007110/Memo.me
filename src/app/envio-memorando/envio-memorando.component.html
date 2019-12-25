@@ -40,8 +40,8 @@
   </p-editor>
 </p-card>
 <p-card>
-<button pButton type="button" label="Enviar" (click)="enviarMemorando()" class="ui-button-raised ui-button-success"></button>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-<button pButton type="button" label="Cancelar" (click)="irParaTelaHome()" class="ui-button-raised ui-button-success"></button>
+<button pButton type="button" label="Cancelar" icon="pi pi-times" (click)="irParaTelaHome()" class="ui-button-raised ui-button-success"></button>
+<button pButton type="button" label="Enviar" icon="pi pi-envelope" (click)="enviarMemorando()" class="ui-button-raised ui-button-success" style="float: right;"></button>
 </p-card>
 &#160;<p-message severity="warn" *ngIf="setores == null" text="Não há outros setores cadastrados."></p-message>
 </p-card>

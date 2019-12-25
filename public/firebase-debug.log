@@ -1,0 +1,60 @@
+[debug] [2019-12-13T00:33:07.104Z] ----------------------------------------------------------------------
+[debug] [2019-12-13T00:33:07.107Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:memo-me
+[debug] [2019-12-13T00:33:07.107Z] CLI Version:   7.10.0
+[debug] [2019-12-13T00:33:07.107Z] Platform:      win32
+[debug] [2019-12-13T00:33:07.108Z] Node Version:  v10.16.1
+[debug] [2019-12-13T00:33:07.110Z] Time:          Thu Dec 12 2019 22:33:07 GMT-0200 (GMT-02:00)
+[debug] [2019-12-13T00:33:07.110Z] ----------------------------------------------------------------------
+[debug] [2019-12-13T00:33:07.110Z] 
+[debug] [2019-12-13T00:33:07.126Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-13T00:33:07.126Z] > authorizing via signed-in user
+[debug] [2019-12-13T00:33:07.126Z] [iam] checking project sistema-memorandos for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-12-13T00:33:07.129Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sistema-memorandos:testIamPermissions  
+
+[debug] [2019-12-13T00:33:08.291Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-13T00:33:08.293Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/sistema-memorandos  
+ 
+[debug] [2019-12-13T00:33:09.856Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'sistema-memorandos'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/sistema-memorandos/overview
+[debug] [2019-12-13T00:33:10.200Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:84:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-12-13T00:34:07.511Z] ----------------------------------------------------------------------
+[debug] [2019-12-13T00:34:07.514Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:memo-me
+[debug] [2019-12-13T00:34:07.514Z] CLI Version:   7.10.0
+[debug] [2019-12-13T00:34:07.514Z] Platform:      win32
+[debug] [2019-12-13T00:34:07.514Z] Node Version:  v10.16.1
+[debug] [2019-12-13T00:34:07.516Z] Time:          Thu Dec 12 2019 22:34:07 GMT-0200 (GMT-02:00)
+[debug] [2019-12-13T00:34:07.516Z] ----------------------------------------------------------------------
+[debug] [2019-12-13T00:34:07.516Z] 
+[debug] [2019-12-13T00:34:07.532Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-13T00:34:07.533Z] > authorizing via signed-in user
+[debug] [2019-12-13T00:34:07.533Z] [iam] checking project sistema-memorandos for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-12-13T00:34:07.535Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sistema-memorandos:testIamPermissions  
+
+[debug] [2019-12-13T00:34:08.697Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-13T00:34:08.699Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/sistema-memorandos  
+ 
+[debug] [2019-12-13T00:34:10.259Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'sistema-memorandos'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/sistema-memorandos/overview
+[debug] [2019-12-13T00:34:10.603Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:84:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.

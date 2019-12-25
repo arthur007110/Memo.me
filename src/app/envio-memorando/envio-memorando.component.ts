@@ -35,6 +35,8 @@ export class EnvioMemorandoComponent implements OnInit {
     this.id = sessionStorage.getItem('id-usuario');
     this.receberSetores();
     this.receberUsuario();
+
+    
   }
 
   //Atualiza o array resultado conforme a entrada do usuário
@@ -56,13 +58,40 @@ export class EnvioMemorandoComponent implements OnInit {
       }
     }
   }
+  getNomeDoSetorPorID(IdDoSetor){
+    for(let i = 0; i < this.setores.length; i++){
+      if(this.setores[i].id == IdDoSetor){
+        return this.setores[i].nome;
+      }
+    }
+  }
+  getEmailsDosUsuariosDoSetor(){
+    
+    let usuarios: any[] = [];
+    let emails = "";
+    //console.log(this.getIdDoSetorPorNome(this.setorEscolhido.nome));
+    this.usuarioService.listarPorSetor(this.getIdDoSetorPorNome(this.setorEscolhido.nome)).subscribe(resultado => {
+      usuarios = resultado;
+      for(let i=0; i<usuarios.length; i++){
+        if(i == 0){
+          emails += usuarios[i].email;
+        }else{
+          emails += ", "+usuarios[i].email;
+        }
+      }
+      this.enviarEmail(emails);
+    });
 
+    
+    
+  }
 
   enviarMemorando(){
     let verificacao = this.memorandoS.verificacaoEnviarMemorando(this.getIdDoSetorPorNome(this.setorEscolhido.nome), this.usuario, this.mensagem, this.assunto);
     if(verificacao == 0){
       sessionStorage.setItem('toast','10')
       this.irParaTelaHome();
+      this.getEmailsDosUsuariosDoSetor();
     }else if(verificacao == 1){
       this.mostrarErro(5);
     }else if(verificacao == 2){
@@ -109,7 +138,18 @@ export class EnvioMemorandoComponent implements OnInit {
       this.setores = resultado;
     });
   }
+  enviarEmail(emails){
+    let data = {
+    from: 'sender@server.com',
+    to: emails,
+    subject: 'Você Recebeu um novo memorando!',
+    text: 'cheque nos seus memorandos recebidos',
+    html: '"<h2 style=\"text-align: center;\"><span style=\"color: #008000;\">Voc&ecirc; acaba de receber um memorando!</span></h2> <p style=\"text-align: center;\"><em><strong>Sobre:&nbsp;<span style=\"color: #339966;\">"'+this.assunto+'"</span></strong></em> <h3 style=\"text-align: center;\">para visualizar, acesse: <span style=\"background-color: #ccffcc; color: #00ff00;\"><a style=\"background-color: #ccffcc; color: #00ff00;\" href=\"https://sistema-memorandos.firebaseapp.com/\"><span style=\"color: #008000;\">Memo.me</span></a></span>, e busque em seus <span style=\"color: #008000;\">memorandos recebidos</span></h3> <p style=\"text-align: center;\">&nbsp;</p> <p style=\"text-align: center;\"><img src=\"https://i.imgur.com/kbmt40z.png\" alt=\"Memo.me\" border=\"0\" width=\"17%\" height=\"15%\"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src=\"https://i.imgur.com/V1f5OWB.png\" border=\"0\"  width=\"15%\" height=\"15%\">&nbsp;</p>"'
+    };
 
+    this.emailService.enviaremail(data);
+
+  }
   /*
     Exclui do array setores o setor ao qual o usuário faz parte
   */
