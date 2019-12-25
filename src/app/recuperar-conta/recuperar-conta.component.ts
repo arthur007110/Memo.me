@@ -36,7 +36,6 @@ export class RecuperarContaComponent implements OnInit {
         }
       }
 
-      //Colocar um TOAST aqui
       this.mostrarErro(1);
     });
 
@@ -67,25 +66,6 @@ export class RecuperarContaComponent implements OnInit {
       });
     }
   }
-  /*
-  continuar(){
-    if(this.perguntaSelecionada == null || this.respostaDeSeguranca == null ||
-      this.perguntaSelecionada == undefined || this.respostaDeSeguranca == undefined ||
-      this.siape == null || this.siape == undefined || this.siape.length == 0){
-        //Colocar um TOAST aqui
-        alert('Todos os campos precisam estar corretamente preenchidos.');
-    }else{
-      this.usuarioService.loginComPerguntaDeSeguranca(this.siape, this.perguntaSelecionada, this.respostaDeSeguranca).subscribe(resultado => {
-        if(resultado == 3){
-          //Colocar um TOAST aqui
-          alert('Erro!');
-        }else{
-          this.irParaTrocarASenha();
-        }
-      });
-    }
-  }
-  */
 
   irParaTrocarASenha(){
     this.usuarioService.listarTodos().subscribe(resultado => {

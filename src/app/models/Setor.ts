@@ -13,7 +13,7 @@ export class Setor{
 
     verificarCampos(){
         if(this.nome != null && this.nome.length > 0 && this.nome[0] != " "){
-            return true; //Campos preenchidos corretamente
+            return true;
         }else{
             return false;
         }

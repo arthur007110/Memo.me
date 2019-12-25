@@ -1,0 +1,41 @@
+<div style="overflow:scroll;height:500px;width:100%;overflow:auto">
+    <p-card>
+        <h2>Tutorial</h2>
+        <p>
+            Antes de começar a criar os modelos de PDF se faz necessário levar em consideração algumas observações:
+        </p>
+        <ul>
+            <li>Deve-se começar cada linha com: &&.</li>
+            <li>Caso o campo "Tamanho da Fonte" não seja preenchido será atribuído um valor padrão (tamanho 12).</li>
+            <li>Para salvar o modelo é necessário escolher um nome válido, um que ainda não esteja em uso.</li>
+            <li>
+                Para adicionar/remover uma imagem basta clicar no botão "Adicionar/Remover Imagem" e preencher os campos 
+                referentes a suas propriedades (largura, altura e posição no arquivo com relação aos eixos x e y).
+                Caso algum desses campos não seja preenchido será atribuído um valor padrão ou o valor original, 
+                no que se refere a suas dimensões.
+            </li>
+            <li>Para adicionar uma imagem copie sua url <a href="https://freeonlinetools24.com/base64-image" target="_blank">codificada na base 64</a>.</li>
+            <li>
+                Para escolher a posição dos campos referentes aos atributos de memorando 
+                (mensagem, assunto, data de emissão, número do memorando, nome e siape do usuário emissor e os nomes dos 
+                setores emissor e de destino) deve-se usar um dos comandos da lista abaixo.
+            </li>
+        </ul>
+        <p>
+            Durante o processo de criação para visualizar a situação do documento basta clicar em "Visualizar". 
+            Por fim, após concluído o documento basta clicar em "Salvar".
+        </p>
+
+        <h2>Comandos</h2>
+        <ul>
+            <li>&MENSAGEM: local onde ficará o corpo do memorando</li>
+            <li>&ASSUNTO: local onde ficará o assunto do memorando</li>
+            <li>&DATA: local onde ficará a data de envio do memorando</li>
+            <li>&NUMERO: local onde ficará o número do memorando</li>
+            <li>&NOME: local onde ficará o nome do usuário</li>
+            <li>&SIAPE: local onde ficará a siape do usuário</li>
+            <li>&SETOREMISSOR: local onde ficará o nome do setor emissor do memorando</li>
+            <li>&SETORDESTINO: local onde ficará o nome do setor destinatário do memorando</li>
+        </ul>
+    </p-card>
+</div>

@@ -19,13 +19,13 @@ export class SetorService {
     let meuObservable = new Observable<any>(observer => {
       this.verificarSeExisteONome(setor).subscribe(resultado => {
         if(resultado){
-          observer.next(false); //Nome já existe. Falha no cadastro.
+          observer.next(false);
         }else{
           this.setorCollection.add(setor.toFirebase()).then(resultado => {
             let setorDoc = this.setorCollection.doc(resultado.id);
             setorDoc.update({id: resultado.id});
           });
-          observer.next(true); //Cadastro realizado com sucesso.
+          observer.next(true);
         }
         observer.complete();
       })
@@ -38,11 +38,11 @@ export class SetorService {
     let meuObservable = new Observable<any>(observer => {
       this.verificarSeExisteONome(setor).subscribe(resultado => {
         if(resultado){
-          observer.next(false); //Nome já existe. Falha ao atualizar.
+          observer.next(false);
         }else{
           let setorDoc = this.afs.doc('setores/' + setor.getId());
           setorDoc.update({nome: setor.getNome()});
-          observer.next(true); //Atualização realizada com sucesso.
+          observer.next(true);
         }
         observer.complete();
       })

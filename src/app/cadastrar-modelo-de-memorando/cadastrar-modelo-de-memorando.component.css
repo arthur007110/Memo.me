@@ -1,0 +1,35 @@
+.textarea{
+    width: 100%;
+    height: 300px;
+    margin: auto;
+    padding: 1px;
+    background-color: rgb(211, 255, 197);
+}
+:host >>> .ui-button{
+    margin: auto;
+}
+:host >>> .central{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 47%;
+}
+:host >>> .nome .ui-card{
+    background-color: #AEFF95;
+    color: gray
+}
+:host >>> .ui-card .ui-card-header{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder
+}
+:host >>> input{
+    background-color: rgb(211, 255, 197);
+    color: gray
+}
+:host >>> input{
+    width: 20%;
+    margin: auto;
+    background-color: rgb(211, 255, 197);
+}
